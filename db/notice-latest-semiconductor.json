@@ -1,0 +1,104 @@
+{
+  "id": "semiconductor",
+  "name": "반도체특성화사업단",
+  "url": "https://www.juice-semi.kr/jnu/main/?menu=63",
+  "kind": "반도체·장학·프로젝트",
+  "checkedAt": "2026-11-15T12:50:29+09:00",
+  "notices": [
+    {
+      "title": "2026 장비교육 일정안내",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=181",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "교육·체험",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026학년도 2학기 장학금 지급 및 마일리지 운영 안내",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=179",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "지원·장학",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "[비교과] 반도체 패키징 Ansys 온라인 교육과정 안내",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=169",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "교육·체험",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026년 능력향상지원프로그램 운영 안내",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=156",
+      "startsAt": null,
+      "endsAt": "2026-12-31",
+      "dateNote": "",
+      "dateEvidence": "제출기한: ~ 2026년 12월 31일",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "open"
+    },
+    {
+      "title": "교내 취업프로그램 활용 가이드",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=166",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026학년도 2학기 반도체융합전공 취소 및 이수 신청 안내",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=165",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "복수 일정 · 원문 확인",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026년 하계 JUICE-SEMI Workshop(반도체프로젝트 경진대회) 안내(선발 팀 수정)",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=164",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "대회·공모전",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026-1 반도체프로젝트 기말발표 일정 및 최종결과물 제출 안내",
+      "url": "https://www.juice-semi.kr/jnu/main/?menu=63&mode=view&no=162",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    }
+  ],
+  "status": "verified",
+  "note": "",
+  "method": "공개 게시판",
+  "coverage": "공개 목록 1페이지 · 공지 20건 확인",
+  "errors": [],
+  "scannedCount": 20,
+  "pageCount": 1
+}

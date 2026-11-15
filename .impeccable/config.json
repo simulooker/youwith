@@ -1,0 +1,296 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\education-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:28.07Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\education-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:28.294Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\education.html"
+        ],
+        "createdAt": "2026-11-14T14:29:28.493Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\education.html"
+        ],
+        "createdAt": "2026-11-14T14:29:28.674Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\grow-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:28.877Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\grow-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:29.081Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\grow-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:29.276Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\grow-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:29.472Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\semiconductor-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:29.679Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\semiconductor-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:29.882Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\career.html"
+        ],
+        "createdAt": "2026-11-14T14:29:30.075Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\software-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:30.278Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\icee.html"
+        ],
+        "createdAt": "2026-11-14T14:29:30.486Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\software.html"
+        ],
+        "createdAt": "2026-11-14T14:29:30.694Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\jnu-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:30.909Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\jnu-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:31.11Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\jnu-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:31.279Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\allcon-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:31.441Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\allcon-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:31.613Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\engineering-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:31.786Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\eceng-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:31.96Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\eceng-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:32.117Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\eceng-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:32.278Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\eceng.html"
+        ],
+        "createdAt": "2026-11-14T14:29:32.436Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\aicoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:32.593Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\aicoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:32.748Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\aicoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T14:29:32.916Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\allcon.html"
+        ],
+        "createdAt": "2026-11-14T14:29:33.075Z",
+        "reason": "Agent triage: preserved third-party HTML response used only as audit evidence; not rendered by the YouWith app. See README.md notice audit section."
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\nccoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T16:49:10.798Z",
+        "reason": "Agent triage: third-party NCCOSS HTML preserved as audit evidence outside prototype; not rendered by the YouWith website. See README.md notice audit section."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\nccoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T16:49:10.962Z",
+        "reason": "Agent triage: third-party NCCOSS HTML preserved as audit evidence outside prototype; not rendered by the YouWith website. See README.md notice audit section."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\nccoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T16:49:11.103Z",
+        "reason": "Agent triage: third-party NCCOSS HTML preserved as audit evidence outside prototype; not rendered by the YouWith website. See README.md notice audit section."
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "C:\\Users\\ka040\\my_project\\유위드 동아리 사이트\\temp\\research\\notice-pages\\nccoss-detail.html"
+        ],
+        "createdAt": "2026-11-14T16:49:11.264Z",
+        "reason": "Agent triage: third-party NCCOSS HTML preserved as audit evidence outside prototype; not rendered by the YouWith website. See README.md notice audit section."
+      }
+    ]
+  }
+}

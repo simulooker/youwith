@@ -1,0 +1,28 @@
+{
+  "id": "education",
+  "name": "전남대학교 교육혁신본부",
+  "url": "https://ile.jnu.ac.kr/",
+  "kind": "학습·공모전·프로젝트",
+  "checkedAt": "2026-11-15T16:15:03+09:00",
+  "notices": [
+    {
+      "title": "2026학년도 전남·광주 대학생 AI 활용 영상 콘텐츠 경진대회 참가자 모집(~11/13까지)",
+      "url": "https://ile.jnu.ac.kr/ko/learning/notice/view/11133",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "대회·공모전",
+      "status": "unknown",
+      "detailNotCollected": true
+    }
+  ],
+  "status": "partial",
+  "note": "공개 첫 화면 목록만 수집 · 상세 본문은 읽지 않아요.",
+  "method": "공개 첫 화면 목록",
+  "coverage": "공개 첫 화면 1페이지 · 목록 23건 확인 · 상세 미수집",
+  "errors": [],
+  "collectionScope": "public-home-list",
+  "pageCount": 1,
+  "scannedCount": 23
+}

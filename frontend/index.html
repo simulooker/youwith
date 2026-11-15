@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e2e4df" />
+    <title>YouWith · 함께 자라는 우리</title>
+    <!-- 초기 화면부터 저장된 모드를 적용합니다. -->
+    <script src="settings.js?v=15"></script>
+    <link rel="stylesheet" href="theme.css?v=15" />
+    <link rel="stylesheet" href="style.css?v=15" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="YouWith 홈"
+        ><span>YouWith</span
+        ><span class="brand-clover" aria-hidden="true"></span
+      ></a>
+      <p class="school">전남대학교 전자컴퓨터공학부<br />학술동아리</p>
+      <nav id="desktop-nav" aria-label="주 메뉴"></nav>
+      <div class="sidebar-bottom">
+        <span>함께 배우고, 함께 자라요.</span>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header>
+        <a class="mobile-brand brand" href="#home" aria-label="YouWith 홈"
+          ><span>YouWith</span
+          ><span class="brand-clover" aria-hidden="true"></span></a
+        ><span class="desktop-label">우리의 작은 성장이 모이는 곳</span>
+        <div class="header-actions">
+          <button
+            class="icon-button"
+            id="open-settings"
+            data-page="settings"
+            aria-label="설정 열기"
+          ></button
+          ><button
+            class="icon-button"
+            id="notifications"
+            aria-label="알림 보기"
+          ></button
+          ><button class="avatar" data-page="profile" aria-label="내 정보 보기">
+            나
+          </button>
+        </div>
+      </header>
+      <main id="main"></main>
+    </div>
+    <nav class="bottom-nav" id="mobile-nav" aria-label="하단 메뉴"></nav>
+    <dialog id="detail">
+      <div id="dialog-content"></div>
+      <button class="text-button close-dialog">닫기</button>
+    </dialog>
+    <div id="toast" role="status"></div>
+    <script src="config.js"></script>
+    <script src="notice-data.js?v=15"></script>
+    <script src="notice-board.js?v=15"></script>
+    <script src="notice-calendar.js?v=15"></script>
+    <script src="recruitment.js?v=15"></script>
+    <script src="screens.js?v=15"></script>
+    <script src="apple-selection.js"></script>
+    <script src="game.js?v=15"></script>
+    <script src="app.js?v=15"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "id": "career",
+  "name": "전남대학교 취업진로포털",
+  "url": "https://capd.jnu.ac.kr/",
+  "kind": "취업·진로·지원",
+  "checkedAt": "2026-11-15T16:15:03+09:00",
+  "notices": [],
+  "status": "partial",
+  "note": "공개 첫 화면 목록만 수집 · 상세 본문은 읽지 않아요.",
+  "method": "공개 첫 화면 목록",
+  "coverage": "공개 첫 화면 1페이지 · 목록 50건 확인 · 상세 미수집",
+  "errors": [],
+  "collectionScope": "public-home-list",
+  "pageCount": 1,
+  "scannedCount": 50
+}

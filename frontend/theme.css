@@ -1,0 +1,101 @@
+/* 색상 변경은 이 파일에서 합니다. 화면 배치는 style.css에 있습니다. */
+:root {
+  color-scheme: light;
+  --bg: #e2e4df;
+  --surface: #fafbf9;
+  --text: #1f2923;
+  --muted: #566159;
+  --green: #3d7a5d;
+  --green-text: #315f49;
+  --green-hover: #315f49;
+  --green-deep: var(--green-text);
+  --mint: #e2e4df;
+  --accent: #b2b8a3;
+  --line: #d5d9d0;
+  --heading-bg: #e2e4df;
+  --desk-surface: #fafbf9f5;
+  --sidebar-surface: #fafbf9d9;
+  --header-surface: #fafbf9ed;
+  --soft-surface: #e2e4dff5;
+  --photo-tint: #ffffff;
+  --on-primary: #ffffff;
+  --inverse-muted: #c1e6cc;
+  --selection: #d7e1d7;
+  --scrollbar: #bbc8c0;
+  --apple: #bd4f3c;
+  --apple-symbol: #d7654e;
+  --contest-bg: #dce7f5;
+  --contest-text: #294a76;
+  --supporter-bg: #eee2f4;
+  --supporter-text: #633775;
+  --grant-bg: #e0eee3;
+  --grant-text: #28583e;
+  --education-bg: #f5e7cc;
+  --education-text: #654716;
+  --career-bg: #d8eced;
+  --career-text: #28565a;
+  --program-bg: #f2e1df;
+  --program-text: #743f3b;
+  --selection-fill: #1f292312;
+  --valid-selection-fill: #3d7a5d26;
+  --switcher-bg: #26392e;
+  --toast-bg: #25372d;
+  --toast-text: #ffffff;
+  --logo-blend: multiply;
+  --logo-filter: saturate(0.65);
+  --radius: 16px;
+  --font:
+    "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #17201b;
+  --surface: #222d26;
+  --text: #edf2e9;
+  --muted: #b9c5b8;
+  --green: #3d7a5d;
+  --green-text: #b0d8bc;
+  --green-hover: #427a5c;
+  --mint: #303d33;
+  --accent: #435344;
+  --line: #3a483d;
+  --heading-bg: #344337;
+  --desk-surface: #222d26f5;
+  --sidebar-surface: #1d2821f5;
+  --header-surface: #1d2821f5;
+  --soft-surface: #2b382ff5;
+  --photo-tint: #344438;
+  --selection: #425c48;
+  --scrollbar: #556b59;
+  --apple-symbol: #e49882;
+  --contest-bg: #263b55;
+  --contest-text: #c2d9fb;
+  --supporter-bg: #44324d;
+  --supporter-text: #edcef8;
+  --grant-bg: #2e4434;
+  --grant-text: #c2e6c8;
+  --education-bg: #493d24;
+  --education-text: #f5dfab;
+  --career-bg: #244345;
+  --career-text: #b7e2e3;
+  --program-bg: #4d3332;
+  --program-text: #efcbc8;
+  --selection-fill: #edf2e91a;
+  --valid-selection-fill: #b0d8bc33;
+  --toast-bg: #d8e7d9;
+  --toast-text: #1f2923;
+  --logo-blend: normal;
+  --logo-filter: brightness(0.85) saturate(0.65);
+}
+
+:root[data-background="false"] body::before {
+  display: none;
+}
+:root[data-reduced-motion="true"] *,
+:root[data-reduced-motion="true"] *::before,
+:root[data-reduced-motion="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}

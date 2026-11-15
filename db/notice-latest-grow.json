@@ -1,0 +1,39 @@
+{
+  "id": "grow",
+  "name": "성장마루",
+  "url": "https://grow.jnu.ac.kr/",
+  "kind": "비교과 프로그램",
+  "checkedAt": "2026-11-15T16:15:03+09:00",
+  "notices": [
+    {
+      "title": "[6차] 2026학년도 2학기 HAI-UP 학생 AI 역량 강화 프로그램",
+      "url": "https://grow.jnu.ac.kr/ko/program/intro/view/828",
+      "startsAt": "2026-10-26",
+      "endsAt": "2026-11-17",
+      "dateNote": "",
+      "dateEvidence": "공개 목록의 신청기간",
+      "category": "모집·프로그램",
+      "status": "open",
+      "detailNotCollected": true
+    },
+    {
+      "title": "AI 융합 창업 교육 특강",
+      "url": "https://grow.jnu.ac.kr/ko/program/intro/view/804",
+      "startsAt": "2026-10-06",
+      "endsAt": "2026-11-22",
+      "dateNote": "",
+      "dateEvidence": "공개 목록의 신청기간",
+      "category": "교육·체험",
+      "status": "open",
+      "detailNotCollected": true
+    }
+  ],
+  "status": "partial",
+  "note": "공개 첫 화면 목록만 수집 · 상세 본문은 읽지 않아요.",
+  "method": "공개 첫 화면 목록",
+  "coverage": "공개 첫 화면 1페이지 · 목록 24건 확인 · 상세 미수집",
+  "errors": [],
+  "collectionScope": "public-home-list",
+  "pageCount": 1,
+  "scannedCount": 24
+}

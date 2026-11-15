@@ -1,0 +1,228 @@
+{
+  "checkedAt": "2026-11-15T15:57:34+09:00",
+  "scope": "공개 게시판 12개·robots·발견된 약관/RSS 정책 확인; 서면 허락 취득 아님",
+  "institutions": [
+    {
+      "id": "allcon",
+      "name": "올콘",
+      "checkedAt": "2026-11-15T15:57:27+09:00",
+      "sourceUrl": "https://www.all-con.co.kr/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://www.all-con.co.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": true,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [
+        "https://www.all-con.co.kr/content/provision",
+        "https://www.all-con.co.kr/content/terms"
+      ],
+      "reusePermission": "restricted-prior-consent",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "jnu",
+      "name": "전남대학교 공지",
+      "checkedAt": "2026-11-15T15:57:27+09:00",
+      "sourceUrl": "https://www.jnu.ac.kr/WebApp/web/HOM/COM/Board/board.aspx?boardID=5",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://www.jnu.ac.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": false,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "eceng",
+      "name": "전자컴퓨터공학부",
+      "checkedAt": "2026-11-15T15:57:27+09:00",
+      "sourceUrl": "https://eceng.jnu.ac.kr/eceng/20079/subview.do",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://eceng.jnu.ac.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": false,
+      "rssURLs": [
+        "https://eceng.jnu.ac.kr/bbs/eceng/3287/rssList.do?row=50"
+      ],
+      "rssAllowed": {
+        "https://eceng.jnu.ac.kr/bbs/eceng/3287/rssList.do?row=50": false
+      },
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "nccoss",
+      "name": "차세대통신사업단",
+      "checkedAt": "2026-11-15T15:57:28+09:00",
+      "sourceUrl": "https://jnu.nccoss.kr/www/notice/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://jnu.nccoss.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": true,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "aicoss",
+      "name": "AICOSS 사업단",
+      "checkedAt": "2026-11-15T15:57:28+09:00",
+      "sourceUrl": "https://aicoss.ac.kr/www/notice/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://aicoss.ac.kr/robots.txt",
+      "robotsError": "robots.txt 대신 HTML이 반환됨 · 정책 확인 필요",
+      "listAllowed": null,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [
+        "https://aicoss.ac.kr/www/policy/service"
+      ],
+      "reusePermission": "restricted-prior-consent",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "engineering",
+      "name": "전남대학교 공과대학",
+      "checkedAt": "2026-11-15T15:57:29+09:00",
+      "sourceUrl": "https://eng.jnu.ac.kr/eng/7343/subview.do",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://eng.jnu.ac.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": false,
+      "rssURLs": [
+        "https://eng.jnu.ac.kr/bbs/eng/993/rssList.do?row=50"
+      ],
+      "rssAllowed": {
+        "https://eng.jnu.ac.kr/bbs/eng/993/rssList.do?row=50": false
+      },
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "grow",
+      "name": "성장마루",
+      "checkedAt": "2026-11-15T15:57:31+09:00",
+      "sourceUrl": "https://grow.jnu.ac.kr/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://grow.jnu.ac.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": true,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "semiconductor",
+      "name": "반도체특성화사업단",
+      "checkedAt": "2026-11-15T15:57:30+09:00",
+      "sourceUrl": "https://www.juice-semi.kr/jnu/main/?menu=63",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://www.juice-semi.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": true,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [
+        "https://www.juice-semi.kr/jnu/main/?menu=36"
+      ],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "software",
+      "name": "소프트웨어중심대학사업단",
+      "checkedAt": "2026-11-15T15:57:31+09:00",
+      "sourceUrl": "https://sojoong.kr/notice/notice-board/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://sojoong.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": true,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "icee",
+      "name": "공학교육혁신센터",
+      "checkedAt": "2026-11-15T15:57:32+09:00",
+      "sourceUrl": "https://icee.jnu.ac.kr/icee/17915/subview.do",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://icee.jnu.ac.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": false,
+      "rssURLs": [
+        "https://icee.jnu.ac.kr/bbs/icee/2798/rssList.do?row=50"
+      ],
+      "rssAllowed": {
+        "https://icee.jnu.ac.kr/bbs/icee/2798/rssList.do?row=50": false
+      },
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "career",
+      "name": "전남대학교 취업진로포털",
+      "checkedAt": "2026-11-15T15:57:33+09:00",
+      "sourceUrl": "https://capd.jnu.ac.kr/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://capd.jnu.ac.kr/robots.txt",
+      "robotsError": "robots.txt 미발견 (HTTP 404) · 로그인 필요 여부 별도 확인",
+      "listAllowed": null,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    },
+    {
+      "id": "education",
+      "name": "전남대학교 교육혁신본부",
+      "checkedAt": "2026-11-15T15:57:34+09:00",
+      "sourceUrl": "https://ile.jnu.ac.kr/",
+      "sourceHTTP": 200,
+      "robotsUrl": "https://ile.jnu.ac.kr/robots.txt",
+      "robotsError": null,
+      "listAllowed": true,
+      "rssURLs": [],
+      "rssAllowed": {},
+      "policyURLs": [],
+      "reusePermission": "not-confirmed",
+      "rightsNote": "공개 접근 또는 RSS 제공은 별도 재이용 허락을 의미하지 않음"
+    }
+  ],
+  "allconSearch": {
+    "url": "https://www.all-con.co.kr/list/search?stx=%EB%B0%98%EB%8F%84%EC%B2%B4",
+    "status": 200,
+    "finalUrl": "https://www.all-con.co.kr/list/search?stx=%EB%B0%98%EB%8F%84%EC%B2%B4",
+    "searchFormPresent": true
+  },
+  "allconContact": {
+    "email": "allcon@all-con.co.kr",
+    "phone": "02-360-4538",
+    "evidence": "https://www.all-con.co.kr/ 홈페이지 하단"
+  },
+  "technicalSources": [
+    "nccoss",
+    "semiconductor",
+    "software"
+  ],
+  "partialSources": [
+    "grow",
+    "career",
+    "education"
+  ],
+  "partialVerifiedAt": "2026-11-15T16:15:05+09:00",
+  "partialScope": "공개 첫 화면만 요청, 상세·로그인·페이지넘김 미수집"
+}

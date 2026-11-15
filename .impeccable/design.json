@@ -1,0 +1,999 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T13:11:31.110098+00:00",
+  "title": "Design System: YouWith",
+  "extensions": {
+    "colorMeta": {
+      "green": {
+        "role": "primary",
+        "displayName": "Sage Green",
+        "tonalRamp": [
+          "oklch(15% 0.011 155)",
+          "oklch(27% 0.022 155)",
+          "oklch(39% 0.036 155)",
+          "oklch(51% 0.045 155)",
+          "oklch(63% 0.045 155)",
+          "oklch(75% 0.034 155)",
+          "oklch(87% 0.018 155)",
+          "oklch(95% 0.005 155)"
+        ]
+      },
+      "mint": {
+        "role": "primary",
+        "displayName": "Greige Wash",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Greige Workspace",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Off-white Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Dark Sage Ink",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Quiet Sage Gray",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Soft Sage Divider",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "apple": {
+        "role": "secondary",
+        "displayName": "Contrast-adjusted Apple",
+        "tonalRamp": [
+          "oklch(15% 0.030 30)",
+          "oklch(27% 0.060 30)",
+          "oklch(39% 0.096 30)",
+          "oklch(51% 0.120 30)",
+          "oklch(63% 0.120 30)",
+          "oklch(75% 0.090 30)",
+          "oklch(87% 0.048 30)",
+          "oklch(95% 0.014 30)"
+        ]
+      },
+      "desk-surface": {
+        "role": "neutral",
+        "displayName": "Translucent Desk Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "Muted Olive",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "sidebar-surface": {
+        "role": "neutral",
+        "displayName": "Translucent Sidebar Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "header-surface": {
+        "role": "neutral",
+        "displayName": "Translucent Header and Footer Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 125)",
+          "oklch(27% 0.009 125)",
+          "oklch(39% 0.014 125)",
+          "oklch(51% 0.018 125)",
+          "oklch(63% 0.018 125)",
+          "oklch(75% 0.013 125)",
+          "oklch(87% 0.007 125)",
+          "oklch(95% 0.002 125)"
+        ]
+      },
+      "green-text": {
+        "role": "primary",
+        "displayName": "Green Text",
+        "tonalRamp": [
+          "oklch(15% 0.004 151)",
+          "oklch(27% 0.009 151)",
+          "oklch(39% 0.014 151)",
+          "oklch(51% 0.018 151)",
+          "oklch(63% 0.018 151)",
+          "oklch(75% 0.013 151)",
+          "oklch(87% 0.007 151)",
+          "oklch(95% 0.002 151)"
+        ]
+      },
+      "green-hover": {
+        "role": "primary",
+        "displayName": "Green Hover",
+        "tonalRamp": [
+          "oklch(15% 0.004 151)",
+          "oklch(27% 0.009 151)",
+          "oklch(39% 0.014 151)",
+          "oklch(51% 0.018 151)",
+          "oklch(63% 0.018 151)",
+          "oklch(75% 0.013 151)",
+          "oklch(87% 0.007 151)",
+          "oklch(95% 0.002 151)"
+        ]
+      },
+      "heading-bg": {
+        "role": "neutral",
+        "displayName": "Heading Bg",
+        "tonalRamp": [
+          "oklch(15% 0.004 84)",
+          "oklch(27% 0.009 84)",
+          "oklch(39% 0.014 84)",
+          "oklch(51% 0.018 84)",
+          "oklch(63% 0.018 84)",
+          "oklch(75% 0.013 84)",
+          "oklch(87% 0.007 84)",
+          "oklch(95% 0.002 84)"
+        ]
+      },
+      "soft-surface": {
+        "role": "neutral",
+        "displayName": "Soft Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 84)",
+          "oklch(27% 0.009 84)",
+          "oklch(39% 0.014 84)",
+          "oklch(51% 0.018 84)",
+          "oklch(63% 0.018 84)",
+          "oklch(75% 0.013 84)",
+          "oklch(87% 0.007 84)",
+          "oklch(95% 0.002 84)"
+        ]
+      },
+      "photo-tint": {
+        "role": "neutral",
+        "displayName": "Photo Tint",
+        "tonalRamp": [
+          "oklch(15% 0.004 0)",
+          "oklch(27% 0.009 0)",
+          "oklch(39% 0.014 0)",
+          "oklch(51% 0.018 0)",
+          "oklch(63% 0.018 0)",
+          "oklch(75% 0.013 0)",
+          "oklch(87% 0.007 0)",
+          "oklch(95% 0.002 0)"
+        ]
+      },
+      "on-primary": {
+        "role": "neutral",
+        "displayName": "On Primary",
+        "tonalRamp": [
+          "oklch(15% 0.004 0)",
+          "oklch(27% 0.009 0)",
+          "oklch(39% 0.014 0)",
+          "oklch(51% 0.018 0)",
+          "oklch(63% 0.018 0)",
+          "oklch(75% 0.013 0)",
+          "oklch(87% 0.007 0)",
+          "oklch(95% 0.002 0)"
+        ]
+      },
+      "inverse-muted": {
+        "role": "neutral",
+        "displayName": "Inverse Muted",
+        "tonalRamp": [
+          "oklch(15% 0.004 138)",
+          "oklch(27% 0.009 138)",
+          "oklch(39% 0.014 138)",
+          "oklch(51% 0.018 138)",
+          "oklch(63% 0.018 138)",
+          "oklch(75% 0.013 138)",
+          "oklch(87% 0.007 138)",
+          "oklch(95% 0.002 138)"
+        ]
+      },
+      "selection": {
+        "role": "neutral",
+        "displayName": "Selection",
+        "tonalRamp": [
+          "oklch(15% 0.004 120)",
+          "oklch(27% 0.009 120)",
+          "oklch(39% 0.014 120)",
+          "oklch(51% 0.018 120)",
+          "oklch(63% 0.018 120)",
+          "oklch(75% 0.013 120)",
+          "oklch(87% 0.007 120)",
+          "oklch(95% 0.002 120)"
+        ]
+      },
+      "scrollbar": {
+        "role": "neutral",
+        "displayName": "Scrollbar",
+        "tonalRamp": [
+          "oklch(15% 0.004 143)",
+          "oklch(27% 0.009 143)",
+          "oklch(39% 0.014 143)",
+          "oklch(51% 0.018 143)",
+          "oklch(63% 0.018 143)",
+          "oklch(75% 0.013 143)",
+          "oklch(87% 0.007 143)",
+          "oklch(95% 0.002 143)"
+        ]
+      },
+      "apple-symbol": {
+        "role": "neutral",
+        "displayName": "Apple Symbol",
+        "tonalRamp": [
+          "oklch(15% 0.004 10)",
+          "oklch(27% 0.009 10)",
+          "oklch(39% 0.014 10)",
+          "oklch(51% 0.018 10)",
+          "oklch(63% 0.018 10)",
+          "oklch(75% 0.013 10)",
+          "oklch(87% 0.007 10)",
+          "oklch(95% 0.002 10)"
+        ]
+      },
+      "selection-fill": {
+        "role": "neutral",
+        "displayName": "Selection Fill",
+        "tonalRamp": [
+          "oklch(15% 0.004 144)",
+          "oklch(27% 0.009 144)",
+          "oklch(39% 0.014 144)",
+          "oklch(51% 0.018 144)",
+          "oklch(63% 0.018 144)",
+          "oklch(75% 0.013 144)",
+          "oklch(87% 0.007 144)",
+          "oklch(95% 0.002 144)"
+        ]
+      },
+      "valid-selection-fill": {
+        "role": "neutral",
+        "displayName": "Valid Selection Fill",
+        "tonalRamp": [
+          "oklch(15% 0.004 151)",
+          "oklch(27% 0.009 151)",
+          "oklch(39% 0.014 151)",
+          "oklch(51% 0.018 151)",
+          "oklch(63% 0.018 151)",
+          "oklch(75% 0.013 151)",
+          "oklch(87% 0.007 151)",
+          "oklch(95% 0.002 151)"
+        ]
+      },
+      "switcher-bg": {
+        "role": "neutral",
+        "displayName": "Switcher Bg",
+        "tonalRamp": [
+          "oklch(15% 0.004 145)",
+          "oklch(27% 0.009 145)",
+          "oklch(39% 0.014 145)",
+          "oklch(51% 0.018 145)",
+          "oklch(63% 0.018 145)",
+          "oklch(75% 0.013 145)",
+          "oklch(87% 0.007 145)",
+          "oklch(95% 0.002 145)"
+        ]
+      },
+      "toast-bg": {
+        "role": "neutral",
+        "displayName": "Toast Bg",
+        "tonalRamp": [
+          "oklch(15% 0.004 147)",
+          "oklch(27% 0.009 147)",
+          "oklch(39% 0.014 147)",
+          "oklch(51% 0.018 147)",
+          "oklch(63% 0.018 147)",
+          "oklch(75% 0.013 147)",
+          "oklch(87% 0.007 147)",
+          "oklch(95% 0.002 147)"
+        ]
+      },
+      "toast-text": {
+        "role": "neutral",
+        "displayName": "Toast Text",
+        "tonalRamp": [
+          "oklch(15% 0.004 0)",
+          "oklch(27% 0.009 0)",
+          "oklch(39% 0.014 0)",
+          "oklch(51% 0.018 0)",
+          "oklch(63% 0.018 0)",
+          "oklch(75% 0.013 0)",
+          "oklch(87% 0.007 0)",
+          "oklch(95% 0.002 0)"
+        ]
+      },
+      "dark-bg": {
+        "role": "neutral",
+        "displayName": "Forest Bg",
+        "tonalRamp": [
+          "oklch(15% 0.004 147)",
+          "oklch(27% 0.009 147)",
+          "oklch(39% 0.014 147)",
+          "oklch(51% 0.018 147)",
+          "oklch(63% 0.018 147)",
+          "oklch(75% 0.013 147)",
+          "oklch(87% 0.007 147)",
+          "oklch(95% 0.002 147)"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "Forest Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 142)",
+          "oklch(27% 0.009 142)",
+          "oklch(39% 0.014 142)",
+          "oklch(51% 0.018 142)",
+          "oklch(63% 0.018 142)",
+          "oklch(75% 0.013 142)",
+          "oklch(87% 0.007 142)",
+          "oklch(95% 0.002 142)"
+        ]
+      },
+      "dark-text": {
+        "role": "neutral",
+        "displayName": "Forest Text",
+        "tonalRamp": [
+          "oklch(15% 0.004 93)",
+          "oklch(27% 0.009 93)",
+          "oklch(39% 0.014 93)",
+          "oklch(51% 0.018 93)",
+          "oklch(63% 0.018 93)",
+          "oklch(75% 0.013 93)",
+          "oklch(87% 0.007 93)",
+          "oklch(95% 0.002 93)"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "Forest Muted",
+        "tonalRamp": [
+          "oklch(15% 0.004 115)",
+          "oklch(27% 0.009 115)",
+          "oklch(39% 0.014 115)",
+          "oklch(51% 0.018 115)",
+          "oklch(63% 0.018 115)",
+          "oklch(75% 0.013 115)",
+          "oklch(87% 0.007 115)",
+          "oklch(95% 0.002 115)"
+        ]
+      },
+      "dark-green": {
+        "role": "primary",
+        "displayName": "Forest Green",
+        "tonalRamp": [
+          "oklch(15% 0.004 151)",
+          "oklch(27% 0.009 151)",
+          "oklch(39% 0.014 151)",
+          "oklch(51% 0.018 151)",
+          "oklch(63% 0.018 151)",
+          "oklch(75% 0.013 151)",
+          "oklch(87% 0.007 151)",
+          "oklch(95% 0.002 151)"
+        ]
+      },
+      "dark-green-text": {
+        "role": "primary",
+        "displayName": "Forest Green Text",
+        "tonalRamp": [
+          "oklch(15% 0.004 138)",
+          "oklch(27% 0.009 138)",
+          "oklch(39% 0.014 138)",
+          "oklch(51% 0.018 138)",
+          "oklch(63% 0.018 138)",
+          "oklch(75% 0.013 138)",
+          "oklch(87% 0.007 138)",
+          "oklch(95% 0.002 138)"
+        ]
+      },
+      "dark-green-hover": {
+        "role": "primary",
+        "displayName": "Forest Green Hover",
+        "tonalRamp": [
+          "oklch(15% 0.004 148)",
+          "oklch(27% 0.009 148)",
+          "oklch(39% 0.014 148)",
+          "oklch(51% 0.018 148)",
+          "oklch(63% 0.018 148)",
+          "oklch(75% 0.013 148)",
+          "oklch(87% 0.007 148)",
+          "oklch(95% 0.002 148)"
+        ]
+      },
+      "dark-mint": {
+        "role": "neutral",
+        "displayName": "Forest Mint",
+        "tonalRamp": [
+          "oklch(15% 0.004 134)",
+          "oklch(27% 0.009 134)",
+          "oklch(39% 0.014 134)",
+          "oklch(51% 0.018 134)",
+          "oklch(63% 0.018 134)",
+          "oklch(75% 0.013 134)",
+          "oklch(87% 0.007 134)",
+          "oklch(95% 0.002 134)"
+        ]
+      },
+      "dark-accent": {
+        "role": "neutral",
+        "displayName": "Forest Accent",
+        "tonalRamp": [
+          "oklch(15% 0.004 124)",
+          "oklch(27% 0.009 124)",
+          "oklch(39% 0.014 124)",
+          "oklch(51% 0.018 124)",
+          "oklch(63% 0.018 124)",
+          "oklch(75% 0.013 124)",
+          "oklch(87% 0.007 124)",
+          "oklch(95% 0.002 124)"
+        ]
+      },
+      "dark-line": {
+        "role": "neutral",
+        "displayName": "Forest Line",
+        "tonalRamp": [
+          "oklch(15% 0.004 133)",
+          "oklch(27% 0.009 133)",
+          "oklch(39% 0.014 133)",
+          "oklch(51% 0.018 133)",
+          "oklch(63% 0.018 133)",
+          "oklch(75% 0.013 133)",
+          "oklch(87% 0.007 133)",
+          "oklch(95% 0.002 133)"
+        ]
+      },
+      "dark-heading-bg": {
+        "role": "neutral",
+        "displayName": "Forest Heading Bg",
+        "tonalRamp": [
+          "oklch(15% 0.004 132)",
+          "oklch(27% 0.009 132)",
+          "oklch(39% 0.014 132)",
+          "oklch(51% 0.018 132)",
+          "oklch(63% 0.018 132)",
+          "oklch(75% 0.013 132)",
+          "oklch(87% 0.007 132)",
+          "oklch(95% 0.002 132)"
+        ]
+      },
+      "dark-desk-surface": {
+        "role": "neutral",
+        "displayName": "Forest Desk Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 142)",
+          "oklch(27% 0.009 142)",
+          "oklch(39% 0.014 142)",
+          "oklch(51% 0.018 142)",
+          "oklch(63% 0.018 142)",
+          "oklch(75% 0.013 142)",
+          "oklch(87% 0.007 142)",
+          "oklch(95% 0.002 142)"
+        ]
+      },
+      "dark-sidebar-surface": {
+        "role": "neutral",
+        "displayName": "Forest Sidebar Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 142)",
+          "oklch(27% 0.009 142)",
+          "oklch(39% 0.014 142)",
+          "oklch(51% 0.018 142)",
+          "oklch(63% 0.018 142)",
+          "oklch(75% 0.013 142)",
+          "oklch(87% 0.007 142)",
+          "oklch(95% 0.002 142)"
+        ]
+      },
+      "dark-header-surface": {
+        "role": "neutral",
+        "displayName": "Forest Header Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 142)",
+          "oklch(27% 0.009 142)",
+          "oklch(39% 0.014 142)",
+          "oklch(51% 0.018 142)",
+          "oklch(63% 0.018 142)",
+          "oklch(75% 0.013 142)",
+          "oklch(87% 0.007 142)",
+          "oklch(95% 0.002 142)"
+        ]
+      },
+      "dark-soft-surface": {
+        "role": "neutral",
+        "displayName": "Forest Soft Surface",
+        "tonalRamp": [
+          "oklch(15% 0.004 138)",
+          "oklch(27% 0.009 138)",
+          "oklch(39% 0.014 138)",
+          "oklch(51% 0.018 138)",
+          "oklch(63% 0.018 138)",
+          "oklch(75% 0.013 138)",
+          "oklch(87% 0.007 138)",
+          "oklch(95% 0.002 138)"
+        ]
+      },
+      "dark-photo-tint": {
+        "role": "neutral",
+        "displayName": "Forest Photo Tint",
+        "tonalRamp": [
+          "oklch(15% 0.004 135)",
+          "oklch(27% 0.009 135)",
+          "oklch(39% 0.014 135)",
+          "oklch(51% 0.018 135)",
+          "oklch(63% 0.018 135)",
+          "oklch(75% 0.013 135)",
+          "oklch(87% 0.007 135)",
+          "oklch(95% 0.002 135)"
+        ]
+      },
+      "dark-selection": {
+        "role": "neutral",
+        "displayName": "Forest Selection",
+        "tonalRamp": [
+          "oklch(15% 0.004 134)",
+          "oklch(27% 0.009 134)",
+          "oklch(39% 0.014 134)",
+          "oklch(51% 0.018 134)",
+          "oklch(63% 0.018 134)",
+          "oklch(75% 0.013 134)",
+          "oklch(87% 0.007 134)",
+          "oklch(95% 0.002 134)"
+        ]
+      },
+      "dark-scrollbar": {
+        "role": "neutral",
+        "displayName": "Forest Scrollbar",
+        "tonalRamp": [
+          "oklch(15% 0.004 131)",
+          "oklch(27% 0.009 131)",
+          "oklch(39% 0.014 131)",
+          "oklch(51% 0.018 131)",
+          "oklch(63% 0.018 131)",
+          "oklch(75% 0.013 131)",
+          "oklch(87% 0.007 131)",
+          "oklch(95% 0.002 131)"
+        ]
+      },
+      "dark-apple-symbol": {
+        "role": "neutral",
+        "displayName": "Forest Apple Symbol",
+        "tonalRamp": [
+          "oklch(15% 0.004 13)",
+          "oklch(27% 0.009 13)",
+          "oklch(39% 0.014 13)",
+          "oklch(51% 0.018 13)",
+          "oklch(63% 0.018 13)",
+          "oklch(75% 0.013 13)",
+          "oklch(87% 0.007 13)",
+          "oklch(95% 0.002 13)"
+        ]
+      },
+      "dark-selection-fill": {
+        "role": "neutral",
+        "displayName": "Forest Selection Fill",
+        "tonalRamp": [
+          "oklch(15% 0.004 93)",
+          "oklch(27% 0.009 93)",
+          "oklch(39% 0.014 93)",
+          "oklch(51% 0.018 93)",
+          "oklch(63% 0.018 93)",
+          "oklch(75% 0.013 93)",
+          "oklch(87% 0.007 93)",
+          "oklch(95% 0.002 93)"
+        ]
+      },
+      "dark-valid-selection-fill": {
+        "role": "neutral",
+        "displayName": "Forest Valid Selection Fill",
+        "tonalRamp": [
+          "oklch(15% 0.004 138)",
+          "oklch(27% 0.009 138)",
+          "oklch(39% 0.014 138)",
+          "oklch(51% 0.018 138)",
+          "oklch(63% 0.018 138)",
+          "oklch(75% 0.013 138)",
+          "oklch(87% 0.007 138)",
+          "oklch(95% 0.002 138)"
+        ]
+      },
+      "dark-toast-bg": {
+        "role": "neutral",
+        "displayName": "Forest Toast Bg",
+        "tonalRamp": [
+          "oklch(15% 0.004 124)",
+          "oklch(27% 0.009 124)",
+          "oklch(39% 0.014 124)",
+          "oklch(51% 0.018 124)",
+          "oklch(63% 0.018 124)",
+          "oklch(75% 0.013 124)",
+          "oklch(87% 0.007 124)",
+          "oklch(95% 0.002 124)"
+        ]
+      },
+      "dark-toast-text": {
+        "role": "neutral",
+        "displayName": "Forest Toast Text",
+        "tonalRamp": [
+          "oklch(15% 0.004 144)",
+          "oklch(27% 0.009 144)",
+          "oklch(39% 0.014 144)",
+          "oklch(51% 0.018 144)",
+          "oklch(63% 0.018 144)",
+          "oklch(75% 0.013 144)",
+          "oklch(87% 0.007 144)",
+          "oklch(95% 0.002 144)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Main home heading; responsive size reductions documented in DESIGN.md."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section heading."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base Korean content."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Supporting metadata."
+      },
+      "timer": {
+        "displayName": "Timer",
+        "purpose": "Tabular study duration."
+      }
+    },
+    "shadows": [
+      {
+        "name": "selected-tab",
+        "value": "0 2px 6px #23372c0a",
+        "purpose": "Selected ranking period."
+      },
+      {
+        "name": "dialog",
+        "value": "0 20px 80px #152e252b",
+        "purpose": "Native dialog overlay."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "background .16s, color .16s, transform .16s",
+        "purpose": "Button and link states; active scale(.98)."
+      },
+      {
+        "name": "page-slide",
+        "value": "440ms cubic-bezier(.22,1,.36,1)",
+        "purpose": "Menu order determines direction: downward enters from right, upward enters from left. Reduced motion bypasses transitions."
+      },
+      {
+        "name": "toast-transition",
+        "value": "opacity .2s, transform .2s",
+        "purpose": "Transient feedback; 3200ms visibility."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce OR :root[data-reduced-motion=\"true\"]",
+        "purpose": "Either preference disables all animations and transitions; the app OFF state does not override the operating system."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "small-phone",
+        "value": "380px"
+      },
+      {
+        "name": "mobile",
+        "value": "850px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1150px"
+      },
+      {
+        "name": "wide-desktop",
+        "value": "1500px"
+      }
+    ],
+    "themeModes": {
+      "source": "frontend/theme.css",
+      "default": "light",
+      "selector": ":root[data-theme=\"dark\"]",
+      "light": {
+        "bg": "{colors.bg}",
+        "surface": "{colors.surface}",
+        "text": "{colors.text}",
+        "muted": "{colors.muted}",
+        "green": "{colors.green}",
+        "green-text": "{colors.green-text}",
+        "green-hover": "{colors.green-hover}",
+        "mint": "{colors.mint}",
+        "accent": "{colors.accent}",
+        "line": "{colors.line}",
+        "heading-bg": "{colors.heading-bg}",
+        "desk-surface": "{colors.desk-surface}",
+        "sidebar-surface": "{colors.sidebar-surface}",
+        "header-surface": "{colors.header-surface}",
+        "soft-surface": "{colors.soft-surface}",
+        "photo-tint": "{colors.photo-tint}",
+        "on-primary": "{colors.on-primary}",
+        "inverse-muted": "{colors.inverse-muted}",
+        "selection": "{colors.selection}",
+        "scrollbar": "{colors.scrollbar}",
+        "apple": "{colors.apple}",
+        "apple-symbol": "{colors.apple-symbol}",
+        "selection-fill": "{colors.selection-fill}",
+        "valid-selection-fill": "{colors.valid-selection-fill}",
+        "switcher-bg": "{colors.switcher-bg}",
+        "toast-bg": "{colors.toast-bg}",
+        "toast-text": "{colors.toast-text}",
+        "contest-bg": "{colors.contest-bg}",
+        "contest-text": "{colors.contest-text}",
+        "supporter-bg": "{colors.supporter-bg}",
+        "supporter-text": "{colors.supporter-text}",
+        "grant-bg": "{colors.grant-bg}",
+        "grant-text": "{colors.grant-text}",
+        "education-bg": "{colors.education-bg}",
+        "education-text": "{colors.education-text}",
+        "career-bg": "{colors.career-bg}",
+        "career-text": "{colors.career-text}",
+        "program-bg": "{colors.program-bg}",
+        "program-text": "{colors.program-text}"
+      },
+      "dark": {
+        "bg": "{colors.dark-bg}",
+        "surface": "{colors.dark-surface}",
+        "text": "{colors.dark-text}",
+        "muted": "{colors.dark-muted}",
+        "green": "{colors.dark-green}",
+        "green-text": "{colors.dark-green-text}",
+        "green-hover": "{colors.dark-green-hover}",
+        "mint": "{colors.dark-mint}",
+        "accent": "{colors.dark-accent}",
+        "line": "{colors.dark-line}",
+        "heading-bg": "{colors.dark-heading-bg}",
+        "desk-surface": "{colors.dark-desk-surface}",
+        "sidebar-surface": "{colors.dark-sidebar-surface}",
+        "header-surface": "{colors.dark-header-surface}",
+        "soft-surface": "{colors.dark-soft-surface}",
+        "photo-tint": "{colors.dark-photo-tint}",
+        "on-primary": "{colors.on-primary}",
+        "inverse-muted": "{colors.inverse-muted}",
+        "selection": "{colors.dark-selection}",
+        "scrollbar": "{colors.dark-scrollbar}",
+        "apple": "{colors.apple}",
+        "apple-symbol": "{colors.dark-apple-symbol}",
+        "selection-fill": "{colors.dark-selection-fill}",
+        "valid-selection-fill": "{colors.dark-valid-selection-fill}",
+        "switcher-bg": "{colors.switcher-bg}",
+        "toast-bg": "{colors.dark-toast-bg}",
+        "toast-text": "{colors.dark-toast-text}",
+        "contest-bg": "#263b55",
+        "contest-text": "#c2d9fb",
+        "supporter-bg": "#44324d",
+        "supporter-text": "#edcef8",
+        "grant-bg": "#2e4434",
+        "grant-text": "#c2e6c8",
+        "education-bg": "#493d24",
+        "education-text": "#f5dfab",
+        "career-bg": "#244345",
+        "career-text": "#b7e2e3",
+        "program-bg": "#4d3332",
+        "program-text": "#efcbc8"
+      },
+      "nonColorOverrides": {
+        "logo-blend": {
+          "light": "multiply",
+          "dark": "normal"
+        },
+        "logo-filter": {
+          "light": "saturate(0.65)",
+          "dark": "brightness(0.85) saturate(0.65)"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Direct study or project action.",
+      "html": "<button class=\"ds-primary\">공부 시작하기</button>",
+      "css": ".ds-primary{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;border:0;cursor:pointer;background:var(--green,#3d7a5d);color:var(--on-primary,#ffffff);border-radius:10px;font-weight:650;min-height:46px;padding:10px 22px;transition:background .16s,color .16s,transform .16s}.ds-primary:hover{background:var(--green-hover,#315f49)}.ds-primary:focus-visible{outline:3px solid var(--green-text,#315f49);outline-offset:4px;}.ds-primary:active{transform:scale(.98)}.ds-primary:disabled{opacity:.55;cursor:default}"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Quiet supporting action.",
+      "html": "<button class=\"ds-text\">모두 보기</button>",
+      "css": ".ds-text{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;border:0;background:none;cursor:pointer;min-height:44px;color:var(--muted,#566159);font-size:12px;padding:7px 0;transition:color .16s,transform .16s}.ds-text:hover{color:var(--green-text,#315f49)}.ds-text:focus-visible{outline:3px solid var(--green-text,#315f49);outline-offset:4px;}.ds-text:active{transform:scale(.98)}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Short labeled profile or recruitment entry.",
+      "html": "<label class=\"ds-label\">프로젝트 이름<input class=\"ds-input\" placeholder=\"함께 만들고 싶은 프로젝트\"></label>",
+      "css": ".ds-label{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;display:grid;gap:8px;font-size:14px;font-weight:600;color:var(--text,#1f2923)}.ds-input{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;width:100%;min-height:46px;background:var(--bg,#e2e4df);border:1px solid var(--accent,#b2b8a3);border-radius:8px;padding:10px 12px;color:var(--text,#1f2923);caret-color:var(--green,#3d7a5d)}.ds-input:focus-visible{outline:3px solid var(--green-text,#315f49);outline-offset:4px;}"
+    },
+    {
+      "name": "Status Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Compact project or member status.",
+      "html": "<span class=\"ds-tag\">팀원 모집</span>",
+      "css": ".ds-tag{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;color:var(--green-text,#315f49);background:var(--mint,#e2e4df);padding:3px 8px;border-radius:5px;font-size:11px;white-space:nowrap}"
+    },
+    {
+      "name": "Selected Filter",
+      "kind": "chip",
+      "refersTo": "filter-selected",
+      "description": "Selected activity category.",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"true\">팀원 모집</button>",
+      "css": ".ds-filter{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;border:0;cursor:pointer;font-size:13px;background:var(--green,#3d7a5d);color:var(--on-primary,#ffffff);padding:8px 15px;border-radius:8px;min-height:44px;transition:transform .16s}.ds-filter:focus-visible{outline:3px solid var(--green-text,#315f49);outline-offset:4px;}.ds-filter:active{transform:scale(.98)}"
+    },
+    {
+      "name": "Desktop Active Navigation",
+      "kind": "nav",
+      "refersTo": "nav-active",
+      "description": "Selected primary destination with SVG icon.",
+      "html": "<button class=\"ds-nav\" aria-current=\"page\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"m3 10 9-7 9 7v10h-6v-7H9v7H3Z\"/></svg><span>홈</span></button>",
+      "css": ".ds-nav{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;border:0;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 18px;margin:5px 0;border-radius:12px;background:var(--mint,#e2e4df);color:var(--green-text,#315f49);font-weight:600;transition:background .16s,transform .16s}.ds-nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ds-nav:hover{background:var(--bg,#e2e4df)}.ds-nav:focus-visible{outline:3px solid var(--green-text,#315f49);outline-offset:4px;}.ds-nav:active{transform:scale(.98)}"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Flat translucent reading surface with a greige heading backplate.",
+      "html": "<section class=\"ds-panel\"><h2>함께 달리는 공부 랭킹</h2><p>작은 몰입을 함께 쌓아요.</p></section>",
+      "css": ".ds-panel{font-family:var(--font,Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:16px;line-height:1.6;letter-spacing:-.025em;background:var(--desk-surface,#fafbf9f5);border-radius:var(--radius,16px);padding:26px;color:var(--text,#1f2923)}.ds-panel h2{display:table;max-width:100%;width:fit-content;background:var(--heading-bg,#e2e4df);color:var(--text,#1f2923);padding:7px 11px;border-radius:8px;line-height:1.45;font-size:17px;margin:0 0 17px;font-weight:700}.ds-panel p{font-size:12px;color:var(--muted,#566159);margin:0}@media(max-width:850px){.ds-panel{padding:22px}.ds-panel h2{font-size:16px}}@media(max-width:380px){.ds-panel{padding:20px}.ds-panel h2{font-size:15px}}"
+    },
+    {
+      "name": "Page Title Backplate",
+      "kind": "custom",
+      "description": "Readable page heading on the decorative desk background.",
+      "html": "<h1 class=\"ds-page-title\">함께 성장하는 유위드</h1>",
+      "css": ".ds-page-title{font-family:var(--font,Pretendard,sans-serif);display:table;max-width:100%;background:var(--surface,#fafbf9);color:var(--text,#1f2923);padding:10px 16px;border-radius:10px;font-size:30px;line-height:1.4;font-weight:750;letter-spacing:-.035em;margin:0 0 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}@media(max-width:850px){.ds-page-title{font-size:26px;padding:9px 12px}}@media(max-width:380px){.ds-page-title{font-size:23px}}"
+    },
+    {
+      "name": "Settings Switch",
+      "kind": "custom",
+      "refersTo": "settings-switch-off",
+      "description": "Native checkbox switch; the entire 86px label row activates the control. Check to preview ON.",
+      "html": "<label class=\"ds-setting-row\"><span><strong>다크모드</strong><small>눈이 편한 어두운 화면으로 전환해요.</small></span><input class=\"ds-setting-switch\" type=\"checkbox\" role=\"switch\" aria-label=\"다크모드\"></label>",
+      "css": ".ds-setting-row{font-family:var(--font,Pretendard,sans-serif);display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:86px;padding:18px 0;border-bottom:1px solid var(--line,#d5d9d0);color:var(--text,#1f2923)}.ds-setting-row strong{display:block;font-size:15px;font-weight:650}.ds-setting-row small{display:block;font-size:12px;line-height:1.6;color:var(--muted,#566159);margin-top:5px}.ds-setting-switch{appearance:none;position:relative;flex-shrink:0;width:48px;height:28px;padding:0;border:2px solid var(--muted,#566159);border-radius:16px;background:var(--mint,#e2e4df);cursor:pointer;transition:background .16s}.ds-setting-switch::before{content:\"\";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--muted,#566159);transition:transform .16s}.ds-setting-switch:checked{background:var(--green,#3d7a5d);border-color:var(--green,#3d7a5d)}.ds-setting-switch:checked::before{transform:translateX(20px);background:var(--on-primary,#ffffff)}.ds-setting-switch:hover{border-color:var(--green-text,#315f49)}.ds-setting-switch:focus-visible{outline:3px solid var(--green-text,#315f49);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-setting-switch,.ds-setting-switch::before{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Together, One Step at a Time",
+    "overview": "YouWith is a quiet, practical workspace for approved university club members. The supplied clover remains its identity anchor; the user-selected Sage Green & Greige palette and pale photographic desk ground give it a calm study atmosphere. Concise Korean copy, clear study actions, and readable project rows express the user’s Toss-like preference.\n\nThis system documents the local HTML/CSS/JavaScript prototype in frontend/. It governs app screens, while PRODUCT.md owns product scope. Home A is fixed. Comparison controls and B/C-specific code are removed. The home title and supporting sentence share one panel.",
+    "keyCharacteristics": [
+      "Sage green for primary actions and selected states.",
+      "Readable Korean hierarchy with restrained supporting copy.",
+      "Pale desk photography, translucent off-white panels, and solid heading backplates with direct, labeled actions.",
+      "Five internal destinations (홈, 공부, 놀이터, 활동, 내 정보). Desktop also has Instagram; mobile exposes Instagram only inside Settings. Settings opens from the gear header icon or profile."
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Theme Rule",
+        "body": "Change color roles in theme.css; keep text green (`green-text`), button fill (`green`), and button hover (`green-hover`) separate. New screens consume these roles rather than adding local light-only fills.",
+        "section": "colors"
+      },
+      {
+        "name": "The Clover Action Rule",
+        "body": "Use sage green for the main action and selected state; keep the warm apple accent attached to the game context.",
+        "section": "colors"
+      },
+      {
+        "name": "The Readable Record Rule",
+        "body": "Keep study numerals tabular and pair project titles with short role or recruiting descriptions.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Separate everyday content with off-white or greige fills and quiet dividers; reserve shadows for selected tabs and overlays.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the supplied clover, five labeled internal destinations, and Instagram in the correct desktop/settings locations.",
+      "Do use the Sage Green & Greige light tokens, forest dark overrides, semantic color roles, and the shared Pretendard stack.",
+      "Do preserve solid heading backplates and translucent reading surfaces over the decorative desk photograph.",
+      "Do keep primary study and project actions explicit in Korean.",
+      "Do preserve keyboard focus, pressed/current states, reduced-motion support, and mobile safe-area spacing.",
+      "Do label fictional records and prototype-only workflows as examples."
+    ],
+    "donts": [
+      "Don't promote one home composition into a requirement for every screen.",
+      "Don't introduce decorative gradients, dense ornamental surfaces, or extra brand accents without a new design decision.",
+      "Don't turn simulated notifications into production requirements.",
+      "Don't present system font fallback as a separate display-font identity."
+    ]
+  }
+}

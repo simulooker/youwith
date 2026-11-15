@@ -1,0 +1,84 @@
+{
+  "id": "aicoss",
+  "name": "AICOSS 사업단",
+  "url": "https://aicoss.ac.kr/www/notice/",
+  "kind": "AI·해커톤·서포터즈",
+  "checkedAt": "2026-11-15T01:34:42+09:00",
+  "notices": [
+    {
+      "title": "[추가모집] 2026 CO-SHOW 단체참관 모집 안내(~11/11까지)",
+      "url": "https://aicoss.ac.kr/www/notice/view/4128",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "글로벌 AI 역량강화 교육과정(Microsoft AI-901) 교육생 추가 모집 안내",
+      "url": "https://aicoss.ac.kr/www/notice/view/4124",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "교육·체험",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "「AI 도구가 Data Scientist의 업무를 어떻게 변화시키고 있는가」 특강 신청 안내",
+      "url": "https://aicoss.ac.kr/www/notice/view/4125",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "교육·체험",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026 AICOSS-UTAS 글로벌 학생프로그램 면접 전형 안내",
+      "url": "https://aicoss.ac.kr/www/notice/view/4123",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "2026학년도 AICOSS-UTAS(호주) 글로벌 학생 프로그램 참가자 모집 안내",
+      "url": "https://coss.seoultech.ac.kr/community/notice/?do=view&profboardidx=0&bnum=57786&bidx=896100&cate=7&allboard=false&nowpage=1",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    },
+    {
+      "title": "[인공지능 혁신융합대학사업단] 2026 AICOSS-UTAS 글로벌 학생 프로그램 선발 안내(~10/14까지)",
+      "url": "https://aicoss.yju.ac.kr/board_NbhF01/11285",
+      "startsAt": null,
+      "endsAt": null,
+      "dateNote": "모집기간 확인 필요",
+      "dateEvidence": "",
+      "category": "모집·프로그램",
+      "loginRequired": false,
+      "status": "unknown"
+    }
+  ],
+  "status": "partial",
+  "note": "일부 접근 제한 · 확인 가능한 공지만 표시",
+  "method": "공개 게시판",
+  "coverage": "공개 목록 1페이지 · 공지 14건 확인",
+  "errors": [
+    "https://aicoss.yju.ac.kr/board_NbhF01/11285: 보관 응답 없음 · 다음 수집 시 확인"
+  ],
+  "scannedCount": 14,
+  "pageCount": 1
+}

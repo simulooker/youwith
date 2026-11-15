@@ -1,0 +1,10 @@
+{
+  "name": "youwith-prototype",
+  "private": true,
+  "scripts": {
+    "dev": "python -m http.server 4174 --bind 127.0.0.1 --directory frontend",
+    "test": "node --test tests/*.test.cjs",
+    "test:server": "python -X utf8 -m unittest discover -s tests -p \"test_notice*.py\"",
+    "notices:refresh": "python -X utf8 server/refresh_notices.py"
+  }
+}
