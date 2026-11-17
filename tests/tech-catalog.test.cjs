@@ -3,7 +3,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const c=vm.createContext({Intl,Date,escapeHTML:value=>String(value).replaceAll('<','&lt;').replaceAll('>','&gt;')});
 vm.runInContext(fs.readFileSync(__dirname+'/../frontend/blog.js','utf8'),c);
-assert.match(vm.runInContext('techArticleCards()',c),/href="\/tech\/mosfet.html"/);
+assert.match(vm.runInContext('techArticleCards()',c),/href="tech\/mosfet.html"/);
 vm.runInContext("blogState.query='반도체'",c);assert.match(vm.runInContext('techArticleCards()',c),/MOSFET/);
 vm.runInContext("blogState.query='없는 검색어'",c);assert.equal(vm.runInContext('techArticleCards()',c),'');
 vm.runInContext("blogState.query='';blogState.page=2",c);assert.equal(vm.runInContext('techArticleCards()',c),'');

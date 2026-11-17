@@ -44,6 +44,7 @@ const blogKey=()=>blogState.id ? `post:${blogState.id}` : `${blogState.category}
 const blogDate=value=>new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value));
 
 async function blogApi(path,method='GET',data) {
+  if(globalThis.YOUWITH_PUBLIC_PREVIEW)throw Error('게시판은 준비 중이에요.');
   let response;
   try {response=await fetch('/api/blog'+path,{method,cache:'no-store',...(data===undefined ? {} : {headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})});}
   catch {throw Error('서버에 연결할 수 없어요. 잠시 뒤 다시 시도해주세요.');}
@@ -80,13 +81,14 @@ function blogPostView(data) {
   return `<article class="panel blog-article"><div class="blog-back-row"><button class="text-button" data-blog-list>← 목록으로</button>${p.canEdit?'<div class="blog-manage"><button class="text-button" data-blog-edit>수정</button><button class="text-button blog-danger" data-blog-delete>삭제</button></div>':''}</div><p class="blog-category">${blogLabel(p.category)}</p><h1>${escapeHTML(p.title)}</h1><p class="blog-meta">${escapeHTML(p.author)} · ${blogDate(p.created_at)}${p.updated_at!==p.created_at ? ' · 수정됨':''}</p><div class="blog-tags">${blogTags(p.tags)}</div>${p.summary?`<p class="blog-summary">${escapeHTML(p.summary)}</p>`:''}<div class="blog-content">${blogContent(p.content)}</div>${data.attachments?.length?`<section class="blog-attachments"><h2>첨부파일 ${data.attachments.length}</h2>${blogAttachments(data.attachments,p.canEdit)}</section>`:""}</article><section class="panel blog-comments"><h2>댓글 ${data.comments.length}</h2><div class="blog-comment-list">${data.comments.map(comment=>`<div class="blog-comment"><div class="blog-comment-heading"><strong>${escapeHTML(comment.author)}</strong><span class="blog-meta">${blogDate(comment.created_at)}</span>${comment.canEdit?`<span class="blog-manage"><button class="text-button" data-comment-edit="${comment.id}">수정</button><button class="text-button blog-danger" data-comment-delete="${comment.id}">삭제</button></span>`:''}</div>${blogState.commentEditor===comment.id?`<form data-comment-form="${comment.id}" class="form-grid"><label><span class="sr-only">댓글 수정</span><textarea name="content" required maxlength="2000" rows="3">${escapeHTML(comment.content)}</textarea></label><div class="blog-manage"><button class="primary">수정 저장</button><button type="button" class="text-button" data-comment-cancel>취소</button></div><p class="form-error" role="alert"></p></form>`:`<p class="blog-comment-text">${escapeHTML(comment.content)}</p>`}</div>`).join('') || '<p class="small-muted">첫 댓글을 남겨보세요.</p>'}</div><form id="blog-comment-form" class="form-grid"><label>댓글 작성<textarea name="content" required maxlength="2000" rows="3" placeholder="생각이나 답변을 남겨주세요"></textarea></label><button class="primary">댓글 등록</button><p class="form-error" role="alert"></p></form></section>`;
 }
 // Add a trusted HTML article here and put its files in frontend/tech/.
-const TECH_ARTICLES=[{title:'MOSFET',summary:'드래그로 만나는 반도체의 구조',tags:'3D · 반도체',url:'/tech/mosfet.html',preview:'/tech/mosfet-cover.png'}];
+const TECH_ARTICLES=[{title:'MOSFET',summary:'드래그로 만나는 반도체의 구조',tags:'3D · 반도체',url:'tech/mosfet.html',preview:'tech/mosfet-cover.png'}];
 function techArticleCards() {
   if(blogState.page!==1)return '';
   const query=blogState.query.toLocaleLowerCase();
   return TECH_ARTICLES.filter(article=>[article.title,article.summary,article.tags].join(' ').toLocaleLowerCase().includes(query)).map(article=>`<a class="tech-card mosfet-card" href="${article.url}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h2>${article.title}</h2><p>${article.summary}</p></div><span class="tech-card-meta">${article.tags}<span>열어보기</span></span></a>`).join('');
 }
 function blogList(data) {
+  if(globalThis.YOUWITH_PUBLIC_PREVIEW&&blogState.category!=='tech')return '<section class="panel blog-feed blog-empty"><h2>게시판은 준비 중이에요.</h2><p>Tech에서는 MOSFET의 3D 구조를 둘러볼 수 있어요.</p></section>';
   if(blogState.category==='tech') {
     const cards=techArticleCards()+data.posts.map(post=>`<button class="tech-card" data-blog-open="${post.id}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h2>${escapeHTML(post.title)}</h2><p>${escapeHTML(post.summary||post.excerpt)}</p></div><span class="tech-card-meta">${escapeHTML(post.author)}<span>${blogDate(post.created_at)}</span></span></button>`).join('');
     return `<section class="tech-grid" aria-label="Tech 글 목록">${cards||'<div class="panel blog-empty"><h2>검색 결과가 없어요.</h2><p>다른 제목이나 키워드로 검색해보세요.</p></div>'}</section>${data.total>data.pageSize?`<div class="blog-pagination"><button class="secondary" data-blog-page="${Math.max(1,blogState.page-1)}" ${blogState.page===1?'disabled':''}>이전</button><span>${blogState.page} / ${Math.max(1,Math.ceil(data.total/data.pageSize))}</span><button class="secondary" data-blog-page="${blogState.page+1}" ${blogState.page*data.pageSize>=data.total?'disabled':''}>다음</button></div>`:''}`;
@@ -95,12 +97,20 @@ function blogList(data) {
 }
 function blog() {
   if(blogState.editor)return `<div class="blog-shell">${blogEditor()}</div>`;
-  const title=blogState.id?'':`<div class="page-title"><h1>Blog</h1></div><div class="blog-toolbar"><div class="filters" aria-label="Blog 게시판">${BLOG_TABS.map(([id,name])=>`<button class="filter ${blogState.category===id?'selected':''}" data-blog-category="${id}" aria-pressed="${blogState.category===id}">${name}</button>`).join('')}</div>${blogIsAdmin()||blogState.category==='qna'?'<button class="primary" data-blog-new>글 쓰기 +</button>':''}</div><form id="blog-search" class="blog-search"><label class="sr-only" for="blog-search-input">글 검색</label><input id="blog-search-input" name="q" type="search" maxlength="100" placeholder="제목, 내용, 태그 검색" value="${escapeHTML(blogState.query)}"><button class="secondary">검색</button></form>`;
+  const title=blogState.id?'':`<div class="page-title"><h1>Blog</h1></div><div class="blog-toolbar"><div class="filters" aria-label="Blog 게시판">${BLOG_TABS.map(([id,name])=>`<button class="filter ${blogState.category===id?'selected':''}" data-blog-category="${id}" aria-pressed="${blogState.category===id}">${name}</button>`).join('')}</div>${!globalThis.YOUWITH_PUBLIC_PREVIEW&&(blogIsAdmin()||blogState.category==='qna')?'<button class="primary" data-blog-new>글 쓰기 +</button>':''}</div><form id="blog-search" class="blog-search"><label class="sr-only" for="blog-search-input">글 검색</label><input id="blog-search-input" name="q" type="search" maxlength="100" placeholder="제목, 내용, 태그 검색" value="${escapeHTML(blogState.query)}"><button class="secondary">검색</button></form>`;
   const body=blogState.error?`<section class="panel"><p role="alert">${escapeHTML(blogState.error)}</p><button class="secondary" data-blog-retry>다시 불러오기</button><button class="text-button" data-blog-list>목록으로</button></section>`:blogState.loadedKey!==blogKey()?'<section class="panel blog-loading" role="status">글을 불러오고 있어요.</section>':blogState.id?blogPostView(blogState.data):blogList(blogState.data);
   return `<div class="blog-shell ${blogState.category==='tech'&&!blogState.id?'tech-shell':''}">${title}<div id="blog-content-area" aria-live="polite">${body}</div></div>`;
 }
 async function loadBlog() {
   if(blogState.editor)return;
+  if(globalThis.YOUWITH_PUBLIC_PREVIEW) {
+    blogState.id=null;
+    const key=blogKey();
+    if(blogState.loadedKey===key)return;
+    blogState.data={posts:[],total:0,pageSize:12};blogState.loadedKey=key;blogState.error='';
+    if(page==='blog')render();
+    return;
+  }
   const key=blogKey();
   if(blogState.loadedKey===key || blogState.loadingKey===key)return;
   const request=++blogState.request;

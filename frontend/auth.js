@@ -6,6 +6,9 @@
     location.replace("/login.html");
   };
   try {
+    if (window.YOUWITH_PUBLIC_PREVIEW) {
+      window.currentMember = {id:"public-visitor",username:"방문자",role:"guest"};
+    } else {
     const response = await nativeFetch("/api/me", {cache:"no-store"});
     if (response.status === 401) return goToLogin();
     if (!response.ok) throw Error("인증 서버에 연결할 수 없어요.");
@@ -20,16 +23,18 @@
       if (!result.ok) throw Error("로그아웃하지 못했어요. 다시 시도해주세요.");
       location.replace("/login.html");
     };
+    }
     for (const file of ["config.js", "notice-data.js", "notice-board.js", "notice-calendar.js", "recruitment.js", "screens.js", "apple-selection.js", "game.js", "tetris.js", "blog.js", "app.js"]) {
       await new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = file + "?v=22";
+        script.src = file + "?v=23";
         script.onload = resolve;
         script.onerror = reject;
         document.body.append(script);
       });
     }
     document.body.removeAttribute("data-auth-pending");
+    if (window.YOUWITH_PUBLIC_PREVIEW) return;
     const checkSession = async () => {
       if (document.hidden) return;
       try {

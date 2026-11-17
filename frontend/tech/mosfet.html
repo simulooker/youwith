@@ -9,8 +9,8 @@
 </head>
 <body>
   <header class="lab-header">
-    <a class="back-link" href="/&#35;blog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>Tech로 돌아가기</a>
-    <a class="wordmark" href="/&#35;home">YouWith<span class="clover" aria-hidden="true"></span></a>
+    <a class="back-link" href="../#blog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>Tech로 돌아가기</a>
+    <a class="wordmark" href="../#home">YouWith<span class="clover" aria-hidden="true"></span></a>
   </header>
   <main>
     <section class="lab" aria-labelledby="lab-title">
@@ -39,13 +39,16 @@
       <p class="reference">구조 참고 <a href="https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c3/c3s1/" target="_blank" rel="noopener noreferrer">MIT OpenCourseWare <span aria-hidden="true">↗</span></a></p>
     </section>
   </main>
-  <noscript><p class="no-script">3D 모델을 보려면 JavaScript를 켜주세요. <a href="/#blog">Tech로 돌아가기</a></p></noscript>
+  <noscript><p class="no-script">3D 모델을 보려면 JavaScript를 켜주세요. <a href="../#blog">Tech로 돌아가기</a></p></noscript>
+  <script src="../deployment.js?v=23"></script>
   <script type="module">
     try {
+      if(globalThis.YOUWITH_PUBLIC_PREVIEW) { await import('./mosfet.js?v=4'); } else {
       const response=await fetch('/api/me',{cache:'no-store'});
       if(response.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');}
       else if(!response.ok)throw Error('인증 서버 연결 실패');
       else await import('./mosfet.js?v=4');
+      }
     } catch {
       const message=document.querySelector('#scene-message');
       message.textContent='3D 화면을 열지 못했어요. 연결을 확인하고 새로고침해주세요.';

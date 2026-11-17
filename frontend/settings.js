@@ -67,7 +67,7 @@ function settingsScreen() {
           <button class="setting-row setting-action" data-settings-info="privacy"><span><strong>데이터 저장 안내</strong><small>이 브라우저에 저장되는 내용</small></span>${icon("arrow")}</button>
           <button class="setting-row setting-action" id="reset-settings"><span><strong>화면 설정 초기화</strong><small>다크모드·배경·움직임 설정만 되돌려요.</small></span>${icon("reset")}</button>
         </section>
-      <section class="settings-panel"><h2>계정</h2><button class="setting-row setting-action" id="logout"><strong>로그아웃</strong>${icon("arrow")}</button></section>
+      ${globalThis.YOUWITH_PUBLIC_PREVIEW?'':`<section class="settings-panel"><h2>계정</h2><button class="setting-row setting-action" id="logout"><strong>로그아웃</strong>${icon("arrow")}</button></section>`}
     </div>`;
 }
 

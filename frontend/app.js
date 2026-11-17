@@ -253,7 +253,7 @@ render();
 
 // 열린 화면에도 갱신 결과를 반영합니다. 외부 기관은 예약 수집기만 요청합니다.
 async function refreshNoticeData() {
-  if (page !== "activity") return;
+  if (page !== "activity" || globalThis.YOUWITH_PUBLIC_PREVIEW) return;
   try {
     const response = await fetch("/api/notices", { cache: "no-store" });
     if (!response.ok) return;
