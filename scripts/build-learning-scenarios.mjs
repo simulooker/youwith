@@ -1,3 +1,4 @@
+import {annotateLearning} from './learning-notes.mjs';
 import {writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {XORNetwork,XOR_DATA} from '../frontend/tech/neural-math.js';
@@ -31,13 +32,13 @@ export function buildScenarios(){
     {title:'질량으로 한 번 나눠요',description:'155 g 이하와 초과로 나눴습니다. 오른쪽에는 사과 1개와 오렌지 5개가 섞여 있습니다.',snapshot:1,pathLength:1},
     {title:'170 g의 길을 따라가요',description:'170 g은 155 g보다 크므로 오른쪽으로 갑니다. 여기서 멈추면 다수인 오렌지를 예측해 이 사과를 틀립니다.',snapshot:1,pathLength:2}
   ];
-  return {
-    version:1,network:{architecture:[2,4,1],rate:.5,data:XOR_DATA,snapshots,stages,cases:[{title:'경우 1',subtitle:'입력이 서로 다를 때',sample:1},{title:'경우 2',subtitle:'입력이 서로 같을 때',sample:3}]},
+  return annotateLearning({
+    version:2,network:{architecture:[2,4,1],rate:.5,data:XOR_DATA,snapshots,stages,cases:[{title:'경우 1',subtitle:'입력이 서로 다를 때',sample:1},{title:'경우 2',subtitle:'입력이 서로 같을 때',sample:3}]},
     tree:{data:FRUIT_DATA,input:[170,6.4],target:0,snapshots:trees,cases:[
       {title:'경우 1',subtitle:'한 번만 나누기',stages:[...common,{title:'얕은 트리의 결과',description:'학습 표본 10개 중 9개를 맞췄지만 이 표본은 오렌지로 잘못 분류합니다. 한 질문만으로는 구분이 부족합니다.',snapshot:1,pathLength:2}]},
       {title:'경우 2',subtitle:'질문을 하나 더 하기',stages:[...common,{title:'지름을 한 번 더 물어요',description:'오른쪽 표본을 지름 6.65 cm 이하와 초과로 다시 나눕니다. 질량이 비슷해도 지름이 작은 사과를 구분할 수 있습니다.',snapshot:2,pathLength:2},{title:'작은 지름의 길로 가요',description:'6.4 cm는 6.65 cm 이하이므로 왼쪽 잎으로 갑니다. 이 잎에는 가상 사과 1개가 있습니다.',snapshot:2,pathLength:3},{title:'사과를 올바르게 분류해요',description:'학습 표본 10개를 모두 맞췄습니다. 이 수치는 학습 데이터에서의 결과이며, 새로운 과일에 대한 성능을 보장하지 않습니다.',snapshot:2,pathLength:3}]}
     ]}
-  };
+  });
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
   const target=new URL('../frontend/tech/learning-scenarios.js',import.meta.url);

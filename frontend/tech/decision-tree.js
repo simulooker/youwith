@@ -1,6 +1,6 @@
-import {THREE,createViewer,solid,connect} from './lab-viewer.js?v=3';
-import {SCENARIOS} from './learning-scenarios.js?v=1';
-import {scenarioControls} from './scenario-controls.js';
+import {THREE,createViewer,solid,connect} from './lab-viewer.js?v=6';
+import {SCENARIOS} from './learning-scenarios.js?v=2';
+import {scenarioControls} from './scenario-controls.js?v=2';
 const v=createViewer({cameraPosition:[1,4,25]});
 if(v){
   const data=SCENARIOS.tree,$=id=>document.getElementById(id),names=['사과','오렌지'];let group=null,labelElements=[],views=new Map(),edges=[],oldSnapshot=-1;

@@ -82,23 +82,27 @@ function blogPostView(data) {
 }
 // Add a trusted HTML article here and put its files in frontend/tech/.
 const TECH_ARTICLES=[
-  {id:'mosfet',title:'MOSFET',summary:'드래그로 만나는 반도체의 구조',tags:'3D · 반도체',url:'tech/mosfet.html',preview:'tech/mosfet-cover.png?v=2'},
-  {id:'finfet',title:'FinFET',summary:'채널의 세 면을 감싸는 게이트',tags:'3D · 반도체',url:'tech/finfet.html',preview:'tech/finfet-cover.png'},
-  {id:'gaafet',title:'GAAFET',summary:'나노시트의 전체 둘레를 감싸다',tags:'3D · 반도체',url:'tech/gaafet.html',preview:'tech/gaafet-cover.png'},
-  {id:'cfet',title:'CFET',summary:'nFET과 pFET을 위아래로 쌓다',tags:'3D · 반도체',url:'tech/cfet.html',preview:'tech/cfet-cover.png'},
-  {id:'neural-network',title:'인공신경망',summary:'예측과 학습을 직접 따라가보세요',tags:'3D · AI 학습',url:'tech/neural-network.html',preview:'tech/neural-network-cover.png'},
-  {id:'decision-tree',title:'결정트리 학습',summary:'질문을 나누며 예측의 길을 찾다',tags:'3D · AI 학습',url:'tech/decision-tree.html',preview:'tech/decision-tree-cover.png'}
+  {id:'mosfet',section:'semiconductor',title:'MOSFET',summary:'드래그로 만나는 반도체의 구조',tags:'3D · 반도체',url:'tech/mosfet.html',preview:'tech/mosfet-cover.png?v=2'},
+  {id:'finfet',section:'semiconductor',title:'FinFET',summary:'채널의 세 면을 감싸는 게이트',tags:'3D · 반도체',url:'tech/finfet.html',preview:'tech/finfet-cover.png'},
+  {id:'gaafet',section:'semiconductor',title:'GAAFET',summary:'나노시트의 전체 둘레를 감싸다',tags:'3D · 반도체',url:'tech/gaafet.html',preview:'tech/gaafet-cover.png'},
+  {id:'cfet',section:'semiconductor',title:'CFET',summary:'nFET과 pFET을 위아래로 쌓다',tags:'3D · 반도체',url:'tech/cfet.html',preview:'tech/cfet-cover.png'},
+  {id:'neural-network',section:'ai',title:'인공신경망',summary:'예측과 학습을 직접 따라가보세요',tags:'3D · AI 학습',url:'tech/neural-network.html',preview:'tech/neural-network-cover.png'},
+  {id:'signals',section:'common',title:'신호와 시스템',summary:'파형에서 푸리에 변환과 역변환까지',tags:'3D · 신호 및 시스템',url:'tech/signals.html',preview:'tech/signals-cover.png'},
+  {id:'decision-tree',section:'ai',title:'결정트리 학습',summary:'질문을 나누며 예측의 길을 찾다',tags:'3D · AI 학습',url:'tech/decision-tree.html',preview:'tech/decision-tree-cover.png'},
+  {id:'integration',section:'common',title:'적분',summary:'작은 조각을 더해 물리량을 구하다',tags:'3D · 미적분 · 물리',url:'tech/integration.html',preview:'tech/integration-cover.png'}
 ];
-function techArticleCards() {
+const TECH_SECTIONS=[['semiconductor','반도체'],['ai','AI 모델'],['common','공통']];
+function techArticleCards(section) {
   if(blogState.page!==1)return '';
   const query=blogState.query.toLocaleLowerCase();
-  return TECH_ARTICLES.filter(article=>[article.title,article.summary,article.tags].join(' ').toLocaleLowerCase().includes(query)).map(article=>`<a class="tech-card ${article.id}-card image-card" data-cover="${article.id}" style="--cover:url('${article.preview}')" href="${article.url}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h2>${article.title}</h2><p>${article.summary}</p></div><span class="tech-card-meta">${article.tags}<span>열어보기</span></span></a>`).join('');
+  return TECH_ARTICLES.filter(article=>(!section||article.section===section)&&[article.title,article.summary,article.tags,TECH_SECTIONS.find(([id])=>id===article.section)?.[1]].join(' ').toLocaleLowerCase().includes(query)).map(article=>`<a class="tech-card ${article.id}-card image-card" data-cover="${article.id}" style="--cover:url('${article.preview}')" href="${article.url}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h3>${article.title}</h3><p>${article.summary}</p></div><span class="tech-card-meta">${article.tags}<span>열어보기</span></span></a>`).join('');
 }
 function blogList(data) {
   if(globalThis.YOUWITH_PUBLIC_PREVIEW&&blogState.category!=='tech')return '<section class="panel blog-feed blog-empty"><h2>게시판은 준비 중이에요.</h2><p>Tech에서는 반도체 구조와 AI 학습을 둘러볼 수 있어요.</p></section>';
   if(blogState.category==='tech') {
-    const cards=techArticleCards()+data.posts.map(post=>`<button class="tech-card" data-blog-open="${post.id}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h2>${escapeHTML(post.title)}</h2><p>${escapeHTML(post.summary||post.excerpt)}</p></div><span class="tech-card-meta">${escapeHTML(post.author)}<span>${blogDate(post.created_at)}</span></span></button>`).join('');
-    return `<section class="tech-grid" aria-label="Tech 글 목록">${cards||'<div class="panel blog-empty"><h2>검색 결과가 없어요.</h2><p>다른 제목이나 키워드로 검색해보세요.</p></div>'}</section>${data.total>data.pageSize?`<div class="blog-pagination"><button class="secondary" data-blog-page="${Math.max(1,blogState.page-1)}" ${blogState.page===1?'disabled':''}>이전</button><span>${blogState.page} / ${Math.max(1,Math.ceil(data.total/data.pageSize))}</span><button class="secondary" data-blog-page="${blogState.page+1}" ${blogState.page*data.pageSize>=data.total?'disabled':''}>다음</button></div>`:''}`;
+    const savedCards=data.posts.map(post=>`<button class="tech-card" data-blog-open="${post.id}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h3>${escapeHTML(post.title)}</h3><p>${escapeHTML(post.summary||post.excerpt)}</p></div><span class="tech-card-meta">${escapeHTML(post.author)}<span>${blogDate(post.created_at)}</span></span></button>`).join('');
+    const sections=TECH_SECTIONS.map(([id,title])=>{const cards=techArticleCards(id)+(id==='common'?savedCards:'');return cards?`<section class="tech-section" data-tech-section="${id}" aria-labelledby="tech-${id}-title"><h2 id="tech-${id}-title">${title}</h2><div class="tech-grid">${cards}</div></section>`:'';}).join('');
+    return `${sections||'<section class="panel blog-empty"><h2>검색 결과가 없어요.</h2><p>다른 제목이나 키워드로 검색해보세요.</p></section>'}${data.total>data.pageSize?`<div class="blog-pagination"><button class="secondary" data-blog-page="${Math.max(1,blogState.page-1)}" ${blogState.page===1?'disabled':''}>이전</button><span>${blogState.page} / ${Math.max(1,Math.ceil(data.total/data.pageSize))}</span><button class="secondary" data-blog-page="${blogState.page+1}" ${blogState.page*data.pageSize>=data.total?'disabled':''}>다음</button></div>`:''}`;
   }
   return `<section class="panel blog-feed">${data.posts.length?data.posts.map(post=>`<button class="blog-card" data-blog-open="${post.id}"><span class="blog-meta">${escapeHTML(post.author)} · ${blogDate(post.created_at)}</span><h2>${escapeHTML(post.title)}</h2><p>${escapeHTML(post.summary || post.excerpt)}</p><span class="blog-tags">${blogTags(post.tags)}</span></button>`).join(''):`<div class="blog-empty"><h2>아직 ${blogLabel(blogState.category)} 글이 없어요.</h2><p>${blogState.query?'검색어를 바꾸거나 검색을 초기화해주세요.':blogState.category==='qna'?'궁금한 점을 질문해보세요.':'새로운 이야기를 기다려주세요.'}</p></div>`}</section><div class="blog-pagination"><button class="secondary" data-blog-page="${Math.max(1,blogState.page-1)}" ${blogState.page===1?'disabled':''}>이전</button><span>${blogState.page} / ${Math.max(1,Math.ceil(data.total/data.pageSize))}</span><button class="secondary" data-blog-page="${blogState.page+1}" ${blogState.page*data.pageSize>=data.total?'disabled':''}>다음</button></div>`;
 }

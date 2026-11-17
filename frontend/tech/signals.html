@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080e19">
+<title>신호와 시스템 · YouWith Tech</title>
+<link rel="stylesheet" href="mosfet.css?v=3">
+<link rel="stylesheet" href="neural-network.css?v=1">
+<link rel="stylesheet" href="tech-labs.css?v=1">
+<link rel="stylesheet" href="guided-labs.css?v=2">
+<link rel="stylesheet" href="immersive-layout.css?v=1">
+<link rel="stylesheet" href="teaching-labs.css?v=3">
+</head>
+<body class="immersive-lab" data-panel-open="false">
+<header class="lab-header">
+<a class="back-link" href="../#blog">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="m14 6-6 6 6 6M8 12h12">
+</path>
+</svg>Tech로 돌아가기</a>
+<a class="wordmark" href="../#home">YouWith<span class="clover" aria-hidden="true">
+</span>
+</a>
+</header>
+<main>
+<section class="lab nn-lab guided-lab signal-lab" aria-labelledby="lab-title">
+<div class="lab-title">
+<h1 id="lab-title">신호와 시스템</h1>
+<p>파형을 분해하고, 다시 합쳐보세요.</p>
+</div>
+<div id="scene">
+<canvas id="lab-canvas" tabindex="0" aria-label="원래 신호와 주파수별 성분이 분해·합성되는 3D 그래프. 좌클릭 회전, 우클릭 이동, 휠 확대">
+</canvas>
+<div id="scene-message" class="scene-message" role="status">학습 기록을 불러오고 있어요.</div>
+</div>
+<aside class="lab-controls" aria-labelledby="learning-title" id="explanation-panel">
+<div class="explanation-heading">
+<h2 id="learning-title">푸리에 변환 살펴보기</h2>
+<button class="close-explanation" id="close-explanation" type="button" aria-label="설명 닫기">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="m6 6 12 12M18 6 6 18">
+</path>
+</svg>
+</button>
+</div>
+<div class="lab-utility">
+<button id="reset-view" type="button">시점 초기화</button>
+</div>
+
+
+
+
+<details class="lab-chapter" id="signal-chapter" name="lab-chapters" open>
+<summary><h3>쪼개고 합치기</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="chapter-content">
+<div class="signal-families">
+<button type="button" data-signal-family="fs" aria-pressed="true">FS<small>연속 · 주기</small></button>
+<button type="button" data-signal-family="ft" aria-pressed="false">FT<small>연속 · 비주기</small></button>
+<button type="button" data-signal-family="dtfs" aria-pressed="false">DTFS<small>이산 · 주기</small></button>
+<button type="button" data-signal-family="dtft" aria-pressed="false">DTFT<small>이산 · 비주기</small></button>
+</div>
+<p id="signal-description" class="transform-description"></p>
+<div class="control-pair" id="signal-actions"><button id="signal-split" type="button">성분으로 펼치기</button><button id="signal-join" type="button" disabled>하나로 모으기</button></div>
+<p id="signal-state" class="signal-status" aria-live="polite"></p>
+<div class="transform-equations" aria-label="분석과 합성 공식">
+<section id="synthesis-row" data-active="true"><h4>합치기 <span>합성 · Synthesis</span></h4><div id="signal-formula" class="signal-formula"></div></section>
+<section id="analysis-row" data-active="false"><h4>쪼개기 <span>분석 · Analysis</span></h4><div id="signal-analysis-formula" class="signal-formula"></div></section>
+</div><p id="formula-symbols" class="formula-symbols"></p>
+<div class="signal-example"><h4>같은 위치에서 더하면</h4><p id="signal-example"></p><p class="control-note">파형 위의 점은 이 위치의 값입니다. 서로 다른 주파수를 같은 시간 위치에서 더해 원래 신호를 만듭니다.</p></div>
+</div></details><details class="lab-chapter" id="components-chapter" name="lab-chapters">
+<summary><h3>주파수별 파형과 수식</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="chapter-content"><p>파형의 이름이나 아래 항목을 누르면 그 성분을 강조합니다. 색이 같은 파형과 수식을 함께 보세요.</p><div id="component-formulas"></div></div></details><details class="lab-chapter" id="formula-chapter" name="lab-chapters">
+<summary><h3>성분과 전체 신호의 관계</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="chapter-content">
+<div id="signal-sum-equation" class="signal-formula"></div><p id="formula-meaning"></p>
+
+<p>각 계수는 해당 파동의 크기와 위상을 정합니다. eʲθ=cosθ+j sinθ이므로 양·음 주파수의 켤레 성분을 합치면 화면의 실수 파형이 됩니다.</p>
+</div></details><details class="lab-chapter" id="analysis-chapter" name="lab-chapters">
+<summary><h3>공식은 왜 이렇게 생겼을까요?</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="chapter-content">
+<p>원래 신호에 찾고 싶은 주파수의 e⁻ʲωᵗ를 곱해 더합니다. 잘 맞는 주파수는 같은 방향으로 쌓이고, 맞지 않는 주파수는 서로 상쇄됩니다.</p>
+<p>연속 시간은 적분, 이산 시간은 합을 사용합니다. 주기 신호인 FS는 한 주기 적분을 T₀로, DTFS는 한 주기 표본의 합을 N으로 나눠 계수를 구합니다. 이 계수로 다시 합치는 것이 역변환입니다.</p>
+</div></details>
+<details class="lab-chapter" id="comparison-chapter" name="lab-chapters">
+<summary>
+<h3>네 변환의 관계</h3>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="m6 9 6 6 6-6">
+</path>
+</svg>
+</summary>
+<div class="chapter-content">
+<table class="signal-matrix">
+<thead>
+<tr>
+<th>변환</th>
+<th>대표 시간 신호</th>
+<th>주파수 표현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FT</td>
+<td>연속·비주기</td>
+<td>연속·비주기</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>연속·주기</td>
+<td>이산 계수</td>
+</tr>
+<tr>
+<td>DTFT</td>
+<td>이산·비주기</td>
+<td>연속·2π 주기</td>
+</tr>
+<tr>
+<td>DTFS</td>
+<td>이산·N 주기</td>
+<td>이산·N 주기</td>
+</tr>
+</tbody>
+</table>
+<p>주기 신호도 FT/DTFT에서 임펄스열로 표현할 수 있습니다. 여기서는 기본 계열과 일반 함수/계수 표현을 비교합니다. FS와 DTFS의 역변환은 합, FT와 DTFT의 역변환은 적분입니다.</p>
+<p>FT의 사각 펄스 역변환은 유한 주파수 범위를 수치 적분한 근사입니다. FS는 이 예제의 비영 계수를, DTFS는 N개 계수를 사용합니다. DTFT는 한 주기 주파수 적분으로 복원합니다.</p>
+<p class="reference">
+<a href="https://ocw.mit.edu/courses/res-6-007-signals-and-systems-spring-2011/resources/lecture-11-discrete-time-fourier-transform/" target="_blank" rel="noopener noreferrer">MIT Fourier 표현 강의</a>
+</p>
+</div>
+</details>
+<p class="lab-disclaimer">원리 이해를 위한 예제 · 계산 결과를 저장해 표시합니다.</p>
+</aside>
+<div class="scene-hint">색깔별 주파수 성분 · 금색 합친 신호 · 우클릭 시점 이동</div>
+<button class="toggle-explanation" type="button" id="toggle-explanation" aria-controls="explanation-panel" aria-expanded="false">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M4 5h16v14H4zM8 9h8M8 13h6">
+</path>
+</svg>설명 열기</button>
+</section>
+</main>
+<script src="../deployment.js?v=24">
+</script>
+<script type="module">
+try{if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const r=await fetch('/api/me',{cache:'no-store'});if(r.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!r.ok)throw Error('연결 실패');}await import('./lab-interface.js?v=1');await import('./signals.js?v=4');}
+catch{const message=document.querySelector('#scene-message');message.hidden=false;message.textContent='화면을 열지 못했어요. 연결을 확인하고 새로고침해주세요.';}
+</script>
+
+
+
+
+</body>
+</html>

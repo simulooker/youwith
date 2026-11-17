@@ -200,7 +200,7 @@ MOSFET은 PC에서 왼쪽 3D 격자 공간과 오른쪽 모델 설정 패널로 
 
 - `frontend/tech/semiconductor.js`: 네 소자의 구조, 수직 분해/재조립, 부위 선택과 카메라 확대, 입자 표시를 관리합니다. 이동 입자는 채널별 공유 점 객체를 사용하며 페이지가 숨겨지면 그리기를 멈춥니다. 동작 줄이기 설정에서는 고정 분포로 표시합니다.
 - `frontend/tech/device-state.js`: Gate 논리 상태와 부위별 역할·도핑 설명입니다. P/N 도핑은 고정이고, 이동 전하 농도만 Gate에 따라 달라집니다. CFET의 nFET과 pFET은 상보 동작하며 pFET의 주 운반자는 정공입니다. 상대 농도, 형상, 누설 생략은 학습용 가정입니다.
-- `scripts/build-learning-scenarios.mjs`: 원래 수학 모델로 0/1/200/4,000회 XOR 학습과 깊이 0/1/2 CART를 계산합니다. 생성된 `frontend/tech/learning-scenarios.js`는 약 14 KB이며 런타임 학습 코드와 분리합니다.
+- `scripts/build-learning-scenarios.mjs`: 원래 수학 모델로 0/1/200/4,000회 XOR 학습과 깊이 0/1/2 CART를 계산합니다. 생성된 `frontend/tech/learning-scenarios.js`는 약 27 KB이며 런타임 학습 코드와 분리합니다.
 - `frontend/tech/scenario-controls.js`: 두 모델이 공유하는 경우 선택·단계 이동입니다. `guided-labs.css`는 해당 화면의 배치만 관리합니다.
 - `tests/guided-learning.test.cjs`: 저장 결과를 원래 계산과 대조하고, 상보 Gate 상태와 런타임 학습 코드 미사용을 검사합니다.
 
@@ -209,6 +209,37 @@ MOSFET은 PC에서 왼쪽 3D 격자 공간과 오른쪽 모델 설정 패널로 
 
 ### 3D 화면과 오른쪽 설명 목차
 
-여섯 Tech 페이지는 화면 전체에 하나의 WebGL 격자 공간을 그립니다. 별도의 아래 설명 영역은 없으며, 조작·구조 설명·학습 원리·결과 표를 오른쪽 반투명 패널의 목차에 배치합니다. 페이지 전체 대신 패널 안에서만 스크롤합니다. 휴대폰에서는 같은 3D 위로 오른쪽 설명창을 열고 닫으며, 닫힌 창은 키보드·화면 읽기 탐색에서 제외합니다.
+일곱 Tech 페이지는 화면 전체에 하나의 WebGL 격자 공간을 그립니다. 별도의 아래 설명 영역은 없으며, 조작·구조 설명·학습 원리·결과 표를 오른쪽 반투명 패널의 목차에 배치합니다. 페이지 전체 대신 패널 안에서만 스크롤합니다. 휴대폰에서는 같은 3D 위로 오른쪽 설명창을 열고 닫으며, 닫힌 창은 키보드·화면 읽기 탐색에서 제외합니다.
 
 `frontend/tech/immersive-layout.css`는 전체 화면·블러·목차 배치를, `lab-interface.js`는 모바일 열기/닫기·Escape·3D 부위 선택 시 설명 열기를 관리합니다. `lab-viewer.js`는 오른쪽 설명창의 폭만큼 투영 중심을 왼쪽으로 옮겨 모델을 가리지 않으면서 배경은 패널 뒤까지 그립니다. 새 내용도 페이지 아래 대신 해당 패널의 목차에 추가합니다.
+
+
+### 전하 단계·학습 설명·신호와 시스템
+
+소자는 `device-lesson.js`의 5단계(평형 → 공핍 강조 → 채널 형성 → 소스/드레인 전압 차에 따른 이동 → 채널 약화)를 `device-charges.js`에서 정성적으로 표시합니다. 선택 부위는 분홍색, 나머지는 옅게 표시합니다. 좌클릭은 회전, 우클릭은 시점 이동, 휠은 확대입니다. CFET는 관찰할 n/p층을 선택하며 반대층 전하와 완전한 인버터 해석은 생략합니다. 단계 전압·점 개수·속도는 예시입니다. 실제 약반전/누설, 물성·파괴·TCAD 수치 해석과 구분합니다.
+
+AI 단계의 원리·관찰할 위치·실제 예시 숫자는 `scripts/learning-notes.mjs`가 저장 학습 결과로 작성합니다. 별도의 원리 목차 대신 현재 단계 옆에서 읽습니다. 수정 후 `npm run tech:build-scenarios`로 저장 결과를 갱신합니다.
+
+`frontend/tech/signals.html`은 원래 신호 → 주파수 성분으로 펼치기 → 하나로 모으기의 왕복 모션을 사용합니다. FS/DTFS는 양·음 주파수 켤레 계수를 묶은 두 실수 정현파, FT/DTFT는 연속 주파수의 네 대역을 표시합니다. 같은 곡선의 재사용 좌표를 직접 변형해 성분으로 갈라지거나 한 곡선으로 결합하며, 파형을 페이드하거나 새 파형으로 교체하지 않습니다. `signal-motion.js`가 좌표 보간과 버튼 상태를 관리합니다. 실행 중이거나 이미 완료된 방향의 버튼만 비활성화하고 반대 방향으로 이어서 전환할 수 있습니다. 변환 설명은 세 줄, 분석·합성 MathML 공식은 버튼 바로 아래에 함께 표시합니다. 성분 이름은 곡선 바깥에 둡니다. 각 성분 수식과 실제 같은 위치의 덧셈 예도 오른쪽 목차에서 비교합니다. FT는 ±6π 유한 대역의 근사 복원, DTFT는 −π…π 한 주기 복원입니다. 연속 대역을 순수 단일 정현파로 설명하지 않습니다.
+
+`signal-math.js`는 개발·검증용 계산입니다. `npm run tech:build-signals`는 `build-signal-scenarios.mjs`와 `build-signal-components.mjs`로 계수·역변환 기록과 성분별 파형을 저장합니다. 브라우저는 약 40 KB의 `signal-components.js`만 읽고 적분/학습 계산을 실행하지 않습니다. `signal-formulas.js`는 전체 공식, `component-formulas.js`는 성분별 공식입니다. 사용자 첨부 이미지는 카드와 hover 배경에 그대로 사용합니다.
+
+정공은 금색 ＋ 고리, 전자는 하늘색 원으로 구분하며 입자 중심은 실제 반도체 형상 내부에 둡니다. 금속·소스·드레인·후면 기판은 불투명하게 유지하고, 전하를 관찰할 실리콘 앞쪽만 국소 관찰창으로 표시합니다. 관찰창을 닫으면 해당 영역도 불투명해집니다. 처음부터 P영역의 소수 전자를 표시하며, Gate 전기장에 정공이 후퇴하고 소수 전자가 표면으로 끌린 다음 소스·드레인 전자가 공급되어 반전 경로가 이어집니다. 채널이 박스 확장으로 생성되는 표현은 제거했습니다. 소수 운반자만으로 채널 전체를 채운다는 뜻은 아닙니다. 실제 도핑 농도·입자 수 비율·전류 수치 해석은 하지 않습니다.
+
+Gate 아래 이동 전하 감소(공핍)와 반전층 형성은 서로 다른 단계로 설명합니다. 보라색 PN 접합 공핍 경계는 별도로 유지하며 Drain 역바이어스가 남으면 Gate OFF에도 폭을 유지합니다. 첨단 Fin/나노시트는 낮은 도핑 채널의 전하 재분포를 개념적으로 표시합니다. `device-lesson.js`의 순수 좌표 함수와 `tests/device-carriers.test.cjs`에서 입자 내부 위치와 소수 전자·정공의 이동 방향을 확인합니다. 구조 표현은 사용자가 제시한 [Lam Research Semi 101 영상의 1:03 평면 소자·이후 FinFET 장면](https://www.youtube.com/watch?v=ST_1krgYni4&t=63s), 원리는 [MIT MOS 강의](https://web.mit.edu/6.012/FALL00/www/handouts/lec7.pdf)를 참고했습니다.
+
+단계·n/p층·신호 변환을 바꿀 때 카메라 거리·회전·이동 위치를 유지합니다. 소자 부위를 직접 선택해 확대하거나 전체 시점 버튼을 누를 때만 자동 카메라 이동을 사용합니다. 빠른 분해/합성 방향 전환은 현재 위치에서 이어지고, 동작 줄이기는 최종 장면으로 바로 전환합니다.
+
+검증: `tests/signal-math.test.cjs`의 변환 쌍·2π 주기성·역변환·전압 극성, `tests/signal-motion.test.cjs`의 실제 합/성분 좌표와 버튼 상태, 내부 입자 좌표 검사. 원리 자료는 화면의 MIT MOS electrostatics 및 Signals and Systems 링크입니다. GitHub push는 사용자가 요청한 경우에만 진행합니다.
+
+
+### 3D 그리기 비용
+
+`lab-viewer.js`는 입력·카메라 조작을 즉시 반영하고, 인위적인 30/60fps 제한 없이 브라우저의 requestAnimationFrame 주기를 따릅니다. 실제 속도는 화면 주사율·브라우저·기기 부하에 따라 달라집니다. 정지·숨겨진 페이지에서는 반복 그리기를 중단하고, 화면 배율은 DPR 1.5와 최대 2560×1440 내부 픽셀 예산을 함께 적용합니다. DOM 글자 해상도는 바꾸지 않습니다. 6면 격자는 하나의 묶음으로 그리며 라벨 좌표가 그대로면 화면 스타일을 다시 쓰지 않습니다. 신호 곡선도 기존 좌표·도형 버퍼를 재사용합니다.
+
+동일한 1440×950/DPR 2 검증 장면에서 내부 픽셀 수는 5,472,000→3,078,000(43.75% 감소), 격자와 상자 8개의 그리기 호출은 14→9였습니다. 실제 기기의 배터리·GPU 속도 개선율을 뜻하지 않습니다. 기준 자료: [Three.js 해상도 조절](https://threejs.org/manual/pages/responsive.html), [필요할 때 그리기](https://threejs.org/manual/pages/rendering-on-demand.html), [자원 해제](https://threejs.org/manual/pages/cleanup.html).
+
+
+입자는 네 개의 고정 오프셋과 하나의 이동 원점으로 묶습니다. `InstancedBufferGeometry`의 원점 속성만 CPU에서 계산·업로드하고 GPU가 각 네 위치를 더합니다. 기존 묶음 수를 유지해 표시 입자는 4배(예: 평면 소수 전자6→24, 이동 입자48→192)로 늘렸고 기호 크기도 키웠습니다. 같은 표시 수를 개별 계산하는 방식보다 원점 계산·동적 좌표 업로드가 1/4이지만, 네 입자를 실제로 그리는 GPU 비용까지 1/4이 되는 것은 아닙니다. 정상 전류 단계에서는 이동하지 않는 다수/소수 운반자·저장소 좌표의 반복 계산·업로드도 건너뜁니다. 입자 중심과 네 오프셋의 합은 실리콘 내부 범위 검사로 확인합니다.
+
+GAAFET은 n형 예제이므로 전류를 운반하는 전자는 N+ 소스에서 공급됩니다. Gate 구간의 정공 밀도가 낮아져도 전자 경로가 이어지면 전류가 흐르며, 정공이 시트 밖 공기로 빠져나가는 표현이 아닙니다. 저도핑 GAA에 벌크 P형 몸체의 다수 정공 설명을 그대로 적용하지 않습니다. 반대 극성 pFET의 전도 운반자는 정공입니다. 근거: [Yale MOSFET 운반자·극성](https://volga.eng.yale.edu/teaching-resources/semiconductors), [Intel GAA 구조](https://www.intel.com/content/www/us/en/foundry/process/18a.html), [Three.js instanced attributes](https://threejs.org/docs/pages/InstancedBufferAttribute.html), [브라우저 애니메이션 주기](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame).

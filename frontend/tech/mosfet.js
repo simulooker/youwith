@@ -1,2 +1,2 @@
 // MOSFET uses the shared device viewer.
-import './semiconductor.js?v=3';
+import './semiconductor.js?v=8';

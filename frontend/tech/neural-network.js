@@ -1,6 +1,6 @@
-import {THREE,createViewer,solid,connect} from './lab-viewer.js?v=3';
-import {SCENARIOS} from './learning-scenarios.js?v=1';
-import {scenarioControls} from './scenario-controls.js';
+import {THREE,createViewer,solid,connect} from './lab-viewer.js?v=6';
+import {SCENARIOS} from './learning-scenarios.js?v=2';
+import {scenarioControls} from './scenario-controls.js?v=2';
 const v=createViewer({cameraPosition:[1,3.4,20]});
 if(v){
   const data=SCENARIOS.network,$=id=>document.getElementById(id);
@@ -11,7 +11,7 @@ if(v){
     const from=layers[l][a],to=layers[l+1][b];edges.push({l,a,b,from,to,mesh:connect(v.scene,from,to,0x5eaeb6)});
     const dot=solid(v.scene,new THREE.SphereGeometry(.085,10,8),0xffde92,from.toArray(),{emissive:0xf5bd61,emissiveIntensity:.8});dot.visible=false;dots.push(dot);
   }
-  scenarioControls(data.cases.map(c=>({...c,stages:data.stages})),(c,stage)=>{
+  scenarioControls(data.cases,(c,stage)=>{
     const s=data.snapshots[stage.snapshot],p=s.outputs[c.sample],values=[p.x,p.h,[p.output]];phase=stage.phase;start=performance.now();
     $('case-summary').textContent=`입력 (${p.x.join(', ')}) · 정답 ${p.y} · XOR 규칙: 다르면 1, 같으면 0`;
     $('nn-prediction').textContent=(p.output*100).toFixed(1)+'%';$('nn-class').textContent=p.output>=.5?'1':'0';$('nn-target').textContent=p.y;

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e19">
+<title>적분 · YouWith Tech</title>
+<link rel="stylesheet" href="mosfet.css?v=3"><link rel="stylesheet" href="neural-network.css?v=1"><link rel="stylesheet" href="tech-labs.css?v=1"><link rel="stylesheet" href="guided-labs.css?v=2"><link rel="stylesheet" href="immersive-layout.css?v=1"><link rel="stylesheet" href="teaching-labs.css?v=3"><link rel="stylesheet" href="integration.css?v=1">
+</head>
+<body class="immersive-lab" data-panel-open="false">
+<header class="lab-header"><a class="back-link" href="../#blog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"></path></svg>Tech로 돌아가기</a><a class="wordmark" href="../#home">YouWith<span class="clover" aria-hidden="true"></span></a></header>
+<main><section class="lab nn-lab guided-lab integration-lab" aria-labelledby="lab-title">
+<div class="lab-title"><h1 id="lab-title">적분</h1><p>작게 나누고, 더해서 물리량을 구해요.</p></div>
+<div id="scene"><canvas id="lab-canvas" tabindex="0" aria-label="조각의 합으로 변위, 부피, 유량, 질량을 이해하는 3D 화면. 좌클릭 회전, 우클릭 이동, 휠 확대"></canvas><div id="scene-message" class="scene-message" role="status">적분 실험을 불러오고 있어요.</div></div>
+<aside class="lab-controls" aria-labelledby="learning-title" id="explanation-panel">
+<div class="explanation-heading"><h2 id="learning-title">작은 조각의 합</h2><button class="close-explanation" id="close-explanation" type="button" aria-label="설명 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div>
+<div class="lab-utility"><button id="reset-view" type="button">시점 초기화</button></div>
+<details class="lab-chapter" id="integral-chapter" name="lab-chapters" open>
+<summary><h3>단계별로 보기</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="chapter-content">
+<div class="integration-cases" aria-label="적분의 물리적 의미 선택">
+<button type="button" data-integral-case="displacement" aria-pressed="true">변위<small>속도 × 시간</small></button>
+<button type="button" data-integral-case="volume" aria-pressed="false">부피<small>높이 × 면적</small></button>
+<button type="button" data-integral-case="flux" aria-pressed="false">유량<small>수직 유속 × 면적</small></button>
+<button type="button" data-integral-case="mass" aria-pressed="false">질량<small>밀도 × 부피</small></button>
+</div>
+<p id="integral-description"></p>
+<nav id="integral-steps" class="charge-steps" aria-label="적분 학습 단계"></nav>
+<h4 id="integral-title" aria-live="polite"></h4>
+<div id="integral-formula" class="signal-formula"></div><p id="integral-local" class="local-quantity"></p>
+<dl class="integral-stats"><div><dt>현재 조각의 합 · 근사</dt><dd id="integral-sum">—</dd></div><div><dt>정확한 적분값</dt><dd id="integral-exact"></dd></div><div><dt>더한 조각 수</dt><dd id="integral-count"></dd></div></dl>
+<p id="integral-distance" class="control-note"></p>
+<dl class="lesson-brief"><dt>왜 이렇게 될까요?</dt><dd id="integral-why"></dd><dt>화면에서 볼 것</dt><dd id="integral-watch"></dd></dl>
+<div id="flux-options" hidden><h4>흐름과 법선 사이의 각도</h4><div class="flux-presets"><button type="button" data-flux-angle="0" aria-pressed="true">0°</button><button type="button" data-flux-angle="60" aria-pressed="false">60°</button><button type="button" data-flux-angle="90" aria-pressed="false">90°</button><button type="button" data-flux-angle="180" aria-pressed="false">180°</button></div><p id="flux-motion" class="control-note"></p><p class="control-note">하늘색은 고정된 물의 흐름, 금색은 면의 단위 법선 방향입니다. 법선을 뒤집으면 유량의 부호가 바뀝니다.</p></div>
+<div class="control-pair"><button id="integral-previous" type="button">이전 단계</button><button id="integral-next" type="button">다음 단계</button></div><button id="integral-replay" class="teaching-replay" type="button">현재 단계 다시 보기</button>
+<p id="integral-piece" class="integral-piece"></p><p class="control-note">3D 조각을 누르면 그 조각이 더하는 양을 확인할 수 있어요.</p><p id="integral-sampling" class="control-note"></p>
+</div></details>
+<details class="lab-chapter" id="meaning-chapter" name="lab-chapters"><summary><h3>모두 같은 적분인가요?</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><div class="chapter-content"><p>적분은 각 위치·시간의 값에 작은 구간의 크기를 곱해 더한 뒤, 조각을 한없이 작게 만드는 극한입니다.</p><p>가로축·세로축의 단위를 함께 읽어보세요. 속도[m/s] × 시간[s]은 변위[m], 높이[m] × 면적[m²]은 부피[m³], 밀도[kg/m³] × 부피[m³]은 질량[kg]입니다.</p><p>유량은 벡터의 면적분입니다. 흐름 전체가 아니라 면에 수직인 성분만 더합니다. 곡면의 넓이나 높이 아래 부피와 구분해야 합니다.</p><p>화면에 보이는 조각은 유한한 근사입니다. 정확한 적분값과 따로 표시합니다. 일정한 유속의 평면 유량은 분할해도 이미 정확합니다.</p><p class="reference"><a id="integral-reference" href="https://openstax.org/books/calculus-volume-3/pages/6-6-surface-integrals" target="_blank" rel="noopener noreferrer">현재 주제의 원리 자료 · OpenStax</a></p></div></details>
+<p class="lab-disclaimer">색과 크기는 이해를 돕는 표현입니다. 위치·방향·단위를 함께 비교해보세요.</p>
+</aside>
+<div class="scene-hint">하늘색 조각 · 분홍색 음의 변위 · 금색 법선·밀도 강조</div>
+<button class="toggle-explanation" type="button" id="toggle-explanation" aria-controls="explanation-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h6"></path></svg>설명 열기</button>
+</section></main>
+<script src="../deployment.js?v=24"></script>
+<script type="module">
+try{if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const r=await fetch('/api/me',{cache:'no-store'});if(r.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!r.ok)throw Error('연결 실패');}await import('./lab-interface.js?v=1');await import('./integration.js?v=1');}
+catch{const message=document.querySelector('#scene-message');message.hidden=false;message.textContent='화면을 열지 못했어요. 연결을 확인하고 새로고침해주세요.';}
+</script>
+</body></html>

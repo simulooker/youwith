@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="tech-labs.css?v=1">
 <link rel="stylesheet" href="guided-labs.css?v=2">
 <link rel="stylesheet" href="immersive-layout.css?v=1">
+<link rel="stylesheet" href="teaching-labs.css?v=3">
 </head>
 <body data-device="cfet" class="immersive-lab" data-panel-open="false">
 <header class="lab-header">
@@ -29,7 +30,7 @@
 <p>nFET과 pFET을 위아래로 쌓습니다.</p>
 </div>
 <div id="scene">
-<canvas id="lab-canvas" tabindex="0" aria-label="CFET 3D 구조. 드래그·방향키로 회전, 스크롤로 확대합니다. 부위 이름으로도 선택할 수 있습니다.">
+<canvas id="lab-canvas" tabindex="0" aria-label="cfet 3D 화면. 좌클릭 드래그로 회전, 우클릭 드래그로 시점 이동, 휠로 확대합니다.">
 </canvas>
 <div id="scene-message" class="scene-message" role="status">3D 구조를 불러오고 있어요.</div>
 </div>
@@ -48,7 +49,7 @@
 </div>
 <details class="lab-chapter" id="operation-chapter" name="lab-chapters" open="">
 <summary>
-<h3>전자 이동과 Gate</h3>
+<h3>전자의 이동과 Gate</h3>
 <svg viewBox="0 0 24 24" aria-hidden="true">
 <path d="m6 9 6 6 6-6">
 </path>
@@ -56,44 +57,45 @@
 </summary>
 <div class="chapter-content">
 <div class="control-pair">
-<button id="gate-low" type="button" aria-pressed="true">입력 LOW</button>
-<button id="gate-high" type="button" aria-pressed="false">입력 HIGH</button>
+<button type="button" data-charge-polarity="n" aria-pressed="true">위 nFET 보기</button>
+<button type="button" data-charge-polarity="p" aria-pressed="false">아래 pFET 보기</button>
 </div>
-<div class="gate-readout" role="status">
-<strong id="gate-state">
-</strong>
-<p id="gate-description">
+<p class="control-note">선택한 층의 전하만 강조합니다. 반대층의 전하·완전한 인버터 회로 동작은 생략합니다.</p>
+<nav id="charge-steps" class="charge-steps" aria-label="전하 이동 단계">
+</nav>
+<h4 id="charge-title">
+</h4>
+<section id="energy-profile" class="energy-profile" aria-labelledby="energy-kind"></section>
+<p id="charge-description">
 </p>
-</div>
-<button id="carrier-motion" type="button" aria-pressed="true">이동 일시정지</button>
-<div class="density-map" aria-label="채널의 상대 이동 전하 농도">
-<div class="density-row">
-<span>nFET</span>
-<div class="density-strip">
-<span class="density-end">N+</span>
-<span id="density-n" class="density-middle">
-</span>
-<span class="density-end">N+</span>
-</div>
-<output id="density-n-value">
-</output>
-</div>
-<div class="density-row density-p">
-<span>pFET</span>
-<div class="density-strip">
-<span class="density-end">P+</span>
-<span id="density-p" class="density-middle">
-</span>
-<span class="density-end">P+</span>
-</div>
-<output id="density-p-value">
-</output>
-</div>
-</div>
-
-<p id="motion-note" class="control-note">
+<dl class="lesson-brief">
+<dt>왜 이렇게 될까요?</dt>
+<dd id="charge-why">
+</dd>
+<dt>화면에서 볼 것</dt>
+<dd id="charge-watch">
+</dd>
+</dl>
+<p id="charge-voltage" class="charge-voltage">
 </p>
-
+<div class="control-pair">
+<button id="charge-previous" type="button">이전 단계</button>
+<button id="charge-next" type="button">다음 단계</button>
+</div>
+<button id="charge-replay" class="teaching-replay" type="button">현재 단계 다시 보기</button>
+<div class="charge-legend">
+<span>
+<i class="charge-dot">
+</i>전자</span>
+<span>
+<i class="charge-dot hole" aria-hidden="true">＋</i>정공</span>
+<span>
+<i class="charge-dot field">
+</i>전기장</span>
+</div>
+<p class="control-note">입자는 반도체 내부에 놓았습니다. 이동이 일어나는 앞쪽 관찰창만 투명하게 하고, 뒤쪽 본체·금속은 불투명하게 유지합니다. 금색 ＋ 고리는 정공, 하늘색 점은 전자입니다.</p>
+<p class="control-note">저도핑 Fin·나노시트에서는 여러 면의 Gate 전기장이 운반자의 분포를 제어합니다. 소수 운반자 기호는 분포 설명용이며, 벌크 P/N 몸체의 농도 비율이나 실제 도핑을 뜻하지 않습니다.</p>
+<p class="control-note">전압은 원리 설명용 예시입니다. 입자 수·속도·공핍 폭은 정밀 계산값이 아닙니다. 동작 줄이기 설정에서는 각 단계의 최종 분포를 표시합니다.</p>
 </div>
 </details>
 <details class="lab-chapter" id="structure-chapter" name="lab-chapters">
@@ -119,6 +121,7 @@
 </p>
 <p id="part-doping" class="part-doping">
 </p>
+<p class="control-note">분홍색은 선택 강조이며 P/N 도핑 종류를 뜻하지 않습니다.</p>
 </section>
 <div id="part-list" class="part-list" aria-label="확대할 부위 선택">
 </div>
@@ -133,8 +136,8 @@
 </svg>
 </summary>
 <div class="chapter-content">
-<p class="control-note">양끝 N+/P+는 고정된 도핑, 가운데 밝기는 Gate가 바꾸는 이동 전하 농도입니다.</p>
-<p class="control-note">켜진 채널이 보이도록 Gate를 반투명하게 표시합니다.</p>
+<p class="control-note">양끝 N+/P+는 고정된 도핑입니다. 가운데 운반자의 위치와 농도가 Gate에 따라 달라집니다.</p>
+<p class="control-note">내부 운반자를 볼 수 있도록 관찰창을 열며 금속 Gate 자체는 불투명합니다.</p>
 <div>
 <h4>도핑과 이동 전하는 달라요</h4>
 <p>P형은 억셉터, N형은 도너를 넣은 반도체입니다. N+/P+는 해당 도핑이 높은 영역을 뜻합니다. Gate를 바꿔도 도핑 원자 수는 바뀌지 않고, 채널의 이동 전하 분포가 바뀝니다.</p>
@@ -148,11 +151,17 @@
 <a href="https://www.imec-int.com/en/press/imec-demonstrates-functional-monolithic-cfet-devices-stacked-bottom-and-top-contacts" target="_blank" rel="noopener noreferrer">imec CFET</a>
 </p>
 </div>
+<p>MOSFET의 N+–P–N+ / P+–N–P+는 단면의 도핑 배열입니다. 정상적인 Gate 전기장 제어를 설명하며 BJT의 베이스 전류 동작, 기생 효과와 파괴는 생략합니다. 실제 문턱 이하의 약반전과 누설도 연속적으로 존재합니다.</p>
+<p class="reference">
+<a href="https://web.mit.edu/6.012/FALL00/www/handouts/lec7.pdf" target="_blank" rel="noopener noreferrer">MIT MOS 전기장 강의</a>
+</p>
 </div>
 </details>
+<p class="reference"><a href="https://volga.eng.yale.edu/teaching-resources/semiconductors" target="_blank" rel="noopener noreferrer">Yale MOSFET 운반자 분포</a></p>
+<p class="reference"><a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/42c863e2e1e9744ce6b797646a30e463_MIT6_012F09_lec09.pdf" target="_blank" rel="noopener noreferrer">MIT Gate 장벽 제어 설명</a></p>
 <p class="lab-disclaimer">Gate 제어 · 부위별 분해와 확대 · 원리 설명용 · 실제 치수·속도·전류와 다릅니다.</p>
 </aside>
-<div class="scene-hint">하늘색: 전자 · 금색: 정공 · 모델/부위 이름을 눌러 확대</div>
+<div class="scene-hint">좌클릭 회전 · 우클릭 시점 이동 · 휠 확대</div>
 <button class="toggle-explanation" type="button" id="toggle-explanation" aria-controls="explanation-panel" aria-expanded="false">
 <svg viewBox="0 0 24 24" aria-hidden="true">
 <path d="M4 5h16v14H4zM8 9h8M8 13h6">
@@ -163,8 +172,10 @@
 <script src="../deployment.js?v=24">
 </script>
 <script type="module">
-try{if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const r=await fetch('/api/me',{cache:'no-store'});if(r.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!r.ok)throw Error('연결 실패');}await import('./lab-interface.js?v=1');await import('./semiconductor.js?v=3');}
+try{if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const r=await fetch('/api/me',{cache:'no-store'});if(r.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!r.ok)throw Error('연결 실패');}await import('./lab-interface.js?v=1');await import('./semiconductor.js?v=8');}
 catch{const message=document.querySelector('#scene-message');message.hidden=false;message.textContent='화면을 열지 못했어요. 연결을 확인하고 새로고침해주세요.';}
 </script>
+
+
 </body>
 </html>

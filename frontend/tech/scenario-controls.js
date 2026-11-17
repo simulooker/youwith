@@ -12,6 +12,7 @@ export function scenarioControls(cases,onChange){
     $('previous-step').disabled=step===0;$('next-step').disabled=step===stages.length-1;
     $('next-step').textContent=step===stages.length-1?'마지막 단계':'다음 단계';
     $('stage-name').textContent=stages[step].title;$('stage-description').textContent=stages[step].description;
+    for(const [id,key] of [['lesson-why','why'],['lesson-watch','watch'],['lesson-math','calculation']]){const field=$(id);if(field)field.textContent=stages[step][key]||'';}
     document.body.dataset.case=String(caseIndex);document.body.dataset.step=String(step);
     onChange(current,stages[step],caseIndex,step);
     if(focusedCase!==undefined)$('case-options').querySelector(`[data-case="${focusedCase}"]`)?.focus({preventScroll:true});
