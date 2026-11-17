@@ -177,7 +177,7 @@ Blog 첨부파일은 `blog_attachments` 테이블의 바이너리 데이터로 �
 
 Tech 목록은 PC 3열·태블릿 2열·휴대폰 1열 정사각형 카드입니다. MOSFET은 `frontend/tech/mosfet.html`이 진입점이며 같은 폴더의 CSS/JS로 화면과 3D 모델을 관리합니다. `frontend/blog.js`의 `TECH_ARTICLES`에 제목·소개·경로를 추가하면 새로운 HTML 콘텐츠를 목록에 연결할 수 있습니다. 기존 DB Tech 글도 카드로 유지되며 작성·수정·삭제 권한은 그대로입니다. HTML은 개발자가 관리하는 파일만 실행하며 Blog 첨부 HTML을 자동 실행하지 않습니다.
 
-3D 엔진은 `frontend/vendor/three`에 포함한 Three.js 0.187.0(MIT)입니다. 외부 CDN 호출 없이 실행합니다. `mosfet-cover.png`는 사용자가 제공한 카드 hover/focus 배경이며 CSS의 48% 어두운 덮개를 적용합니다. 3D 페이지는 바닥·벽·천장이 이어지는 정지 격자 공간을 사용합니다. 별·성운은 제거했습니다. NMOS는 학습용 단순화 단면 모델로 실제 비율이나 전기적 시뮬레이션을 뜻하지 않습니다. 전자 이동·분해·전압 제어는 포함하지 않습니다. 3D에는 WebGL2 지원이 필요하며 실패 시 안내 문구를 표시합니다.
+3D 엔진은 `frontend/vendor/three`에 포함한 Three.js 0.187.0(MIT)입니다. 외부 CDN 호출 없이 실행합니다. `mosfet-cover.png`는 사용자가 제공한 카드 hover/focus 배경이며 CSS의 48% 어두운 덮개를 적용합니다. 3D 페이지는 바닥·벽·천장이 이어지는 정지 격자 공간을 사용합니다. 별·성운은 제거했습니다. NMOS는 학습용 단순화 단면 모델로 실제 비율이나 전기적 시뮬레이션을 뜻하지 않습니다. Gate ON/OFF에 따른 상대 이동 전하 농도·전자/정공 이동과 부위별 분해·확대를 지원합니다. 수치 전기 해석이나 실제 공정 모델은 아닙니다. 3D에는 WebGL2 지원이 필요하며 실패 시 안내 문구를 표시합니다.
 
 MOSFET은 PC에서 왼쪽 3D 격자 공간과 오른쪽 모델 설정 패널로 나눕니다. 휴대폰에서는 패널이 모델 아래에 놓입니다. 전자 움직임 보기 버튼은 준비 중인 비활성 항목이며 실제 전자 시뮬레이션은 아직 없습니다.
 
@@ -191,6 +191,24 @@ MOSFET은 PC에서 왼쪽 3D 격자 공간과 오른쪽 모델 설정 패널로 
 
 ## Tech 반도체·AI 실험실
 
-새 콘텐츠: `frontend/tech/finfet.html`, `gaafet.html`, `cfet.html`, `neural-network.html`, `decision-tree.html`. 카메라·격자·조명·접근성 조작은 `lab-viewer.js`, 반도체 구조는 `semiconductor.js`에서 관리합니다. 기존 MOSFET은 그대로 유지합니다. 카드와 hover 배경은 사용자가 제공한 주제별 `*-cover.png`를 함께 사용합니다.
+새 콘텐츠: `frontend/tech/finfet.html`, `gaafet.html`, `cfet.html`, `neural-network.html`, `decision-tree.html`. 카메라·격자·조명·접근성 조작은 `lab-viewer.js`, 반도체 구조는 `semiconductor.js`에서 관리합니다. MOSFET도 같은 공유 소자 코드로 관리합니다. `mosfet.js`는 공유 코드의 진입 연결입니다. 카드와 hover 배경은 사용자가 제공한 주제별 `*-cover.png`를 함께 사용합니다.
 
-신경망 계산은 `neural-math.js`의 2–4–1 tanh/sigmoid 네트워크입니다. XOR 네 표본 전체의 BCE 손실을 평균내어 경사하강법으로 학습합니다. 예측 흐름은 선택 표본 하나를, 학습은 네 표본 전체를 보여줍니다. 결정트리는 `decision-tree-math.js`의 작은 CART 분류기로 가상 과일 표본 10개를 지니 불순도 기준으로 분할합니다. 두 모델 모두 브라우저에서 실제 계산하며 새로고침 시 초기화됩니다. 실제 데이터 모델이나 반도체 전기 시뮬레이터는 아닙니다.
+신경망 계산은 `neural-math.js`의 2–4–1 tanh/sigmoid 네트워크입니다. XOR 네 표본 전체의 BCE 손실을 평균내어 경사하강법으로 학습합니다. 예측 흐름은 선택 표본 하나를, 학습은 네 표본 전체를 보여줍니다. 결정트리는 `decision-tree-math.js`의 작은 CART 분류기로 가상 과일 표본 10개를 지니 불순도 기준으로 분할합니다. 두 모델은 경우 1·경우 2를 골라 이전/다음 단계와 결과 바로 보기로 탐색합니다. 학습은 개발 중에 한 번 계산하고 `learning-scenarios.js`에 저장하며 브라우저에서는 저장된 기록과 3D 장면만 표시합니다. 수치를 바꿀 때는 `npm run tech:build-scenarios`로 다시 생성합니다. 계산 구현과 재현 검사는 유지합니다. 실제 데이터 모델이나 반도체 전기 시뮬레이터는 아닙니다.
+
+
+### 소자 동작·분해 및 저장 학습 기록
+
+- `frontend/tech/semiconductor.js`: 네 소자의 구조, 수직 분해/재조립, 부위 선택과 카메라 확대, 입자 표시를 관리합니다. 이동 입자는 채널별 공유 점 객체를 사용하며 페이지가 숨겨지면 그리기를 멈춥니다. 동작 줄이기 설정에서는 고정 분포로 표시합니다.
+- `frontend/tech/device-state.js`: Gate 논리 상태와 부위별 역할·도핑 설명입니다. P/N 도핑은 고정이고, 이동 전하 농도만 Gate에 따라 달라집니다. CFET의 nFET과 pFET은 상보 동작하며 pFET의 주 운반자는 정공입니다. 상대 농도, 형상, 누설 생략은 학습용 가정입니다.
+- `scripts/build-learning-scenarios.mjs`: 원래 수학 모델로 0/1/200/4,000회 XOR 학습과 깊이 0/1/2 CART를 계산합니다. 생성된 `frontend/tech/learning-scenarios.js`는 약 14 KB이며 런타임 학습 코드와 분리합니다.
+- `frontend/tech/scenario-controls.js`: 두 모델이 공유하는 경우 선택·단계 이동입니다. `guided-labs.css`는 해당 화면의 배치만 관리합니다.
+- `tests/guided-learning.test.cjs`: 저장 결과를 원래 계산과 대조하고, 상보 Gate 상태와 런타임 학습 코드 미사용을 검사합니다.
+
+원리 자료: [MIT CMOS 강의](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c3/c3s1/), [imec CFET 설명](https://www.imec-int.com/en/press/imec-demonstrates-functional-monolithic-cfet-devices-stacked-bottom-and-top-contacts). 입력 전압은 두 상태로 단순화하며, 공핍 폭·실제 전류나 Poisson/수송 방정식을 계산하는 TCAD 모델이 아닙니다.
+
+
+### 3D 화면과 오른쪽 설명 목차
+
+여섯 Tech 페이지는 화면 전체에 하나의 WebGL 격자 공간을 그립니다. 별도의 아래 설명 영역은 없으며, 조작·구조 설명·학습 원리·결과 표를 오른쪽 반투명 패널의 목차에 배치합니다. 페이지 전체 대신 패널 안에서만 스크롤합니다. 휴대폰에서는 같은 3D 위로 오른쪽 설명창을 열고 닫으며, 닫힌 창은 키보드·화면 읽기 탐색에서 제외합니다.
+
+`frontend/tech/immersive-layout.css`는 전체 화면·블러·목차 배치를, `lab-interface.js`는 모바일 열기/닫기·Escape·3D 부위 선택 시 설명 열기를 관리합니다. `lab-viewer.js`는 오른쪽 설명창의 폭만큼 투영 중심을 왼쪽으로 옮겨 모델을 가리지 않으면서 배경은 패널 뒤까지 그립니다. 새 내용도 페이지 아래 대신 해당 패널의 목차에 추가합니다.

@@ -13,6 +13,7 @@
     "members:approve": "python -X utf8 server/auth_server.py approve",
     "members:revoke": "python -X utf8 server/auth_server.py revoke",
     "notices:job": "python -X utf8 server/notice_job.py",
-    "notices:refresh:apis": "python -X utf8 server/refresh_notices.py --apis-only"
+    "notices:refresh:apis": "python -X utf8 server/refresh_notices.py --apis-only",
+    "tech:build-scenarios": "node scripts/build-learning-scenarios.mjs"
   }
 }
