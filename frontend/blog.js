@@ -82,7 +82,7 @@ function blogPostView(data) {
 }
 // Add a trusted HTML article here and put its files in frontend/tech/.
 const TECH_ARTICLES=[
-  {id:'mosfet',title:'MOSFET',summary:'드래그로 만나는 반도체의 구조',tags:'3D · 반도체',url:'tech/mosfet.html',preview:'tech/mosfet-cover.png'},
+  {id:'mosfet',title:'MOSFET',summary:'드래그로 만나는 반도체의 구조',tags:'3D · 반도체',url:'tech/mosfet.html',preview:'tech/mosfet-cover.png?v=2'},
   {id:'finfet',title:'FinFET',summary:'채널의 세 면을 감싸는 게이트',tags:'3D · 반도체',url:'tech/finfet.html',preview:'tech/finfet-cover.png'},
   {id:'gaafet',title:'GAAFET',summary:'나노시트의 전체 둘레를 감싸다',tags:'3D · 반도체',url:'tech/gaafet.html',preview:'tech/gaafet-cover.png'},
   {id:'cfet',title:'CFET',summary:'nFET과 pFET을 위아래로 쌓다',tags:'3D · 반도체',url:'tech/cfet.html',preview:'tech/cfet-cover.png'},
@@ -92,7 +92,7 @@ const TECH_ARTICLES=[
 function techArticleCards() {
   if(blogState.page!==1)return '';
   const query=blogState.query.toLocaleLowerCase();
-  return TECH_ARTICLES.filter(article=>[article.title,article.summary,article.tags].join(' ').toLocaleLowerCase().includes(query)).map(article=>`<a class="tech-card ${article.id}-card ${article.id==='mosfet'?'':'image-card'}" data-cover="${article.id}" style="--cover:url('${article.preview}')" href="${article.url}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h2>${article.title}</h2><p>${article.summary}</p></div><span class="tech-card-meta">${article.tags}<span>열어보기</span></span></a>`).join('');
+  return TECH_ARTICLES.filter(article=>[article.title,article.summary,article.tags].join(' ').toLocaleLowerCase().includes(query)).map(article=>`<a class="tech-card ${article.id}-card image-card" data-cover="${article.id}" style="--cover:url('${article.preview}')" href="${article.url}"><svg class="tech-card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg><div><h2>${article.title}</h2><p>${article.summary}</p></div><span class="tech-card-meta">${article.tags}<span>열어보기</span></span></a>`).join('');
 }
 function blogList(data) {
   if(globalThis.YOUWITH_PUBLIC_PREVIEW&&blogState.category!=='tech')return '<section class="panel blog-feed blog-empty"><h2>게시판은 준비 중이에요.</h2><p>Tech에서는 반도체 구조와 AI 학습을 둘러볼 수 있어요.</p></section>';
