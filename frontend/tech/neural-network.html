@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e19">
+  <title>인공신경망 · YouWith Tech</title>
+  <link rel="stylesheet" href="mosfet.css?v=3"><link rel="stylesheet" href="neural-network.css?v=1"><link rel="stylesheet" href="tech-labs.css?v=1">
+</head>
+<body>
+  <header class="lab-header"><a class="back-link" href="../#blog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>Tech로 돌아가기</a><a class="wordmark" href="../#home">YouWith<span class="clover" aria-hidden="true"></span></a></header>
+  <main>
+    <section class="lab nn-lab" aria-labelledby="lab-title">
+      <div class="lab-title"><h1 id="lab-title">인공신경망</h1><p>예측하고, 틀려보고, 조금씩 배워갑니다.</p></div>
+      <div id="scene"><canvas id="lab-canvas" tabindex="0" aria-label="2–4–1 인공신경망. 드래그 또는 방향키로 회전하고 스크롤로 확대합니다."></canvas><div id="scene-message" class="scene-message" role="status">신경망을 불러오고 있어요.</div></div>
+      <aside class="lab-controls" aria-labelledby="nn-settings-title">
+        <h2 id="nn-settings-title">학습 실험실</h2>
+        <fieldset class="input-pairs"><legend>입력 선택</legend><div id="sample-buttons"><button type="button" data-sample="0" aria-pressed="false">0, 0</button><button type="button" data-sample="1" aria-pressed="true">0, 1</button><button type="button" data-sample="2" aria-pressed="false">1, 0</button><button type="button" data-sample="3" aria-pressed="false">1, 1</button></div><p>XOR: 두 입력이 다르면 정답은 1이에요.</p></fieldset>
+        <div class="prediction"><span>1의 예측 확률 <strong id="nn-prediction">—</strong></span><span>예측 <b id="nn-class">—</b> · 정답 <b id="nn-target">1</b></span></div>
+        <div class="nn-actions"><button id="nn-predict" type="button">예측 과정 보기</button><button id="nn-step" type="button">다음 단계</button></div>
+        <div class="training-controls"><label for="learning-rate">학습률 <output id="rate-value" for="learning-rate">0.5</output></label><input id="learning-rate" type="range" min="0.05" max="1" step="0.05" value="0.5"><div class="nn-actions"><button id="nn-train" type="button">100회 학습</button><button id="nn-auto" type="button" aria-pressed="false">자동 학습</button></div></div>
+        <dl class="training-stats"><div><dt>학습 횟수</dt><dd id="nn-epochs">0</dd></div><div><dt>평균 손실</dt><dd id="nn-loss">—</dd></div></dl>
+        <div class="nn-stage" role="status"><strong id="stage-name">입력 준비</strong><p id="stage-description">입력 두 개를 골라 예측 과정을 살펴보세요.</p></div>
+        <div class="nn-secondary"><button id="nn-reset" type="button">학습 초기화</button><button id="reset-view" type="button">시점 초기화</button></div>
+      </aside>
+      <div class="scene-hint"><span class="nn-key positive"></span><span>양의 가중치</span><span class="nn-key negative"></span><span>음의 가중치</span><span class="hint-detail">드래그로 회전</span></div>
+      <div class="model-caption"><span>입력 2 → 은닉 4 → 출력 1</span><span>실제 가중치 학습 · 새로고침하면 초기화됩니다.</span></div>
+    </section>
+    <section class="nn-details" aria-labelledby="details-title"><div><h2 id="details-title">작은 네트워크가 XOR을 배우는 방법</h2><p>정답 네 개를 반복해서 보면서, 연결의 가중치와 노드의 편향을 바꿉니다. 예측은 선택한 입력 하나에 대한 결과이고, 평균 손실은 아래 네 입력 전체에서 계산합니다.</p><ol><li><strong>순전파</strong> 입력에 가중치를 곱하고 편향을 더한 뒤, 은닉층은 tanh, 출력층은 sigmoid를 통과합니다.</li><li><strong>오차 비교</strong> 예측과 정답을 이진 교차 엔트로피로 비교합니다.</li><li><strong>역전파와 갱신</strong> 각 가중치가 손실에 미친 영향을 계산하고, 손실을 줄이는 방향으로 조정합니다.</li></ol><p class="nn-note">선의 두께는 가중치의 절댓값을, 구의 밝기는 활성값의 크기를 나타냅니다. 애니메이션은 계산 순서를 보여주는 표현이며 실제 전자 이동이 아닙니다.</p></div><div class="results-wrap"><h2>네 가지 입력의 예측</h2><table><thead><tr><th scope="col">입력</th><th scope="col">정답</th><th scope="col">1의 예측 확률</th><th scope="col">예측</th></tr></thead><tbody id="prediction-table"></tbody></table><p>판정 기준: 확률 0.5 이상이면 1</p></div></section>
+  </main>
+  <script src="../deployment.js?v=24"></script>
+  <script type="module">
+    try {if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const response=await fetch('/api/me',{cache:'no-store'});if(response.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!response.ok)throw Error('인증 연결 실패');}await import('./neural-network.js?v=1');}
+    catch {document.querySelector('#scene-message').textContent='화면을 열지 못했어요. 연결을 확인하고 새로고침해주세요.';}
+  </script>
+</body>
+</html>

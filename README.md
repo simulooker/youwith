@@ -187,3 +187,10 @@ MOSFET은 PC에서 왼쪽 3D 격자 공간과 오른쪽 모델 설정 패널로 
 현재 GitHub Pages는 로그인 없이 화면을 둘러볼 수 있습니다. `.github/workflows/static.yml`이 배포본 `frontend/deployment.js`의 공개 보기 설정을 켭니다. 로컬 원본은 false이며 Python 서버의 로그인·운영진 승인·Blog API 권한은 유지합니다. 공개 보기에서는 관리자 권한을 부여하지 않으며 계정·서버 DB·인증키를 제공하지 않습니다.
 
 공개 보기에서 홈·게임·공부 타이머·기존 공지·Tech HTML 콘텐츠를 볼 수 있습니다. 공지는 배포 당시 저장본이며 서버 예약 수집이 실행되는 것은 아닙니다. 모집 데이터는 방문자의 브라우저에만 저장되고 다른 사용자와 공유되지 않습니다. DB를 쓰는 Blog 글·댓글·첨부파일 등록은 비활성화하고 준비 중으로 표시합니다. 로그인 기능을 다시 적용하려면 실제 Python 서버를 배포하고 Pages 공개 보기 설정을 사용하지 않습니다.
+
+
+## Tech 반도체·AI 실험실
+
+새 콘텐츠: `frontend/tech/finfet.html`, `gaafet.html`, `cfet.html`, `neural-network.html`, `decision-tree.html`. 카메라·격자·조명·접근성 조작은 `lab-viewer.js`, 반도체 구조는 `semiconductor.js`에서 관리합니다. 기존 MOSFET은 그대로 유지합니다. 카드와 hover 배경은 사용자가 제공한 주제별 `*-cover.png`를 함께 사용합니다.
+
+신경망 계산은 `neural-math.js`의 2–4–1 tanh/sigmoid 네트워크입니다. XOR 네 표본 전체의 BCE 손실을 평균내어 경사하강법으로 학습합니다. 예측 흐름은 선택 표본 하나를, 학습은 네 표본 전체를 보여줍니다. 결정트리는 `decision-tree-math.js`의 작은 CART 분류기로 가상 과일 표본 10개를 지니 불순도 기준으로 분할합니다. 두 모델 모두 브라우저에서 실제 계산하며 새로고침 시 초기화됩니다. 실제 데이터 모델이나 반도체 전기 시뮬레이터는 아닙니다.

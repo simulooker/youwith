@@ -102,3 +102,11 @@ body:has(.mosfet-card:hover)::after, body:has(.mosfet-card:focus-visible)::after
 .tech-shell .blog-pagination { background:var(--surface); padding:8px 16px; border-radius:8px; }
 
 @media(min-width:851px) and (max-width:1100px) { .tech-card { padding:22px; gap:18px; }.tech-card h2 { font-size:24px; -webkit-line-clamp:2; }.tech-card p { -webkit-line-clamp:1; }.tech-card-meta { padding-top:12px; } }
+
+.tech-card.image-card { background:linear-gradient(180deg,rgba(3,10,20,.12),rgba(3,10,20,.94)),var(--cover) center/cover no-repeat;color:#f1f5f7; }
+.tech-card.image-card h2 { color:#f1f5f7; }.tech-card.image-card p{color:#d6e3ef}.tech-card.image-card .tech-card-meta{color:#c7e0da;border-color:#5c7385}.tech-card.image-card .tech-card-arrow{color:#e1efeb}.tech-card.image-card:hover{background:linear-gradient(180deg,rgba(3,10,20,.18),rgba(3,10,20,.96)),var(--cover) center/cover no-repeat}
+body:has(.neural-network-card:hover)::after,body:has(.neural-network-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/neural-network-cover.png') center/cover no-repeat;opacity:1;}
+body:has(.decision-tree-card:hover)::after,body:has(.decision-tree-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/decision-tree-cover.png') center/cover no-repeat;opacity:1;}
+body:has(.finfet-card:hover)::after,body:has(.finfet-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/finfet-cover.png') center/cover no-repeat;opacity:1;}
+body:has(.gaafet-card:hover)::after,body:has(.gaafet-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/gaafet-cover.png') center/cover no-repeat;opacity:1;}
+body:has(.cfet-card:hover)::after,body:has(.cfet-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/cfet-cover.png') center/cover no-repeat;opacity:1;}
