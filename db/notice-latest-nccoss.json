@@ -3,11 +3,24 @@
   "name": "차세대통신사업단",
   "url": "https://jnu.nccoss.kr/www/notice/",
   "kind": "통신·캡스톤·지원",
-  "checkedAt": "2026-11-15T12:50:16+09:00",
+  "checkedAt": "2026-11-17T03:09:34+09:00",
   "notices": [
+    {
+      "title": "「2026 차세대통신 X 융합 창업 아이디어 경진대회」참가 신청",
+      "url": "https://jnu.nccoss.kr/www/notice/view/391",
+      "publishedAt": "2026-11-16",
+      "startsAt": null,
+      "endsAt": "2026-11-18",
+      "dateNote": "",
+      "dateEvidence": "신청기간: ~ 2026. 11. 18.(수) 17:00",
+      "category": "대회·공모전",
+      "loginRequired": false,
+      "status": "open"
+    },
     {
       "title": "2026년 한국전자통신연구원(ETRI) 견학 (★선착순 모집★)",
       "url": "https://jnu.nccoss.kr/www/notice/view/390",
+      "publishedAt": "2026-11-11",
       "startsAt": null,
       "endsAt": "2026-11-23",
       "dateNote": "",
@@ -17,19 +30,9 @@
       "status": "open"
     },
     {
-      "title": "2026학년도 2학기 기업 연계형 캡스톤디자인 과제 지원 안내(~9/30(수) 15:00까지)",
-      "url": "https://jnu.nccoss.kr/www/notice/view/384",
-      "startsAt": null,
-      "endsAt": null,
-      "dateNote": "복수 일정 · 원문 확인",
-      "dateEvidence": "",
-      "category": "모집·프로그램",
-      "loginRequired": false,
-      "status": "unknown"
-    },
-    {
       "title": "2026학년도 2학기 캡스톤디자인 WE-Meet 프로젝트 과제 신청 결과 안내",
       "url": "https://jnu.nccoss.kr/www/notice/view/383",
+      "publishedAt": "2026-09-22",
       "startsAt": null,
       "endsAt": null,
       "dateNote": "모집기간 확인 필요",
@@ -39,19 +42,9 @@
       "status": "unknown"
     },
     {
-      "title": "2026학년도 2학기 캡스톤디자인 WE-Meet 프로젝트 과제 지원 안내(~9/21(월) 10:00까지)",
-      "url": "https://jnu.nccoss.kr/www/notice/view/382",
-      "startsAt": null,
-      "endsAt": null,
-      "dateNote": "복수 일정 · 원문 확인",
-      "dateEvidence": "",
-      "category": "모집·프로그램",
-      "loginRequired": false,
-      "status": "unknown"
-    },
-    {
       "title": "차세대통신 혁신융합대학사업단 2026학년도 2학기 교육·실습 기자재 대여안내",
       "url": "https://jnu.nccoss.kr/www/notice/view/381",
+      "publishedAt": "2026-08-14",
       "startsAt": null,
       "endsAt": null,
       "dateNote": "복수 일정 · 원문 확인",
@@ -63,6 +56,7 @@
     {
       "title": "(하계 마이크로디그리 신청이벤트) 2026 NCCOSS SUMMER BIG EVENT 추첨 결과 안내",
       "url": "https://jnu.nccoss.kr/www/notice/view/379",
+      "publishedAt": "2026-08-05",
       "startsAt": null,
       "endsAt": null,
       "dateNote": "모집기간 확인 필요",

@@ -20,7 +20,7 @@ function startGame() {
   );
   render();
   gameInterval = setInterval(() => {
-    if (document.hidden) return;
+    if (document.hidden || (typeof playgroundGame!=="undefined" && playgroundGame!=="apple")) return;
     gameRemaining--;
     const el = document.querySelector("#game-time");
     if (el) el.textContent = gameRemaining;

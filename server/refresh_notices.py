@@ -1,6 +1,6 @@
 """Daily public notice refresh: source adapters, explicit application dates, no login.
 
-Run with Python 3.10+. No third-party packages. Schedule is managed by Codex.
+Run with Python 3.10+. No third-party packages. Daily schedule belongs to the deployment server; see server/deploy/.
 """
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
@@ -18,11 +18,12 @@ from robots_policy import RobotsPolicy
 import xml.etree.ElementTree as ET
 
 import check_notice_sources as audit
+from public_notice_apis import collect_other
 
 ROOT = audit.ROOT
 KST = timezone(timedelta(hours=9))
 BOT = 'YouWith-NoticeCheck'
-TECH = re.compile(r'\bAI\b|\bSW\b|\bIT\b|\bICT\b|소프트웨어|전자|컴퓨터|반도체|통신|프로그래밍|코딩|데이터|인공지능|로봇|임베디드|해커톤|캡스톤|정보보안|사이버|클라우드|자율주행|개발자|디지털|빅데이터|머신러닝|딥러닝|공학', re.I)
+TECH = re.compile(r'\bAI\b|\bSW\b|\bIT\b|\bICT\b|소프트웨어|전자|컴퓨터|반도체|통신|프로그래밍|코딩|데이터|인공지능|로봇|임베디드|해커톤|캡스톤|정보보안|사이버|클라우드|자율주행|개발자|디지털|빅데이터|머신러닝|딥러닝|공학|정보통신|네트워크|무선|위성통신|안테나|신호처리|영상처리|전력전자|전자파|광전자|팹리스|파운드리|웨이퍼|리소그래피|노광|식각|증착|클린룸|회로설계|집적회로|컴퓨터구조|\bFPGA\b|\bASIC\b|\bSoC\b|\bRTL\b|\bEDA\b|\bVLSI\b|\bUVM\b|\bTCAD\b|\b5G\b|\b6G\b|\bIoT\b', re.I)
 OPPORTUNITY = re.compile(r'모집|신청|접수|공모|경진|대회|해커톤|서포터즈|지원사업|인턴|교육|프로그램|장학|부트캠프|캡스톤|프로젝트')
 EXCLUDE = re.compile(r'결과\s*발표|선정\s*결과|합격자|현황조|만족도|채용공고|교원|교수|조교|교육공무원|대학원생|대학원\s*신입|초중고|초등|중학생|고등학생|졸업|수강신청|학점교류|안전교육|폭력|백일장|전공배정')
 CORE = {'eceng', 'nccoss', 'aicoss', 'semiconductor', 'software', 'icee', 'engineering'}
@@ -271,7 +272,7 @@ def collect_public_home(source, previous, reader, result):
             period = application_period(entry, '')
             if period['endsAt'] and period['endsAt'] < today:
                 continue
-            item = {'title': entry['title'], 'url': url, **period, 'category': category(entry['title']), 'status': 'unknown', 'detailNotCollected': True}
+            item = {'title': entry['title'], 'url': url, 'publishedAt':entry.get('publishedAt'), **period, 'category': category(entry['title']), 'status': 'unknown', 'detailNotCollected': True}
             if item['endsAt']:
                 item['status'] = 'upcoming' if item['startsAt'] and item['startsAt'] > today else 'open'
             result['notices'].append(item)
@@ -358,6 +359,7 @@ def collect(source, previous, cached=False):
         if period['endsAt'] and period['endsAt'] < today:
             continue
         notice = {key: entry[key] for key in ('title', 'url')}
+        notice['publishedAt']=entry.get('publishedAt')
         notice.update(period, category=category(entry['title']), loginRequired=restricted, status='unknown')
         if period['endsAt']:
             notice['status'] = 'upcoming' if period['startsAt'] and period['startsAt'] > today else 'open'
@@ -382,16 +384,31 @@ def collect(source, previous, cached=False):
     return result
 
 
-def main(cached=False):
+def main(cached=False, apis_only=False):
     (ROOT / 'db').mkdir(parents=True, exist_ok=True)
     output = ROOT / 'frontend/notice-data.js'
     previous = {}
-    if output.exists():
-        old = json.loads(output.read_text(encoding='utf-8').split('=', 1)[1].strip().rstrip(';'))
-        previous = {s['id']: s for s in old['sources']}
-    with ThreadPoolExecutor(max_workers=3) as pool:
-        sources = list(pool.map(lambda source: collect(source, previous.get(source['id']), cached), audit.SOURCES))
-    data = {'checkedAt': datetime.now(KST).isoformat(timespec='seconds'), 'schedule': '매일 09:00 · 한국 시간', 'sources': sources}
+    # Persistent server data survives code deployments and is the API's primary source.
+    for candidate in (ROOT / 'db/notice-refresh.json', output):
+        if not candidate.exists():
+            continue
+        try:
+            text = candidate.read_text(encoding='utf-8')
+            old = json.loads(text.split('=', 1)[1].strip().rstrip(';') if candidate == output else text)
+            previous = {source['id']: source for source in old['sources']}
+            break
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
+    if apis_only:
+        if any(source['id'] not in previous for source in audit.SOURCES):
+            raise RuntimeError('기존 기관 데이터가 없어 API만 갱신할 수 없습니다.')
+        sources = [previous[source['id']] for source in audit.SOURCES]
+    else:
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            sources = list(pool.map(lambda source: collect(source, previous.get(source['id']), cached), audit.SOURCES))
+    checked = datetime.now(KST).isoformat(timespec='seconds')
+    sources.append(collect_other(previous.get('other'), ROOT / 'db/notice-api-settings.json', checked, application_period, category, relevant, cached=cached))
+    data = {'checkedAt': checked, 'schedule': '매일 09:00 · 한국 시간', 'sources': sources}
     temp = output.with_suffix('.tmp')
     temp.write_text('let NOTICE_DATA = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n', encoding='utf-8')
     temp.replace(output)
@@ -399,10 +416,15 @@ def main(cached=False):
     json_temp = json_output.with_suffix('.tmp')
     json_temp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
     json_temp.replace(json_output)
-    (ROOT / 'db/notice-refresh.json').write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+    snapshot = ROOT / 'db/notice-refresh.json'
+    snapshot_temp = snapshot.with_suffix('.tmp')
+    snapshot_temp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+    snapshot_temp.replace(snapshot)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cached', action='store_true', help='네트워크 요청 없이 보관 응답의 날짜 분석만 재검증')
-    main(parser.parse_args().cached)
+    parser.add_argument('--apis-only', action='store_true', help='기존 기관은 다시 수집하지 않고 기타 공식 API만 갱신')
+    args = parser.parse_args()
+    main(args.cached, args.apis_only)

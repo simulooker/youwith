@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e19">
+  <title>MOSFET · YouWith Tech</title>
+  <link rel="stylesheet" href="mosfet.css?v=3">
+</head>
+<body>
+  <header class="lab-header">
+    <a class="back-link" href="/&#35;blog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>Tech로 돌아가기</a>
+    <a class="wordmark" href="/&#35;home">YouWith<span class="clover" aria-hidden="true"></span></a>
+  </header>
+  <main>
+    <section class="lab" aria-labelledby="lab-title">
+      <div class="lab-title"><h1 id="lab-title">MOSFET</h1><p>작은 반도체, 새로운 시선.</p></div>
+      <div id="scene" role="region" aria-label="회전 가능한 n채널 MOSFET 3D 구조">
+        <canvas id="mosfet-canvas" tabindex="0" aria-label="MOSFET 3D 모델. 드래그 또는 방향키로 회전, 스크롤 또는 더하기·빼기 키로 확대·축소합니다."></canvas>
+        <div id="scene-message" class="scene-message" role="status">3D 구조를 불러오고 있어요.</div>
+      </div>
+      <aside class="lab-controls" aria-labelledby="model-settings-title"><h2 id="model-settings-title">모델 설정</h2><div class="view-controls">
+        <button id="reset-view" type="button" title="처음 시점으로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></svg><span>처음 시점</span></button>
+        <button id="auto-rotate" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 10 7-10 7Z"/></svg><span>자동 회전</span></button>
+        <button id="toggle-labels" type="button" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M12 5v14M8 19h8"/></svg><span>구조 이름</span></button>
+      </div><div class="upcoming-controls"><h3>시뮬레이션</h3><button type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="3"/><path d="M12 12h9m-4-4 4 4-4 4"/></svg><span>전자 움직임 보기</span><small>준비 중</small></button></div></aside>
+      <div class="scene-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7-4 5 4 5m10-10 4 5-4 5M3 12h18"/></svg><span>드래그로 회전 · 스크롤 / 두 손가락으로 확대</span></div>
+      <div class="model-caption"><span>n-channel MOSFET</span><span>구조 이해를 위한 단순화 모델 · 실제 비율과 다름</span></div>
+    </section>
+    <section class="structure" aria-labelledby="structure-title">
+      <div class="structure-intro"><h2 id="structure-title">하나의 소자를 이루는 구조</h2><p>게이트와 기판 사이의 얇은 절연막.<br>그 아래에서 전류의 길이 결정됩니다.</p></div>
+      <dl class="structure-parts">
+        <div><dt><i class="swatch gate"></i>Gate</dt><dd>게이트 전극</dd></div>
+        <div><dt><i class="swatch oxide"></i>Oxide</dt><dd>게이트 절연막</dd></div>
+        <div><dt><i class="swatch source"></i>Source</dt><dd>n⁺ 소스 영역</dd></div>
+        <div><dt><i class="swatch drain"></i>Drain</dt><dd>n⁺ 드레인 영역</dd></div>
+        <div><dt><i class="swatch body"></i>Body</dt><dd>p형 실리콘 기판</dd></div>
+      </dl>
+      <p class="reference">구조 참고 <a href="https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c3/c3s1/" target="_blank" rel="noopener noreferrer">MIT OpenCourseWare <span aria-hidden="true">↗</span></a></p>
+    </section>
+  </main>
+  <noscript><p class="no-script">3D 모델을 보려면 JavaScript를 켜주세요. <a href="/#blog">Tech로 돌아가기</a></p></noscript>
+  <script type="module">
+    try {
+      const response=await fetch('/api/me',{cache:'no-store'});
+      if(response.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');}
+      else if(!response.ok)throw Error('인증 서버 연결 실패');
+      else await import('./mosfet.js?v=4');
+    } catch {
+      const message=document.querySelector('#scene-message');
+      message.textContent='3D 화면을 열지 못했어요. 연결을 확인하고 새로고침해주세요.';
+    }
+  </script>
+</body>
+</html>

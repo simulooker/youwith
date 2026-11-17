@@ -3,3 +3,13 @@ node_modules/
 __pycache__/
 *.py[cod]
 db/notice-cache/
+
+db/*.sqlite3
+db/*.sqlite3-*
+.env
+
+db/auth-settings.json
+
+db/notice-schedule-status.json
+
+db/notice-api-settings.json

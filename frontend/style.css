@@ -2329,13 +2329,81 @@ main {
 .major-option strong { display:block; font-size:15px; }
 .major-option small { display:block; margin-top:4px; color:var(--muted); font-size:12px; line-height:1.7; overflow-wrap:anywhere; }
 .major-help { margin-top:0; margin-bottom:20px; }
-.allcon-search { margin-top:16px; border-top:1px solid var(--line); padding-top:12px; }
-.allcon-search summary { cursor:pointer; font-size:13px; color:var(--green-text); min-height:36px; padding:6px 0; }
-.allcon-search-links { display:flex; flex-wrap:wrap; gap:8px 20px; }
-.allcon-search-links a { min-height:44px; display:inline-flex; align-items:center; }
 .notice-filter-buttons { flex-wrap:wrap; }
 @media (max-width:600px) {
   .notice-filter-buttons { gap:6px; }
   .notice-filter-buttons button { gap:6px; padding:10px 8px; font-size:13px; min-height:44px; }
   .notice-filter-buttons .filter-chevron { width:14px; height:14px; }
+}
+
+body[data-auth-pending] { visibility: hidden; }
+
+/* Institution filters: university, programs, and external providers. */
+.notice-institution-groups {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;}
+.notice-institution-group {min-width:0;}
+.notice-institution-group h2 {margin:8px 0 12px;font-size:16px;font-weight:700;color:var(--green);}
+.notice-institution-group .institution-options {grid-template-columns:minmax(0,1fr);gap:4px;}
+@media(max-width:700px) {
+  .notice-institution-groups {grid-template-columns:minmax(0,1fr);gap:20px;}
+  .notice-institution-group h2 {margin-top:0;}
+  .notice-institution-group .institution-option,.notice-institution-group .institution-unavailable {font-size:14px;}
+}
+
+/* 공모전 목록: 기관별 / 유형별 전환 */
+.notice-list-options { display:flex; align-items:center; flex-wrap:wrap; gap:12px 18px; margin:20px 0 0; }
+.notice-list-options[hidden] { display:none; }
+.notice-list-options > span { font-size:12px; line-height:1.7; }
+.notice-group-switch { position:relative; display:flex; flex-shrink:0; padding:4px; background:var(--mint); border-radius:12px; isolation:isolate; }
+.notice-group-switch::before { content:''; position:absolute; inset:4px auto 4px 4px; width:calc((100% - 8px)/2); background:var(--surface); border-radius:8px; z-index:-1; transform:translateX(0); transition:transform 260ms cubic-bezier(.22,1,.36,1); }
+.notice-group-switch[data-grouping="type"]::before { transform:translateX(100%); }
+.notice-group-switch button { min-height:44px; min-width:102px; padding:10px 16px; font-size:14px; color:var(--muted); transition:color 180ms ease; }
+.notice-group-switch button[aria-pressed="true"] { color:var(--green-text); font-weight:700; }
+.notice-chronological { min-width:0; }
+.notice-chronological-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+.notice-chronological-heading h2 { font-size:20px; margin:0; }
+.notice-row .notice-published { font-size:12px; line-height:1.7; }
+@media(max-width:600px) {
+  .notice-list-options { align-items:flex-start; flex-direction:column; gap:8px; }
+  .notice-chronological-heading h2 { font-size:18px; }
+}
+:root[data-reduced-motion="true"] .notice-group-switch::before,
+:root[data-reduced-motion="true"] .notice-group-switch button { transition:none; }
+@media(prefers-reduced-motion:reduce) {
+  .notice-group-switch::before,.notice-group-switch button { transition:none; }
+}
+
+.playground-tabs { margin-bottom:24px; }
+.tetris-panel { max-width:820px; }
+.tetris-panel .section-heading { flex-wrap:wrap; gap:12px; }
+#tetris-status { font-size:14px; color:var(--muted); }
+.tetris-layout { display:grid; grid-template-columns:minmax(0,300px) minmax(180px,1fr); gap:28px; }
+#tetris-board { display:block; width:100%; height:auto; max-width:300px; border-radius:8px; border:1px solid var(--line); }
+.tetris-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:12px; }
+.tetris-controls button { min-height:44px; background:var(--mint); color:var(--text); border-radius:8px; font-size:20px; touch-action:manipulation; }
+.tetris-controls button:last-child { grid-column:1 / -1; font-size:14px; background:var(--green); color:var(--on-primary); }
+.tetris-info { display:grid; gap:16px; align-content:start; min-width:0; }
+.tetris-info dl { display:grid; gap:14px; margin:0; }
+.tetris-info dl > div { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.tetris-info dt { color:var(--muted); font-size:14px; }
+.tetris-info dd { margin:0; font-size:28px; font-weight:700; font-variant-numeric:tabular-nums; }
+.tetris-next { display:flex; align-items:center; justify-content:space-between; font-size:14px; }
+.tetris-info button:disabled { opacity:.5; cursor:default; }
+.meal-preview .section-heading { gap:12px; flex-wrap:wrap; }
+.meal-preview p { line-height:1.8; }
+@media(max-width:600px) {
+  .tetris-layout { grid-template-columns:minmax(0,1fr); gap:24px; }
+  .tetris-layout > div:first-child { max-width:260px; width:100%; margin:auto; }
+  .tetris-info dl { grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+  .tetris-info dl > div { display:grid; gap:6px; }
+  .tetris-next { justify-content:flex-start; gap:20px; }
+}
+
+.tetris-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+.tetris-actions button { min-width:120px; }
+@media(max-width:600px) {
+  .tetris-actions button { min-width:0; flex:1; }
+  #tetris-board { height:min(48dvh,400px); width:auto; margin:auto; max-width:100%; }
+  .tetris-info { display:contents; }
+  .tetris-info dl { order:-1; }
+  body[data-page="game"] .sidebar-tools { top:12px; bottom:auto; }
 }

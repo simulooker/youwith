@@ -7,8 +7,8 @@ vm.runInContext(
   context,
 );
 const data = vm.runInContext("NOTICE_DATA", context);
-assert.equal(data.sources.length, 12);
-assert.equal(new Set(data.sources.map((source) => source.id)).size, 12);
+assert.equal(data.sources.length, 13);
+assert.equal(new Set(data.sources.map((source) => source.id)).size, 13);
 for (const source of data.sources) {
   for (const notice of source.notices) {
     assert.ok(notice.title.trim());
@@ -27,5 +27,5 @@ for (const item of notices.filter((item) => /채용/.test(item.title))) {
   assert.equal(item.category, "인턴·취업");
 }
 console.log(
-  "12 distinct sources, external notice URLs and restricted-source labels passed.",
+  "12 institutions plus the official API group, external notice URLs and restricted-source labels passed.",
 );

@@ -30,6 +30,7 @@ const screens = {
   study,
   game,
   activity,
+  blog,
   profile,
   fit,
   settings: settingsScreen,
@@ -47,6 +48,7 @@ function renderNavigation() {
       links + (id === "desktop-nav" ? instagram : "");
 }
 function render() {
+  document.body.dataset.page=page;
   main.className = page === "home" ? "home" : "";
   main.innerHTML = (screens[page] || home)();
   renderNavigation();
@@ -121,7 +123,7 @@ function bind(root = document) {
     .querySelector("#push-info")
     ?.addEventListener("click", () =>
       showDialog(
-        "<h2>놓치지 않게, 푸시 알림</h2><p>실제 서비스에서는 참가 신청과 처리 결과를 휴대폰으로 알려드려요.</p><p>현재는 미리보기 단계로, 알림 권한을 요청하거나 실제 푸시를 보내지 않아요. 기기별 PWA 설치와 지원 조건은 서비스 연결 시 확인합니다.</p>",
+        "<h2>놓치지 않게, 푸시 알림</h2><p>실제 서비스에서는 참가 신청과 처리 결과를 휴대폰으로 알려드려요.</p><p>휴대폰 푸시 알림은 아직 지원하지 않아요.</p>",
       ),
     );
   root.querySelector("#fit-form")?.addEventListener("submit", (e) => {
@@ -153,7 +155,7 @@ function bind(root = document) {
     e.target.hidden = true;
     const result = document.querySelector("#fit-result");
     result.hidden = false;
-    result.innerHTML = `<span class="activity-icon">${icon("spark")}</span><h2>${name}부터 시작해보세요</h2><p>${desc}</p><span class="pill">${skills}</span><p class="small-muted">관심 분야에 따른 예시 결과예요. 해보면서 나에게 맞는 역할을 찾아가면 돼요.</p><button class="primary" data-page="activity">함께할 프로젝트 찾아보기</button><button class="text-button" data-page="fit" style="display:block">다시 찾아보기</button>`;
+    result.innerHTML = `<span class="activity-icon">${icon("spark")}</span><h2>${name}부터 시작해보세요</h2><p>${desc}</p><span class="pill">${skills}</span><p class="small-muted">관심 분야를 바탕으로 추천했어요.</p><button class="primary" data-page="activity">함께할 프로젝트 찾아보기</button><button class="text-button" data-page="fit" style="display:block">다시 찾아보기</button>`;
     bind(result);
   });
   root.querySelector("#start-game")?.addEventListener("click", startGame);
@@ -161,6 +163,8 @@ function bind(root = document) {
   bindSettings(root);
   bindRecruitment(root);
   bindNoticeBoard(root);
+  bindBlog(root);
+  bindTetris(root);
 }
 // Escaping keeps user-entered prototype titles from becoming HTML when rendered.
 const escapeHTML = (s) =>
@@ -202,6 +206,11 @@ window.addEventListener("hashchange", () => {
   const next = location.hash.slice(1) || "home";
   const target = screens[next] ? next : "home";
   if (target === page) return;
+  if (page === "blog" && !blogCanDiscard()) {
+    history.replaceState(null,"",location.pathname+location.search+"#blog");
+    return;
+  }
+  if (page === "blog") blogState.editor=null;
   const direction = navigationDirection(page, target);
   document.documentElement.dataset.pageDirection = direction;
   const update = () => {
@@ -246,12 +255,12 @@ render();
 async function refreshNoticeData() {
   if (page !== "activity") return;
   try {
-    const response = await fetch("notices.json", { cache: "no-store" });
+    const response = await fetch("/api/notices", { cache: "no-store" });
     if (!response.ok) return;
     const next = await response.json();
     if (
       !Array.isArray(next.sources) ||
-      next.sources.length !== 12 ||
+      next.sources.length < 12 ||
       !next.sources.every((source) => Array.isArray(source.notices))
     )
       return;

@@ -17,12 +17,12 @@
       "detailNotCollected": true
     }
   ],
-  "status": "partial",
-  "note": "공개 첫 화면 목록만 수집 · 상세 본문은 읽지 않아요.",
+  "status": "unverified",
+  "note": "공개 첫 화면 갱신 실패",
   "method": "공개 첫 화면 목록",
-  "coverage": "공개 첫 화면 1페이지 · 목록 23건 확인 · 상세 미수집",
-  "errors": [],
-  "collectionScope": "public-home-list",
-  "pageCount": 1,
-  "scannedCount": 23
+  "coverage": "",
+  "errors": [
+    "robots.txt 확인 불가: <urlopen error timed out>"
+  ],
+  "collectionScope": "public-home-list"
 }

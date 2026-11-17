@@ -308,3 +308,13 @@ Game feedback: selected successful apples spawn noninteractive visual clones tha
 Current user refinement: home project rows match the supplied reference with neutral row surfaces, green 46px icon tiles/white strokes, green title backplates and neutral metadata. Settings share one compact surface, max width 680px, grouped single-column sections, at least 56px rows and no appearance-toggle descriptions. Weekly study bars expose h:mm values and explicitly retain the illustrative-data label. The notice-intro panel is removed and the filter label is 게시글 유형.
 
 Current targeted addition: three adjacent filter controls (공지 기관, 게시글 유형, 전공 선택), one expanded drawer at a time. Major checkboxes use neutral typography with explanatory keyword text. Recruitment owner controls provide edit and confirmed delete beside applicant access; preserve the existing Sage Green & Greige identity and mobile touch targets.
+
+로그인 화면은 기존 세이지 그린·그레이지 색상, 440px 폭의 밝은 단일 패널과 48px 입력·버튼을 사용한다. 로그인 문구만 표시하며 시연·미리보기 배지는 사용하지 않는다. 390px에서 가로 넘침 없이 표시한다.
+
+카카오 로그인 버튼은 공식 가이드의 노란색 #FEE500 바탕·검정 말풍선·85% 검정 문구를 사용한다. 승인 대기·취소·오류는 버튼 아래 읽을 수 있는 문구로 표시한다. 기존 아이디 입력은 접힌 보조 메뉴에 둔다.
+
+Blog uses Read mode: one editorial feed with author/date, title, summary and tags; no extra decorative tiles. Articles have 32px desktop/26px mobile titles, 16px body with 1.9 line-height, safe Markdown code blocks and separate comments. All colors follow existing light/dark tokens. The top bar is removed; PC utility buttons sit at the sidebar bottom, and mobile utilities sit above the six-item bottom navigation.
+
+Notice list arrangement: use a compact two-button selector (기관별로 / 유형별로) below search/status. Its surface indicator moves horizontally over260ms with a decelerating curve; the results enter over240ms using opacity and an8px vertical offset. Preserve button DOM/focus during switching. No animation package is needed for these native CSS/WAAPI transitions. Both system and site reduced-motion preferences disable movement. The chronological mode uses one shared list, category labels and source/publication metadata; unknown publication dates sort last.
+
+Playground adds an apple/Tetris selector in the existing filter style. Tetris uses a 10×20 canvas, discrete chromatic pieces, a landing preview and explicit 44px touch controls; no flashing effects. Mobile starts by aligning the game panel in view, with status/actions and compact stats above the board; the utility dock moves to the top corner on the playground so it does not cover game controls. Home meal recommendation is a noninteractive planned card. Blog attachment rows expose filename, size, download and permission-gated deletion using the existing theme tokens.

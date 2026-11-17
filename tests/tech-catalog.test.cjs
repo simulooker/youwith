@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const c=vm.createContext({Intl,Date,escapeHTML:value=>String(value).replaceAll('<','&lt;').replaceAll('>','&gt;')});
+vm.runInContext(fs.readFileSync(__dirname+'/../frontend/blog.js','utf8'),c);
+assert.match(vm.runInContext('techArticleCards()',c),/href="\/tech\/mosfet.html"/);
+vm.runInContext("blogState.query='반도체'",c);assert.match(vm.runInContext('techArticleCards()',c),/MOSFET/);
+vm.runInContext("blogState.query='없는 검색어'",c);assert.equal(vm.runInContext('techArticleCards()',c),'');
+vm.runInContext("blogState.query='';blogState.page=2",c);assert.equal(vm.runInContext('techArticleCards()',c),'');
+c.fixture={posts:[{id:'1',title:'<script>unsafe</script>',author:'유저1',summary:'기존 글',created_at:'2026-11-17T00:00:00Z'}],total:1,pageSize:12};
+vm.runInContext("blogState.page=1",c);const tech=vm.runInContext('blogList(fixture)',c);
+assert.match(tech,/tech-grid/);assert.match(tech,/data-blog-open="1"/);assert.ok(!tech.includes('<script>unsafe'));
+vm.runInContext("blogState.category='qna'",c);assert.ok(!vm.runInContext('blogList(fixture)',c).includes('mosfet-card'));
+console.log('Tech HTML catalogue search, paging, preserved posts and escaped titles passed.');

@@ -63,14 +63,20 @@ function settingsScreen() {
         </section>
         <section class="settings-panel" aria-labelledby="app-info-title">
           <h2 id="app-info-title">앱 정보</h2>
-          <div class="setting-row"><span><strong>YouWith</strong><small>버전 ${SITE.version}</small></span><span class="tag">미리보기</span></div>
+          <div class="setting-row"><span><strong>YouWith</strong><small>버전 ${SITE.version}</small></span></div>
           <button class="setting-row setting-action" data-settings-info="privacy"><span><strong>데이터 저장 안내</strong><small>이 브라우저에 저장되는 내용</small></span>${icon("arrow")}</button>
           <button class="setting-row setting-action" id="reset-settings"><span><strong>화면 설정 초기화</strong><small>다크모드·배경·움직임 설정만 되돌려요.</small></span>${icon("reset")}</button>
         </section>
+      <section class="settings-panel"><h2>계정</h2><button class="setting-row setting-action" id="logout"><strong>로그아웃</strong>${icon("arrow")}</button></section>
     </div>`;
 }
 
 function bindSettings(root) {
+  root.querySelector("#logout")?.addEventListener("click", async event => {
+    event.currentTarget.disabled = true;
+    try { await globalThis.logout(); }
+    catch (error) { event.target.closest("button").disabled = false; toast(error.message); }
+  });
   root.querySelectorAll("[data-setting]").forEach((input) => {
     input.onchange = () => {
       preferences[input.dataset.setting] = input.checked;
@@ -82,11 +88,11 @@ function bindSettings(root) {
   });
   const help = {
     notifications:
-      "<h2>알림 및 권한 안내</h2><p>참가 신청과 승인·거절 결과는 알림함에서 확인할 수 있어요.</p><p>현재 시안은 알림 흐름을 체험하는 단계예요. 실제 휴대폰 푸시와 알림 권한 설정은 서비스 연결 후 제공할 예정이에요.</p>",
+      "<h2>알림 및 권한 안내</h2><p>참가 신청과 승인·거절 결과는 알림함에서 확인할 수 있어요.</p><p>휴대폰 푸시 알림은 아직 지원하지 않아요.</p>",
     guide:
-      "<h2>YouWith 사용 안내</h2><p><strong>공부</strong>에서 타이머를 시작하고, 쉬는 시간에는 일시정지해주세요. 화면을 끄거나 다른 앱으로 이동하면 자동으로 일시정지돼요.</p><p><strong>활동</strong>에서 함께할 프로젝트를 찾아 참가를 신청하세요. <strong>알림함</strong>에서는 신청·승인 흐름의 예시를 확인할 수 있어요.</p><p><strong>놀이터</strong>에서는 사각형으로 사과를 드래그해 합이 10인 영역을 없애보세요.</p>",
+      "<h2>YouWith 사용 안내</h2><p><strong>공부</strong>에서 타이머를 시작하고, 쉬는 시간에는 일시정지해주세요. 화면을 끄거나 다른 앱으로 이동하면 자동으로 일시정지돼요.</p><p><strong>활동</strong>에서 함께할 프로젝트를 찾아 참가를 신청하세요. <strong>알림함</strong>에서는 신청·승인 결과를 확인할 수 있어요.</p><p><strong>놀이터</strong>에서는 사각형으로 사과를 드래그해 합이 10인 영역을 없애보세요.</p>",
     privacy:
-      "<h2>데이터 저장 안내</h2><p>화면 설정과 직접 작성한 모집글·지원 정보는 이 브라우저에 저장돼요.</p><p>공부·게임 기록은 새로고침하면 초기화돼요. 모집글·지원 정보는 이 브라우저에 남으며, 브라우저의 사이트 데이터를 지우면 삭제됩니다. 실제 부원 간 공유와 작성자 권한 보호는 서버 연결이 필요해요. 계정 연결과 실제 서비스의 개인정보처리방침은 정식 운영 전에 마련할 예정이에요.</p>",
+      "<h2>데이터 저장 안내</h2><p>화면 설정과 직접 작성한 모집글·지원 정보는 이 브라우저에 저장돼요.</p><p>공부·게임 기록은 새로고침하면 초기화돼요. 모집글·지원 정보는 이 브라우저에 남으며, 브라우저의 사이트 데이터를 지우면 삭제됩니다. 모집글·지원 정보는 계정별로 이 브라우저에만 저장되며 다른 부원과 공유되지 않아요. 로그인 계정과 비밀번호 해시·세션은 서버에 저장돼요.</p>",
   };
   root.querySelectorAll("[data-settings-info]").forEach((button) => {
     button.onclick = () => showDialog(help[button.dataset.settingsInfo]);

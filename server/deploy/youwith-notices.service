@@ -1,0 +1,14 @@
+[Unit]
+Description=YouWith public notice collection
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=youwith
+Group=youwith
+WorkingDirectory=/opt/youwith
+ExecStart=/usr/bin/python3 -X utf8 /opt/youwith/server/notice_job.py
+TimeoutStartSec=1h
+UMask=0077
+NoNewPrivileges=true

@@ -1,6 +1,6 @@
-// 현재는 브라우저 안에서만 저장합니다. 실제 소유권 검증은 계정·서버 연결 시 필요합니다.
-const RECRUITMENT_KEY = "youwith.recruitment.v1";
-const LOCAL_MEMBER_ID = "local-member";
+// 모집 데이터는 계정별 브라우저 저장소를 사용합니다. 부원 간 공유 시 서버 API로 이전해야 합니다.
+const LOCAL_MEMBER_ID = globalThis.currentMember?.id || "local-member";
+const RECRUITMENT_KEY = "youwith.recruitment.v1" + (globalThis.currentMember?.id ? `:${LOCAL_MEMBER_ID}` : "");
 const recruitmentText = (value, limit) => typeof value === "string" ? value.trim().slice(0, limit) : "";
 const recruitmentId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 const applicationLabels = { pending: "검토 중", approved: "승인", declined: "거절" };
@@ -84,7 +84,7 @@ function showRecruitmentProject(idx) {
   const p=projects[idx];
   if (!p) return;
   const own=p.ownerId===LOCAL_MEMBER_ID, a=myApplication(p), count=recruitmentState.applications.filter(a=>a.projectId===p.id).length;
-  showDialog(`<span class="tag">${own ? "내 모집글" : "팀원 모집"}</span><h2 class="dialog-title">${escapeHTML(p.title)}</h2><p class="project-description">${escapeHTML(p.detail || p.desc)}</p><p>${p.skills.map(s=>`<span class="pill">${escapeHTML(s)}</span>`).join("")}</p>${own ? `<div class="project-management"><button class="primary" data-applicants="${idx}">지원자 보기 · ${count}명</button><button class="secondary" data-edit-project="${escapeHTML(p.id)}">수정</button><button class="text-button danger-text" data-delete-project="${escapeHTML(p.id)}">삭제</button></div>` : a ? `<p class="application-status">지원 상태 · ${applicationLabels[a.status]}</p>` : `<button class="primary" data-apply="${idx}">이 프로젝트에 지원하기</button>`}<p class="small-muted local-data-note">모집글과 지원 정보는 이 브라우저에 저장돼요. 다른 부원과의 실제 공유는 계정·서버 연결 후 제공됩니다.</p>`);
+  showDialog(`<span class="tag">${own ? "내 모집글" : "팀원 모집"}</span><h2 class="dialog-title">${escapeHTML(p.title)}</h2><p class="project-description">${escapeHTML(p.detail || p.desc)}</p><p>${p.skills.map(s=>`<span class="pill">${escapeHTML(s)}</span>`).join("")}</p>${own ? `<div class="project-management"><button class="primary" data-applicants="${idx}">지원자 보기 · ${count}명</button><button class="secondary" data-edit-project="${escapeHTML(p.id)}">수정</button><button class="text-button danger-text" data-delete-project="${escapeHTML(p.id)}">삭제</button></div>` : a ? `<p class="application-status">지원 상태 · ${applicationLabels[a.status]}</p>` : `<button class="primary" data-apply="${idx}">이 프로젝트에 지원하기</button>`}<p class="small-muted local-data-note">모집글과 지원 정보는 이 브라우저에 저장돼요. 다른 부원과의 공유는 아직 지원하지 않아요.</p>`);
 }
 function showProjectApplicants(idx) {
   const p=projects[idx];
@@ -102,7 +102,7 @@ function bindRecruitment(root) {
   root.querySelectorAll("[data-apply]").forEach(el=>el.onclick=()=>{
     const idx=Number(el.dataset.apply);
     if (!projects[idx] || projects[idx].ownerId===LOCAL_MEMBER_ID) return;
-    showDialog(`<h2 class="dialog-title">프로젝트 지원</h2><p>${escapeHTML(projects[idx].title)}</p><form id="application-form" data-project-id="${escapeHTML(projects[idx].id)}" class="form-grid"><label>이름<input name="name" required maxlength="40" autocomplete="name"></label><label>전공·학년<input name="major" required maxlength="60" placeholder="예: 전자공학전공 3학년"></label><label>할 수 있는 기술<input name="skills" required maxlength="200" placeholder="예: Python, 회로 설계"></label><label>지원 소개<textarea name="message" required maxlength="600" rows="3"></textarea></label><p class="small-muted">이 브라우저에만 저장되는 체험용 정보예요. 민감한 개인정보는 입력하지 마세요.</p><button class="primary">지원 정보 저장</button><p class="form-error" role="alert"></p></form>`);
+    showDialog(`<h2 class="dialog-title">프로젝트 지원</h2><p>${escapeHTML(projects[idx].title)}</p><form id="application-form" data-project-id="${escapeHTML(projects[idx].id)}" class="form-grid"><label>이름<input name="name" required maxlength="40" autocomplete="name"></label><label>전공·학년<input name="major" required maxlength="60" placeholder="예: 전자공학전공 3학년"></label><label>할 수 있는 기술<input name="skills" required maxlength="200" placeholder="예: Python, 회로 설계"></label><label>지원 소개<textarea name="message" required maxlength="600" rows="3"></textarea></label><p class="small-muted">지원 정보는 이 계정의 브라우저에만 저장돼요.</p><button class="primary">지원 정보 저장</button><p class="form-error" role="alert"></p></form>`);
   });
   root.querySelector("#create-project")?.addEventListener("click",()=>showProjectForm());
   root.querySelectorAll("[data-edit-project]").forEach(el=>el.onclick=()=>showProjectForm(el.dataset.editProject));

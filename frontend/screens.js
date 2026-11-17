@@ -120,7 +120,7 @@ function home() {
         </section>
       </div>
       <div class="stack">
-        ${rankPanel()}<button class="game-banner" data-page="game">
+        ${rankPanel()}<section class="panel meal-preview"><div class="section-heading"><h2>식사 메뉴 추천</h2><span class="tag">예정</span></div><p>오늘 뭐 먹을지, 함께 골라봐요.</p><p class="small-muted">메뉴 추천 기능을 준비하고 있어요.</p></section><button class="game-banner" data-page="game">
           <span class="apple-symbol">${icon("apple")}</span
           ><span
             ><h2>잠깐, 사과 한 판 어때요?</h2>
@@ -155,7 +155,7 @@ function study() {
         <section class="panel">
           <div class="section-heading">
             <h2>이번 주의 꾸준함</h2>
-            <span class="small-muted">예시 기록 포함 · 시간:분</span>
+            <span class="small-muted">시간:분</span>
           </div>
           ${studyWeekChart()}
         </section>
@@ -187,12 +187,12 @@ function profile() {
         <div class="profile-line">
           <span class="avatar">나</span>
           <div>
-            <h2>YouWith 부원</h2>
+            <h2>${escapeHTML(globalThis.currentMember?.username || "YouWith 부원")}</h2>
             <p>전남대학교 전자컴퓨터공학부</p>
           </div>
         </div>
         <div class="info-row">
-          <span>부원 인증</span><span class="tag">운영진 승인 완료 · 예시</span>
+          <span>로그인 계정</span><span class="tag">로그인됨</span>
         </div>
         <div class="info-row">
           <span>나의 참가 신청</span><strong>${applied.size}건</strong>
@@ -203,10 +203,7 @@ function profile() {
             입력하기 ${icon("arrow")}
           </button>
         </div>
-        <p class="small-muted">
-          현재는 승인된 부원으로 둘러보는 시안이에요.<br />카카오 로그인과
-          운영진 승인은 실제 서비스에서 연결합니다.
-        </p>
+
       </section>
       <section class="panel">
         <h2 style="margin-top:0">우리, YouWith</h2>
@@ -224,13 +221,15 @@ function profile() {
     </div>`;
 }
 function fit() {
-  return /* HTML */ `${heading("나에게 어울리는 역할 찾기", "잘하는 것과 좋아하는 것, 그 사이에서 시작해요.")}<section class="panel" style="max-width:640px"><form id="fit-form" class="form-grid"><label>어떤 일이 가장 재미있나요?<select name="interest"><option value="front">사용자에게 보이는 화면 만들기</option value="back">데이터와 서비스의 동작 만들기</option><option value="design">사용하기 편한 경험 디자인하기</option><option value="data">데이터에서 의미 찾아내기</option></select></label><label>해본 기술이나 활동이 있나요?<input name="skills" placeholder="예: Python, React, Figma · 없어도 괜찮아요" maxlength="120"></label><label>팀에서 선호하는 역할은?<select name="role"><option>직접 만들고 구현하기</option><option>아이디어를 정리하고 기획하기</option><option>사람들과 조율하고 이끌기</option></select></label><label>MBTI (선택)<select name="mbti"><option>모르겠어요 / 입력하지 않을래요</option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option></select></label><p class="small-muted">시안에서는 관심 분야에 따라 예시 역할을 보여드려요.<br>실제 추천은 기술·선호 역할을 함께 고려하며, MBTI는 적성을 결정하지 않아요.</p><button class="primary" type="submit">나의 추천 역할 보기 ${icon("spark")}</button></form><div id="fit-result" hidden></div></section>`;
+  return /* HTML */ `${heading("나에게 어울리는 역할 찾기", "잘하는 것과 좋아하는 것, 그 사이에서 시작해요.")}<section class="panel" style="max-width:640px"><form id="fit-form" class="form-grid"><label>어떤 일이 가장 재미있나요?<select name="interest"><option value="front">사용자에게 보이는 화면 만들기</option value="back">데이터와 서비스의 동작 만들기</option><option value="design">사용하기 편한 경험 디자인하기</option><option value="data">데이터에서 의미 찾아내기</option></select></label><label>해본 기술이나 활동이 있나요?<input name="skills" placeholder="예: Python, React, Figma · 없어도 괜찮아요" maxlength="120"></label><label>팀에서 선호하는 역할은?<select name="role"><option>직접 만들고 구현하기</option><option>아이디어를 정리하고 기획하기</option><option>사람들과 조율하고 이끌기</option></select></label><label>MBTI (선택)<select name="mbti"><option>모르겠어요 / 입력하지 않을래요</option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option></select></label><p class="small-muted">관심 분야를 기준으로 역할을 추천해요. MBTI는 적성을 결정하지 않아요.</p><button class="primary" type="submit">나의 추천 역할 보기 ${icon("spark")}</button></form><div id="fit-result" hidden></div></section>`;
 }
 function game() {
+  const tabs=typeof playgroundTabs==='function' ? playgroundTabs() : '';
+  if(typeof playgroundGame!=='undefined' && playgroundGame==='tetris')return heading('놀이터','잠깐 쉬어가도 괜찮아요.')+tabs+tetrisScreen();
   return /* HTML */ `${heading(
       "사과 한 판, 기분 전환",
       "잠깐 쉬어가도 괜찮아요.",
-    )}
+    )}${tabs}
     <div class="grid">
       <section class="panel">
         <div class="game-meta">
@@ -262,9 +261,9 @@ function game() {
           ${icon("cup")}
         </div>
         ${[
-          ["김도윤", 132],
-          ["박지훈", 118],
-          ["이서연", 106],
+          ["유저1", 132],
+          ["유저3", 118],
+          ["유저2", 106],
         ]
           .map(
             (r, i) =>
@@ -272,7 +271,7 @@ function game() {
           )
           .join("")}
         <p class="small-muted">
-          랭킹은 예시예요. 플레이 기록은 저장되지 않아요.
+          플레이 기록은 새로고침하면 초기화돼요.
         </p>
       </section>
     </div>`;
@@ -301,7 +300,7 @@ function studyWeekValues() {
 }
 function studyWeekChart() {
   const values = studyWeekValues(), max = Math.max(...values,1);
-  return `<div class="bar-chart" id="study-week" aria-label="요일별 공부시간, 시간과 분"><div class="sr-only">오늘 외의 기록은 예시입니다.</div>${values.map((value,i) => `<div class="bar-day"><span class="bar-time">${Math.floor(value/3600)}:${String(Math.floor(value%3600/60)).padStart(2,"0")}</span><div class="bar" style="--height:${Math.max(value/max*110,3)}px"></div><span>${["월","화","수","목","금","토","일"][i]}</span></div>`).join("")}</div>`;
+  return `<div class="bar-chart" id="study-week" aria-label="요일별 공부시간, 시간과 분">${values.map((value,i) => `<div class="bar-day"><span class="bar-time">${Math.floor(value/3600)}:${String(Math.floor(value%3600/60)).padStart(2,"0")}</span><div class="bar" style="--height:${Math.max(value/max*110,3)}px"></div><span>${["월","화","수","목","금","토","일"][i]}</span></div>`).join("")}</div>`;
 }
 function updateStudyWeekChart() {
   const values=studyWeekValues(), max=Math.max(...values,1);

@@ -4,7 +4,7 @@ Usage: python server/check_notice_sources.py
 Results: db/audit/notice-source-check.json, db/audit/notice-pages/<id>.html
 """
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from html.parser import HTMLParser
 from pathlib import Path
 import json
@@ -81,6 +81,30 @@ def plain(fragment):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragment))).strip()
 
 
+def row_publication_date(row):
+    # The linked title can contain application dates; only a distinct date cell is used.
+    cells=re.findall(r'<td\b[^>]*>(.*?)</td>',row,re.S|re.I)
+    dates=[]
+    for cell in cells:
+        if re.search(r'<a\b|<strong\b',cell,re.I):
+            continue
+        value=plain(cell)
+        match=re.fullmatch(r'(20\d{2})[.\-/](\d{1,2})[.\-/](\d{1,2})\.?\s*(?:\d{1,2}:\d{2}(?::\d{2})?)?',value)
+        if not match:continue
+        try:dates.append(date(*map(int,match.groups())).isoformat())
+        except ValueError:continue
+    return dates[0] if len(set(dates))==1 else None
+
+
+def attach_publication_dates(entries,text):
+    rows=[(plain(row),row_publication_date(row)) for row in re.findall(r'<tr\b.*?</tr>',text,re.S|re.I)]
+    for entry in entries:
+        title=entry['title'].removesuffix('새글').strip()
+        matches={stamp for content,stamp in rows if stamp and title and title in content}
+        if len(matches)==1:entry['publishedAt']=matches.pop()
+    return entries
+
+
 def entries_for(source, final_url, text, links):
     """Small site adapters; preserve public source titles without guessing deadlines."""
     source_id = source['id']
@@ -125,7 +149,7 @@ def entries_for(source, final_url, text, links):
         entry['title'] = re.sub(r'\s*새글\s*$', '', entry['title']).strip()
         if entry['title']:
             unique.setdefault(entry['url'], entry)
-    return list(unique.values())
+    return attach_publication_dates(list(unique.values()),text)
 
 
 def detail_access(entry, status, url, body):

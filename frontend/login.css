@@ -1,0 +1,26 @@
+:root {color-scheme:light; --green:#3d7a5d; --ink:#1f2923; --surface:#fafbf9; font-family:"Pretendard", "Noto Sans KR", system-ui, sans-serif; color:var(--ink); background:#e2e4df;}
+* {box-sizing:border-box;}
+body {margin:0; min-height:100svh; display:grid; place-items:center; padding:32px 20px;}
+.login-panel {width:min(100%, 440px); padding:40px; background:var(--surface); border-radius:16px;}
+.brand {display:inline-flex; align-items:center; gap:8px; color:var(--ink); text-decoration:none; font-size:25px; font-weight:800; letter-spacing:-.03em;}
+.brand img {object-fit:cover; border-radius:50%;}
+h1 {font-size:29px; line-height:1.45; letter-spacing:-.03em; margin:32px 0;}
+form {display:grid; gap:10px;}
+label {font-size:14px; font-weight:650;}
+input {font:inherit; font-size:16px; width:100%; min-height:48px; padding:12px 14px; border:1px solid #a8b5ab; border-radius:8px; color:var(--ink); background:#fff; caret-color:var(--green); margin-bottom:10px;}
+button {font:inherit; font-weight:700; min-height:48px; padding:12px; color:#fff; background:var(--green); border:0; border-radius:8px; cursor:pointer;}
+button:hover {background:#316449;}
+button:disabled {background:#526c5d; cursor:wait;}
+:focus-visible {outline:3px solid #1f6343; outline-offset:3px;}
+#login-error {color:#a02d29; font-size:14px; line-height:1.5; margin:0;}
+#login-error:empty {display:none;}
+.account-help {font-size:13px; color:#526358; line-height:1.7; margin:24px 0 0;}
+::selection {background:#b9d5c3; color:#152b20;}
+@media(max-width:480px) {.login-panel {padding:28px 24px;} h1 {font-size:26px;}}
+
+.kakao-login {display:flex; align-items:center; justify-content:center; gap:10px; min-height:50px; padding:14px 20px; border-radius:8px; background:#fee500; color:rgba(0,0,0,.85); text-decoration:none; font-size:16px; font-weight:600;}
+.kakao-login svg {width:22px; height:22px; fill:#000; flex-shrink:0;}
+.password-login {border-top:1px solid #d6ded8; margin-top:28px; padding-top:20px;}
+.password-login summary {font-size:14px; min-height:44px; display:flex; align-items:center; cursor:pointer; color:var(--green); font-weight:600;}
+.password-login form {margin-top:16px;}
+#kakao-status:empty {display:none;}

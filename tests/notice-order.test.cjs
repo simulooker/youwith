@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const c=vm.createContext({URL,URLSearchParams,Intl,Date});
+vm.runInContext(fs.readFileSync(__dirname+'/../frontend/notice-board.js','utf8'),c);
+vm.runInContext(fs.readFileSync(__dirname+'/../frontend/notice-calendar.js','utf8'),c);
+c.escapeHTML=x=>String(x);c.icon=()=>'';
+const post=(title,date,url)=>({title,publishedAt:date,url,endsAt:'2099-12-31',category:'대회·공모전'});
+c.NOTICE_DATA={sources:[{id:'a',name:'기관 A',status:'verified',notices:[post('기관A 옛 공지','2026-10-01','https://a.example/1'),post('게시일 없는 공지',null,'https://a.example/2')]},{id:'b',name:'기관 B',status:'verified',notices:[post('기관B 새 공지','2026-11-16','https://b.example/1'),post('다른 날짜 형식','Sun, 15 Nov 2026 09:00:00 +0900','https://b.example/2')]}]};
+assert.deepEqual(Array.from(vm.runInContext('noticesByPublishedDate().map(row=>row.item.title)',c)),['기관B 새 공지','다른 날짜 형식','기관A 옛 공지','게시일 없는 공지']);
+vm.runInContext('noticeGrouping="type"',c);
+let html=vm.runInContext('noticeResults()',c);
+assert.ok(!html.includes('data-notice-group='));assert.equal((html.match(/class="notice-row"/g)||[]).length,4);
+assert.ok(html.indexOf('기관B 새 공지')<html.indexOf('기관A 옛 공지'));assert.ok(html.includes('게시일 확인 필요'));assert.ok(html.includes('게시 2026.11.16'));
+vm.runInContext('noticeSearch="새 공지"',c);assert.equal(vm.runInContext('noticesByPublishedDate().length',c),1);
+vm.runInContext('noticeSearch="";enabledNoticeSources.delete("b")',c);assert.equal(vm.runInContext('noticesByPublishedDate().length',c),2);
+vm.runInContext('noticeGrouping="source"',c);assert.ok(vm.runInContext('noticeResults()',c).includes('data-notice-group="a"'));
+assert.equal(vm.runInContext('noticePublishedTime({publishedAt:"invalid"})',c),null);
+console.log('Latest publication order, RFC dates, unknown dates last, grouping, source/search filters passed.');

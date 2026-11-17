@@ -35,7 +35,7 @@ context.source = {
     { title: "AI 모집", category: "교육·체험", endsAt: "2099-01-01" },
   ],
 };
-assert.equal(vm.runInContext("filteredNotices(source).length", context), 1);
+assert.equal(vm.runInContext("filteredNotices(source).length", context), 2);
 vm.runInContext("noticeStatus='unknown'", context);
 assert.equal(vm.runInContext("filteredNotices(source).length", context), 1);
 assert.equal(
@@ -59,10 +59,18 @@ assert.equal(segments.find((s) => s.item.title === "C").column, 6);
 context.NOTICE_DATA = JSON.parse(
   fs.readFileSync(__dirname + "/../frontend/notices.json", "utf8"),
 );
+// Keep calendar filtering independent of live source availability.
+for (const source of context.NOTICE_DATA.sources) {
+  if (['nccoss', 'semiconductor', 'software'].includes(source.id)) source.status = 'verified';
+  else if (['grow', 'career', 'education'].includes(source.id)) {
+    source.status = 'partial';
+    source.collectionScope = 'public-home-list';
+  } else if (source.id !== 'other') source.status = 'link-only';
+}
 context.escapeHTML = (text) => String(text);
-assert.equal(vm.runInContext("noticeSources().length", context), 6);
+assert.equal(vm.runInContext("noticeSources().length", context), 9);
 const checkboxes = vm.runInContext("sourceCheckboxes()", context);
-assert.equal((checkboxes.match(/type="checkbox"/g) || []).length, 6);
+assert.equal((checkboxes.match(/type="checkbox"/g) || []).length, 9);
 assert.equal((checkboxes.match(/\(미지원\)/g) || []).length, 6);
 vm.runInContext("enabledNoticeSources.clear()", context);
 assert.equal(vm.runInContext("noticeSources().length", context), 0);

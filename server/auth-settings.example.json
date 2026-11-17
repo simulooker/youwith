@@ -1,0 +1,5 @@
+{
+  "KAKAO_REST_API_KEY": "",
+  "KAKAO_CLIENT_SECRET": "",
+  "KAKAO_REDIRECT_URI": "http://127.0.0.1:4174/auth/kakao/callback"
+}

@@ -11,17 +11,13 @@
     "id": "jnu",
     "name": "전남대학교 공지",
     "url": "https://www.jnu.ac.kr/WebApp/web/HOM/COM/Board/board.aspx?boardID=5",
-    "kind": "학교 전체 공지",
-    "collection": "link-only",
-    "collectionNote": "robots.txt에서 공지 경로 수집 제한 확인 · BOM 해석 오류 수정 후 자동 수집 보류"
+    "kind": "학교 전체 공지"
   },
   {
     "id": "eceng",
     "name": "전자컴퓨터공학부",
     "url": "https://eceng.jnu.ac.kr/eceng/20079/subview.do",
-    "kind": "학부 공지",
-    "collection": "link-only",
-    "collectionNote": "RSS는 제공되지만 robots.txt에서 게시판·RSS 경로 수집 제한 · 허용 범위 확인 필요"
+    "kind": "학부 공지"
   },
   {
     "id": "nccoss",
@@ -31,8 +27,6 @@
   },
   {
     "id": "aicoss",
-    "collection": "link-only",
-    "collectionNote": "robots.txt가 HTML로 응답하며, 약관의 제3자 제공 사전승낙 확인 필요",
     "name": "AICOSS 사업단",
     "url": "https://aicoss.ac.kr/www/notice/",
     "kind": "AI·해커톤·서포터즈"
@@ -41,9 +35,7 @@
     "id": "engineering",
     "name": "전남대학교 공과대학",
     "url": "https://eng.jnu.ac.kr/eng/7343/subview.do",
-    "kind": "공대 프로그램·교육",
-    "collection": "link-only",
-    "collectionNote": "RSS는 제공되지만 robots.txt에서 게시판·RSS 경로 수집 제한 · 허용 범위 확인 필요"
+    "kind": "공대 프로그램·교육"
   },
   {
     "id": "grow",
@@ -69,9 +61,7 @@
     "id": "icee",
     "name": "공학교육혁신센터",
     "url": "https://icee.jnu.ac.kr/icee/17915/subview.do",
-    "kind": "캡스톤·경진대회·지원",
-    "collection": "link-only",
-    "collectionNote": "RSS는 제공되지만 robots.txt에서 게시판·RSS 경로 수집 제한 · 허용 범위 확인 필요"
+    "kind": "캡스톤·경진대회·지원"
   },
   {
     "id": "career",
