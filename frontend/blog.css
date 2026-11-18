@@ -114,3 +114,5 @@ body:has(.cfet-card:hover)::after,body:has(.cfet-card:focus-visible)::after{back
 body:has(.signals-card:hover)::after,body:has(.signals-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/signals-cover.png') center/cover no-repeat;opacity:1;}
 
 .tech-section{margin:0 0 40px}.tech-section>h2{display:inline-block;margin:0 0 20px;padding:10px 16px;border-radius:10px;background:var(--surface);color:var(--text);font-size:24px;line-height:1.5}.tech-section:last-child{margin-bottom:0}body:has(.integration-card:hover)::after,body:has(.integration-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/integration-cover.png') center/cover no-repeat;opacity:1;}
+
+body:has(.datapath-card:hover)::after,body:has(.datapath-card:focus-visible)::after{background:linear-gradient(rgba(2,8,17,.48),rgba(2,8,17,.48)),#080e19 url('tech/datapath-cover.png') center/cover no-repeat;opacity:1;}

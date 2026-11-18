@@ -209,7 +209,7 @@ MOSFET은 PC에서 왼쪽 3D 격자 공간과 오른쪽 모델 설정 패널로 
 
 ### 3D 화면과 오른쪽 설명 목차
 
-일곱 Tech 페이지는 화면 전체에 하나의 WebGL 격자 공간을 그립니다. 별도의 아래 설명 영역은 없으며, 조작·구조 설명·학습 원리·결과 표를 오른쪽 반투명 패널의 목차에 배치합니다. 페이지 전체 대신 패널 안에서만 스크롤합니다. 휴대폰에서는 같은 3D 위로 오른쪽 설명창을 열고 닫으며, 닫힌 창은 키보드·화면 읽기 탐색에서 제외합니다.
+아홉 Tech 페이지는 화면 전체에 하나의 WebGL 격자 공간을 그립니다. 별도의 아래 설명 영역은 없으며, 조작·구조 설명·학습 원리·결과 표를 오른쪽 반투명 패널의 목차에 배치합니다. 페이지 전체 대신 패널 안에서만 스크롤합니다. 휴대폰에서는 같은 3D 위로 오른쪽 설명창을 열고 닫으며, 닫힌 창은 키보드·화면 읽기 탐색에서 제외합니다.
 
 `frontend/tech/immersive-layout.css`는 전체 화면·블러·목차 배치를, `lab-interface.js`는 모바일 열기/닫기·Escape·3D 부위 선택 시 설명 열기를 관리합니다. `lab-viewer.js`는 오른쪽 설명창의 폭만큼 투영 중심을 왼쪽으로 옮겨 모델을 가리지 않으면서 배경은 패널 뒤까지 그립니다. 새 내용도 페이지 아래 대신 해당 패널의 목차에 추가합니다.
 
@@ -243,3 +243,14 @@ Gate 아래 이동 전하 감소(공핍)와 반전층 형성은 서로 다른 �
 입자는 네 개의 고정 오프셋과 하나의 이동 원점으로 묶습니다. `InstancedBufferGeometry`의 원점 속성만 CPU에서 계산·업로드하고 GPU가 각 네 위치를 더합니다. 기존 묶음 수를 유지해 표시 입자는 4배(예: 평면 소수 전자6→24, 이동 입자48→192)로 늘렸고 기호 크기도 키웠습니다. 같은 표시 수를 개별 계산하는 방식보다 원점 계산·동적 좌표 업로드가 1/4이지만, 네 입자를 실제로 그리는 GPU 비용까지 1/4이 되는 것은 아닙니다. 정상 전류 단계에서는 이동하지 않는 다수/소수 운반자·저장소 좌표의 반복 계산·업로드도 건너뜁니다. 입자 중심과 네 오프셋의 합은 실리콘 내부 범위 검사로 확인합니다.
 
 GAAFET은 n형 예제이므로 전류를 운반하는 전자는 N+ 소스에서 공급됩니다. Gate 구간의 정공 밀도가 낮아져도 전자 경로가 이어지면 전류가 흐르며, 정공이 시트 밖 공기로 빠져나가는 표현이 아닙니다. 저도핑 GAA에 벌크 P형 몸체의 다수 정공 설명을 그대로 적용하지 않습니다. 반대 극성 pFET의 전도 운반자는 정공입니다. 근거: [Yale MOSFET 운반자·극성](https://volga.eng.yale.edu/teaching-resources/semiconductors), [Intel GAA 구조](https://www.intel.com/content/www/us/en/foundry/process/18a.html), [Three.js instanced attributes](https://threejs.org/docs/pages/InstancedBufferAttribute.html), [브라우저 애니메이션 주기](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame).
+
+
+### Tech 분류·에너지 장벽·적분·Datapath
+
+Tech 카드는 반도체(MOSFET, FinFET, GAAFET, CFET), AI 모델(신경망, 결정트리), 공통(신호, 적분, Datapath)으로 나눕니다. 기존 Tech 게시글은 공통에 유지합니다.
+
+`device-energy.js`는 Gate에 따른 Source 기준 상대 에너지 장벽을 표시합니다. nFET은 Ec, pFET은 -Ev이며 실제 물체 높이·전압의 수치 해석이 아닌 정규화한 개념 그래프입니다. 입자의 행·열 정렬은 설명용 배치이며 원자 배열을 뜻하지 않습니다.
+
+`integration.html`은 변위(속도×시간), 부피(높이×면적), 유량(수직 유속×면적), 질량(밀도×부피)을 단계별로 표시합니다. 왼쪽 구간값으로 계산한 유한 근사합과 정확값을 구분하며 변위와 이동 거리도 구분합니다. `npm run tech:build-integrals`가 저장 결과를 생성하고 브라우저는 `integration-scenarios.js`를 읽습니다. 법선을 뒤집으면 유량 부호만 바뀌며 실제 흐름은 뒤집지 않습니다.
+
+`datapath.html`은 MIPS 단일 사이클의 add/lw/beq를 6개 설명 단계로 보여줍니다. 이는 여러 클록이나 파이프라인이 아닙니다. `datapath-state.js`는 독립된 예제 초기 상태, 정확한 32비트 인코딩, 비트 분해, 제어값, 기록 상태를 관리합니다. `datapath.js`는 SVG 배선·데이터 이동과 화면 조작만 담당합니다. 실제 격자 공간 위에 읽기 쉬운 회로를 배치하며 휠·드래그 또는 키보드로 확대·이동합니다. idle 상태에서는 반복 그리기를 멈춥니다. Control 출력, ALU Decoder 출력, Zero, PCSrc를 구분합니다. lw의 offset은 바이트 단위, beq의 offset은 부호 확장 후 <<2하여 PC+4에 더합니다. 분기 지연 슬롯·예외·캐시·파이프라인은 생략합니다. 표기된 ALUControl은 교재의 4비트 인코딩이며 ISA 자체의 필드는 아닙니다. 사용자가 제공한 그림은 카드와 hover 배경에 원본 그대로 사용합니다.

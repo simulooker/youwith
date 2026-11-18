@@ -89,7 +89,8 @@ const TECH_ARTICLES=[
   {id:'neural-network',section:'ai',title:'인공신경망',summary:'예측과 학습을 직접 따라가보세요',tags:'3D · AI 학습',url:'tech/neural-network.html',preview:'tech/neural-network-cover.png'},
   {id:'signals',section:'common',title:'신호와 시스템',summary:'파형에서 푸리에 변환과 역변환까지',tags:'3D · 신호 및 시스템',url:'tech/signals.html',preview:'tech/signals-cover.png'},
   {id:'decision-tree',section:'ai',title:'결정트리 학습',summary:'질문을 나누며 예측의 길을 찾다',tags:'3D · AI 학습',url:'tech/decision-tree.html',preview:'tech/decision-tree-cover.png'},
-  {id:'integration',section:'common',title:'적분',summary:'작은 조각을 더해 물리량을 구하다',tags:'3D · 미적분 · 물리',url:'tech/integration.html',preview:'tech/integration-cover.png'}
+  {id:'integration',section:'common',title:'적분',summary:'작은 조각을 더해 물리량을 구하다',tags:'3D · 미적분 · 물리',url:'tech/integration.html',preview:'tech/integration-cover.png'},
+  {id:'datapath',section:'common',title:'Datapath',summary:'32비트 명령어가 지나가는 길',tags:'컴퓨터구조 · MIPS · 제어',url:'tech/datapath.html',preview:'tech/datapath-cover.png'}
 ];
 const TECH_SECTIONS=[['semiconductor','반도체'],['ai','AI 모델'],['common','공통']];
 function techArticleCards(section) {
