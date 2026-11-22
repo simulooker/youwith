@@ -1,35 +1,43 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e19"><title>Datapath · YouWith Tech</title>
-<link rel="stylesheet" href="mosfet.css?v=3"><link rel="stylesheet" href="neural-network.css?v=1"><link rel="stylesheet" href="tech-labs.css?v=1"><link rel="stylesheet" href="guided-labs.css?v=2"><link rel="stylesheet" href="immersive-layout.css?v=1"><link rel="stylesheet" href="teaching-labs.css?v=3"><link rel="stylesheet" href="datapath.css?v=1"></head>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e19"><title>MIPS Datapath · YouWith Tech</title>
+<link rel="stylesheet" href="mosfet.css?v=3"><link rel="stylesheet" href="neural-network.css?v=1"><link rel="stylesheet" href="tech-labs.css?v=1"><link rel="stylesheet" href="guided-labs.css?v=2"><link rel="stylesheet" href="immersive-layout.css?v=1"><link rel="stylesheet" href="datapath.css?v=3"></head>
 <body class="immersive-lab datapath-page" data-panel-open="false">
 <header class="lab-header"><a class="back-link" href="../#blog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"></path></svg>Tech로 돌아가기</a><a class="wordmark" href="../#home">YouWith<span class="clover" aria-hidden="true"></span></a></header>
 <main><section class="lab nn-lab guided-lab datapath-lab" aria-labelledby="lab-title">
-<div class="lab-title"><h1 id="lab-title">Datapath</h1><p>32비트 명령어 하나가 실행되기까지.</p></div>
+<div class="lab-title"><h1 id="lab-title">Datapath</h1><p>32비트 명령어에서 결과 기록까지.</p></div>
 <div id="scene"><canvas id="lab-canvas" aria-hidden="true" tabindex="-1"></canvas><div id="scene-message" class="scene-message" role="status">회로를 불러오고 있어요.</div></div>
-<section class="datapath-workspace" aria-label="명령어 데이터 경로">
-<div class="datapath-instruction"><div><strong id="current-instruction"></strong><span id="instruction-word"></span></div><div id="instruction-strip" class="instruction-strip" aria-label="32비트 명령어 필드"></div></div>
-<div id="datapath-view" tabindex="0" aria-label="데이터 경로 회로. 드래그 이동, 휠 확대. 키보드 방향키로 이동, 더하기·빼기로 확대·축소"><svg id="datapath-diagram" viewBox="0 0 1250 800" role="group" aria-label="MIPS 단일 사이클 datapath"></svg><span class="diagram-hint">끌어서 이동 · +/− 확대</span></div>
-<div class="diagram-toolbar"><div class="diagram-zoom"><button id="diagram-out" type="button" aria-label="회로 축소">−</button><button id="diagram-in" type="button" aria-label="회로 확대">+</button><button id="reset-view" type="button">기본 배치</button></div><div class="diagram-legend"><span>데이터</span><span>제어</span></div></div>
-<div class="datapath-transport"><button id="scene-previous" type="button">이전</button><span id="scene-step" aria-live="polite"></span><button id="scene-next" type="button">다음 단계<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button></div>
+<section class="datapath-workspace" aria-label="MIPS 데이터 경로">
+<div class="datapath-instruction"><div><strong id="current-instruction"></strong><code id="instruction-word"></code></div><div id="instruction-strip" class="instruction-strip" aria-label="32비트 명령어 필드"></div></div>
+<div id="datapath-view" tabindex="0" aria-label="참고 그림의 MIPS 회로. 드래그로 이동, 휠이나 더하기·빼기로 확대. 키보드 방향키로 이동"><svg id="datapath-diagram" viewBox="50 104 1065 832" role="group" aria-label="참고 그림과 동일한 MIPS 유닛과 배선"></svg><span class="diagram-hint">끌어서 이동 · +/− 확대</span></div>
+<div class="diagram-toolbar"><div><button id="diagram-out" type="button" aria-label="회로 축소">−</button><button id="diagram-in" type="button" aria-label="회로 확대">+</button><button id="reset-view" type="button">기본 배치</button></div><div class="diagram-legend"><span data-stream="rs">rs</span><span data-stream="rt">rt</span><span data-stream="result">결과</span><span data-stream="control">제어</span></div></div>
+<div class="datapath-transport"><button id="scene-previous" type="button">이전</button><span id="scene-step" aria-live="polite"></span><button id="scene-next" type="button">다음</button><button id="scene-replay" type="button">다시 보기</button></div>
 </section>
 <aside class="lab-controls" id="explanation-panel" aria-labelledby="learning-title">
-<div class="explanation-heading"><h2 id="learning-title">명령어 따라가기</h2><button class="close-explanation" id="close-explanation" type="button" aria-label="설명 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div>
+<div class="explanation-heading"><h2 id="learning-title">명령어 이해하기</h2><button class="close-explanation" id="close-explanation" type="button" aria-label="설명 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div>
 <div class="datapath-cases" aria-label="명령어 예제"><button type="button" data-instruction="r" aria-pressed="true">R-format<small>add</small></button><button type="button" data-instruction="lw" aria-pressed="false">lw<small>메모리 읽기</small></button><button type="button" data-instruction="beq" aria-pressed="false">beq<small>같으면 분기</small></button></div>
-<div class="branch-options" id="branch-options" hidden><span>비교할 값</span><div><button type="button" data-branch="equal" aria-pressed="true">같음 · 12 = 12</button><button type="button" data-branch="different" aria-pressed="false">다름 · 12 ≠ 7</button></div></div>
-<details class="lab-chapter" id="flow-chapter" open><summary><h3>실행 단계</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><div class="chapter-content">
-<nav id="datapath-steps" class="datapath-steps" aria-label="따라보기 단계"></nav><h4 id="step-title"></h4><p id="step-calculation" class="datapath-calculation"></p><p id="step-why"></p><p id="step-watch" class="datapath-watch"></p>
-<ol id="flow-values" class="flow-values" aria-label="현재 이동하는 데이터"></ol>
-<div class="control-pair"><button id="step-previous" type="button">이전 단계</button><button id="step-next" type="button">다음 단계</button></div><button id="step-replay" class="teaching-replay" type="button">경로 다시 보기</button>
-<div class="register-state"><h4 id="state-title">현재 저장 상태</h4><table><caption class="sr-only">PC와 예제 레지스터의 값</caption><thead><tr><th>레지스터</th><th>현재 값</th></tr></thead><tbody id="register-values"></tbody></table><p id="memory-state"></p></div>
-</div></details>
-<details class="lab-chapter" id="bits-chapter" open><summary><h3>32비트 명령어 분해</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><div class="chapter-content"><p>필드를 누르면 비트의 목적지가 강조됩니다.</p><div id="instruction-fields" class="instruction-fields"></div><h4 id="selected-field-title"></h4><p id="selected-field-description"></p><p class="control-note">5비트 번호 → 32개 중 레지스터 하나 선택. 읽은 데이터는 32비트입니다. 필드 선택은 실행 단계를 바꾸지 않습니다.</p></div></details>
-<details class="lab-chapter" id="control-chapter" open><summary><h3>Control Unit 출력</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><div class="chapter-content"><p id="control-status"></p><div id="control-signals" class="control-signals"></div><h4>ALU와 다음 PC의 판단</h4><dl id="derived-signals" class="derived-signals"></dl><p class="control-note">X = 결과에 영향 없는 선택값(don’t care). — = 아직 살펴보기 전. 제어값은 해당 명령어 전체에 대한 조합논리 출력이며 화면 단계마다 바뀌는 마이크로명령이 아닙니다.</p></div></details>
-<details class="lab-chapter" id="part-chapter"><summary><h3>부품의 역할</h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary><div class="chapter-content"><h4 id="part-name">회로의 부품을 눌러보세요</h4><p id="part-description">PC, Register File, ALU, MUX 등의 역할을 확인할 수 있어요.</p></div></details>
-<p class="lab-disclaimer">교과서의 단순화한 MIPS 단일 사이클 모델입니다. 단계는 이해를 위한 순서이며 여러 클록을 뜻하지 않습니다. 분기 지연 슬롯·파이프라인·캐시·예외 처리는 생략합니다. 각 예제는 독립적인 초기 상태로 시작합니다.</p>
-<p class="datapath-references"><a href="https://student.cs.uwaterloo.ca/~isg/res/mips/opcodes" target="_blank" rel="noopener noreferrer">MIPS 비트 인코딩</a><a href="https://www.cs.columbia.edu/~sedwards/classes/2020/3827-summer/mips-uarch.pdf" target="_blank" rel="noopener noreferrer">단일 사이클 원리</a></p>
+<div id="branch-options" class="branch-options" hidden><button type="button" data-branch="equal" aria-pressed="true">12 = 12 · 분기</button><button type="button" data-branch="different" aria-pressed="false">12 ≠ 7 · 순차</button></div>
+<div class="explanation-tabs" role="tablist" aria-label="설명 방식"><button id="tab-steps" role="tab" aria-controls="view-steps" aria-selected="false" tabindex="-1" data-view="steps">단계별 설명</button><button id="tab-control" role="tab" aria-controls="view-control" aria-selected="false" tabindex="-1" data-view="control">Control 표</button><button id="tab-paths" role="tab" aria-controls="view-paths" aria-selected="true" data-view="paths">데이터 경로</button></div>
+<section id="view-steps" class="explanation-view" role="tabpanel" aria-labelledby="tab-steps" hidden>
+<nav id="datapath-steps" class="datapath-steps" aria-label="실행 단계"></nav><h3 id="step-title"></h3><dl id="step-facts" class="fact-list"></dl>
+<div id="field-inspector" class="inspector" hidden><h3>선택한 명령어 필드</h3><dl id="field-facts" class="fact-list"></dl></div>
+<div id="unit-inspector" class="inspector" hidden><h3 id="unit-title"></h3><dl id="unit-facts" class="fact-list"></dl></div>
+<div class="register-state"><h3 id="state-title">단계의 저장 상태</h3><table><caption class="sr-only">PC와 레지스터의 현재 값</caption><thead><tr><th>레지스터</th><th>값</th></tr></thead><tbody id="register-values"></tbody></table></div>
+<p class="compact-note">한 클록 내부를 풀어쓴 설명 순서입니다. 여섯 클록이나 파이프라인을 뜻하지 않습니다.</p>
+</section>
+<section id="view-control" class="explanation-view" role="tabpanel" aria-labelledby="tab-control" hidden>
+<h3>주 제어 신호 8개</h3><table class="control-table"><caption class="sr-only">현재 명령어의 8개 주 제어 신호, 비트 수, 영문 의미와 역할</caption><colgroup><col class="signal-column"><col class="value-column"><col></colgroup><thead><tr><th>신호</th><th>값</th><th>영문 의미 · 역할</th></tr></thead><tbody id="control-rows"></tbody></table>
+<p class="compact-note">ALUOp는 한 신호 묶음의 2비트입니다. X는 어느 값을 선택해도 결과에 영향이 없다는 뜻입니다.</p>
+<h3>그림의 추가 신호와 계산 결과</h3><dl id="derived-signals" class="fact-list"></dl>
+</section>
+<section id="view-paths" class="explanation-view" role="tabpanel" aria-labelledby="tab-paths">
+<div id="path-groups" class="path-groups" role="group" aria-label="연결된 데이터 경로 선택"></div><h3 id="path-title"></h3><dl id="path-facts" class="fact-list"></dl>
+<button id="path-replay" class="replay-button" type="button">이 경로 처음부터 보기</button>
+<p class="compact-note">서로 만나는 입력은 함께 표시합니다. rs·rt와 결과 경로를 따로 떼어 보여주지 않습니다. 번호는 5비트, 읽고 기록하는 데이터는 32비트입니다.</p>
+</section>
+<footer class="datapath-footer">단일 사이클 MIPS · 독립된 예제 초기값<br>분기 지연 슬롯·파이프라인·캐시·예외 처리 생략</footer>
 </aside>
 <button class="toggle-explanation" type="button" id="toggle-explanation" aria-controls="explanation-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h6"></path></svg>설명 열기</button>
 </section></main>
 <script src="../deployment.js?v=24"></script><script type="module">
-try{if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const r=await fetch('/api/me',{cache:'no-store'});if(r.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!r.ok)throw Error('연결 실패');}await import('./lab-interface.js?v=1');await import('./datapath.js?v=1');}catch{const m=document.getElementById('scene-message');m.hidden=false;m.textContent='회로를 열지 못했어요. 연결을 확인하고 새로고침해주세요.';}
+try{if(!globalThis.YOUWITH_PUBLIC_PREVIEW){const r=await fetch('/api/me',{cache:'no-store'});if(r.status===401){sessionStorage.setItem('youwith.returnHash','#blog');location.replace('/login.html');throw Error('로그인 필요');}if(!r.ok)throw Error('연결 실패');}await import('./lab-interface.js?v=1');await import('./datapath.js?v=3');}catch{const m=document.getElementById('scene-message');m.hidden=false;m.textContent='회로를 열지 못했어요. 연결을 확인하고 새로고침해주세요.';}
 </script></body></html>

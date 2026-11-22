@@ -20,7 +20,13 @@ function filteredNotices(source) {
   if (enabledNoticeTypes === null)
     enabledNoticeTypes = new Set(NOTICE_CATEGORIES.map(([name]) => name));
   const query = noticeSearch.trim().toLowerCase();
+  const [year,month,day]=noticeToday().split('-').map(Number);
+  const first=new Date(Date.UTC(year,month-3,1));
+  const last=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth()+1,0)).getUTCDate();
+  first.setUTCDate(Math.min(day,last));const cutoff=first.toISOString().slice(0,10);
   return source.notices.filter((item) => {
+    const published=noticePublishedTime(item);
+    if(published!==null && new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul'}).format(published)<cutoff)return false;
     if (!enabledNoticeTypes.has(item.category)) return false;
     if (!noticeMatchesMajor(item)) return false;
     if (item.endsAt && item.endsAt < noticeToday()) return false;
@@ -34,15 +40,15 @@ function filteredNotices(source) {
 function typeCheckboxes() {
   if (enabledNoticeTypes === null)
     enabledNoticeTypes = new Set(NOTICE_CATEGORIES.map(([name]) => name));
-  return `<fieldset id="notice-types"><legend class="sr-only">게시글 유형</legend><div class="type-options">${NOTICE_CATEGORIES.map(([name, key]) => `<label class="institution-option"><input type="checkbox" data-notice-type="${name}" ${enabledNoticeTypes.has(name) ? "checked" : ""}><span>${name}</span></label>`).join("")}</div></fieldset>`;
+  return `<fieldset id="notice-types"><legend class="sr-only">게시글 유형</legend><div class="institution-actions"><button type="button" data-types="all">전체 켜기</button><button type="button" data-types="none">전체 끄기</button></div><div class="type-options">${NOTICE_CATEGORIES.map(([name, key]) => `<label class="institution-option"><input type="checkbox" data-notice-type="${name}" ${enabledNoticeTypes.has(name) ? "checked" : ""}><span>${name}</span></label>`).join("")}</div></fieldset>`;
 }
 function sourceSupported(source) {
-  return source.collectionScope === "official-api" || source.status === "verified" || (source.status === "partial" && source.collectionScope === "public-home-list");
+  return source.collectionScope === "official-api" || source.status === "verified" || (source.collectionScope === "public-home-list" && source.status !== "link-only");
 }
 const NOTICE_SOURCE_GROUPS = [
   {id:"university",name:"전남대",sources:["jnu","eceng","engineering","grow","icee","career","education"]},
   {id:"programs",name:"사업단",sources:["nccoss","aicoss","semiconductor","software"]},
-  {id:"external",name:"그 외",sources:["allcon","kstartup","mss","msit"]}
+  {id:"external",name:"그 외",sources:["kstartup","mss","msit"]}
 ];
 const NOTICE_API_SOURCES = [
   {id:"kstartup",name:"K-Startup",url:"https://www.k-startup.go.kr/"},
@@ -51,6 +57,7 @@ const NOTICE_API_SOURCES = [
 ];
 function noticeSourceCatalog() {
   return NOTICE_DATA.sources.flatMap(source=>{
+    if (source.id === "allcon") return [];
     if (source.id!=="other") return [source];
     return NOTICE_API_SOURCES.map(provider=>{
       const state=source.apiProviders?.find(item=>item.id===provider.id);
@@ -70,16 +77,21 @@ function noticeSources() {
   if (enabledNoticeSources===null) enabledNoticeSources=new Set(catalog.filter(sourceSupported).map(source=>source.id));
   return catalog.filter(source=>sourceSupported(source) && enabledNoticeSources.has(source.id));
 }
+const NOTICE_ORIGINAL_BOARDS={jnu:"https://www.jnu.ac.kr/WebApp/web/HOM/COM/Board/board.aspx?boardID=5",aicoss:"https://aicoss.ac.kr/www/notice/",career:"https://capd.jnu.ac.kr/Board/Board.aspx?BoardID=2"};
 function sourceCheckbox(source) {
-  if (!sourceSupported(source)) return `<div class="institution-unavailable"><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name)} <span class="unsupported-label">(미지원)</span></a></div>`;
+  if (!sourceSupported(source)) return `<div class="institution-unavailable"><a href="${escapeHTML(NOTICE_ORIGINAL_BOARDS[source.id] || source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name)} <span class="unsupported-label">(미지원)</span></a></div>`;
   const suffix=source.collectionScope==="public-home-list" ? " (목록만)" : source.status==="pending" ? " (연결 대기)" : "";
   return `<label class="institution-option"><input type="checkbox" data-notice-source="${source.id}" ${enabledNoticeSources.has(source.id) ? "checked" : ""}><span>${escapeHTML(source.name)}${suffix}</span></label>`;
 }
 function sourceCheckboxes() {
   noticeSources();
   const catalog=noticeSourceCatalog();
-  const sections=NOTICE_SOURCE_GROUPS.map(group=>`<section class="notice-institution-group" data-source-group="${group.id}" aria-labelledby="notice-group-${group.id}"><h2 id="notice-group-${group.id}">${group.name}</h2><div class="institution-options">${group.sources.map(id=>catalog.find(source=>source.id===id)).filter(Boolean).map(sourceCheckbox).join("")}</div></section>`).join("");
-  return `<fieldset class="notice-institutions" id="notice-institutions"><legend class="sr-only">공지 기관 선택</legend><div class="institution-actions"><button type="button" data-sources="all">전체 켜기</button><button type="button" data-sources="none">전체 끄기</button></div><div class="notice-institution-groups">${sections}</div></fieldset>`;
+  const sections=NOTICE_SOURCE_GROUPS.map(group=>`<section class="notice-institution-group" data-source-group="${group.id}" aria-labelledby="notice-group-${group.id}"><h2 id="notice-group-${group.id}">${group.name}</h2><div class="institution-options">${group.sources.map(id=>catalog.find(source=>source.id===id)).filter(Boolean).sort((a,b)=>Number(sourceSupported(b))-Number(sourceSupported(a))).map(sourceCheckbox).join("")}</div></section>`).join("");
+  return `<fieldset class="notice-institutions" id="notice-institutions"><legend class="sr-only">공지 기관 선택</legend><div class="institution-actions"><button type="button" data-sources="all">전체 켜기</button><button type="button" data-sources="none">전체 끄기</button></div><div class="notice-institution-groups">${sections}</div><div class="notice-filter-footer"><div class="notice-support-help"><p>목록만: 세부사항(모집기간 등)을 알 수 없음</p><p>미지원: 데이터 가져오기 불가</p></div><section class="notice-external-shortcuts" aria-labelledby="notice-shortcuts-title"><h2 id="notice-shortcuts-title">기타</h2><div>${[
+    ["올콘","https://www.all-con.co.kr/"],
+    ["링커리어","https://linkareer.com/"],
+    ["드림스폰","https://www.dreamspon.com/"]
+  ].map(([name,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${name} 새 창에서 열기">${name} ${icon("arrow")}</a>`).join("")}</div></section></div></fieldset>`;
 }
 const NOTICE_MAJORS = [
   {
@@ -260,7 +272,7 @@ function noticeRow(item, sourceName = "") {
     : item.startsAt && item.startsAt > noticeToday()
       ? "모집 예정"
       : "모집 중";
-  return `<a class="notice-row" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><span class="notice-row-copy"><span class="notice-category">${escapeHTML(item.category)}</span><strong>${escapeHTML(item.title)}</strong>${sourceName ? `<small class="notice-published">${escapeHTML(item.providerName || sourceName)} · ${escapeHTML(noticePublishedLabel(item))}</small>` : ""}${item.detailNotCollected ? "<small>공개 목록 기준 · 상세 내용은 원문에서 확인해주세요.</small>" : item.loginRequired ? "<small>원문 확인에 학교 로그인이 필요해요.</small>" : ""}</span><span class="notice-period"><span class="tag">${status}</span><span>${escapeHTML(periodText(item))}</span></span>${icon("arrow", "row-arrow")}</a>`;
+  return `<a class="notice-row" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><span class="notice-row-copy"><span class="notice-category">${escapeHTML(item.category)}</span><strong>${escapeHTML(item.title)}</strong><small class="notice-published">${sourceName ? escapeHTML(item.providerName || sourceName)+" · " : ""}${escapeHTML(noticePublishedLabel(item))}</small>${item.detailNotCollected ? "<small>공개 목록 기준 · 상세 내용은 원문에서 확인해주세요.</small>" : item.loginRequired ? "<small>원문 확인에 학교 로그인이 필요해요.</small>" : ""}</span><span class="notice-period"><span class="tag">${status}</span><span>${escapeHTML(periodText(item))}</span></span>${icon("arrow", "row-arrow")}</a>`;
 }
 
 // Deduplicate only clear identities, keeping differently dated recruitment rounds.
@@ -375,6 +387,9 @@ function bindNoticeBoard(root) {
     const container=root.querySelector("#notice-results");
     container.getAnimations?.().forEach(animation=>animation.cancel());
     container.innerHTML = noticeResults();
+    root.querySelectorAll("[data-notice-type]").forEach(input=>{
+      input.checked=enabledNoticeTypes.has(input.dataset.noticeType);
+    });
     const reduced=document.documentElement.dataset.reducedMotion==="true" || matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (animate && !reduced && container.animate) container.animate(
       [{opacity:0,transform:"translateY(8px)"},{opacity:1,transform:"translateY(0)"}],
@@ -393,6 +408,15 @@ function bindNoticeBoard(root) {
     );
   };
   const bindCalendar = () => {
+    root.querySelectorAll("[data-calendar-type]").forEach(button=>button.onclick=()=>{
+      const type=button.dataset.calendarType;
+      if(enabledNoticeTypes.has(type))enabledNoticeTypes.delete(type);
+      else enabledNoticeTypes.add(type);
+      results();
+      root.querySelectorAll("[data-calendar-type]").forEach(next=>{
+        if(next.dataset.calendarType===type)next.focus({preventScroll:true});
+      });
+    });
     root.querySelectorAll("[data-notice-day]").forEach(
       (button) =>
         (button.onclick = () => {
@@ -469,6 +493,10 @@ function bindNoticeBoard(root) {
       render();
     } else results();
   };
+  root.querySelectorAll("[data-types]").forEach(button=>button.onclick=()=>{
+    enabledNoticeTypes=new Set(button.dataset.types === "all" ? NOTICE_CATEGORIES.map(([name])=>name) : []);
+    results();
+  });
   root.querySelectorAll("[data-notice-type]").forEach(
     (input) =>
       (input.onchange = () => {

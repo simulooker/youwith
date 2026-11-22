@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "server"))
 from kakao_login import KakaoConfig, fetch_identity
 import blog
+import game_scores
 SESSION_SECONDS = 12 * 3600
 ITERATIONS = 600_000
 PUBLIC = {"/login.html", "/login.js", "/login.css", "/assets/clover.png"}
@@ -61,6 +62,7 @@ def initialize(path):
             # Migrate only the already existing operator-issued admin account, once.
             db.execute("UPDATE users SET role='admin' WHERE username='admin' AND kakao_id IS NULL")
         blog.initialize(db)
+        game_scores.initialize(db)
 
 
 def set_approval(path, member_id, approved):
@@ -188,6 +190,15 @@ class Handler(SimpleHTTPRequestHandler):
             except sqlite3.Error:
                 self.respond(500,{"error":"글을 불러오지 못했어요. 잠시 뒤 다시 시도해주세요."})
             return
+        game_match=re.fullmatch(r"/api/games/(tetris|2048)/ranking",path)
+        if game_match:
+            if not member:
+                self.respond(401,{"error":"로그인이 필요해요."});return
+            try:
+                with connect(self.server.database) as db:result=game_scores.ranking(db,member,game_match[1])
+                self.respond(200,result)
+            except sqlite3.Error:self.respond(500,{"error":"순위를 불러오지 못했어요."})
+            return
         if path == "/api/notices":
             if not member:
                 self.respond(401, {"error":"로그인이 필요해요."})
@@ -289,6 +300,17 @@ class Handler(SimpleHTTPRequestHandler):
             self.respond(400, {"error": "입력 내용을 확인해주세요."})
             return
         path = urlsplit(self.path).path
+        game_match=re.fullmatch(r"/api/games/(tetris|2048)/score",path)
+        if game_match:
+            member=self.session()
+            if not member:
+                self.respond(401,{"error":"로그인이 필요해요."});return
+            try:
+                with connect(self.server.database) as db:result=game_scores.save(db,member,game_match[1],data.get('score'))
+                self.respond(200,result)
+            except ValueError as error:self.respond(400,{"error":str(error)})
+            except sqlite3.Error:self.respond(500,{"error":"점수를 저장하지 못했어요."})
+            return
         if path.startswith("/api/blog"):
             member=self.session()
             if not member:

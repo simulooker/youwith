@@ -1,5 +1,6 @@
 """Official data.go.kr notice adapters. Keys never leave the server as output."""
 from datetime import date, datetime
+from notice_window import within_window
 import html
 import json
 import os
@@ -111,6 +112,7 @@ def normalize_item(provider, row, period_parser, category, relevant, today):
     start=iso_date(row.get("pbanc_rcpt_bgng_dt") if kind=="kstartup" else row.get("applicationStartDate"))
     end=iso_date(row.get("pbanc_rcpt_end_dt") if kind=="kstartup" else row.get("applicationEndDate"))
     published=iso_date(row.get("pressDt") if kind=="msit" else row.get("pbanc_noti_dt") if kind=="kstartup" else row.get("regDate"))
+    if published and not within_window(published,today):return None
     period={"startsAt":start,"endsAt":end,"dateNote":"","dateEvidence":"공식 API의 신청기간"}
     if start and end and start>end:
         period={"startsAt":None,"endsAt":None,"dateNote":"모집기간 확인 필요","dateEvidence":""}

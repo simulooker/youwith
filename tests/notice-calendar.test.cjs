@@ -68,10 +68,11 @@ for (const source of context.NOTICE_DATA.sources) {
   } else if (source.id !== 'other') source.status = 'link-only';
 }
 context.escapeHTML = (text) => String(text);
+context.icon = () => "";
 assert.equal(vm.runInContext("noticeSources().length", context), 9);
 const checkboxes = vm.runInContext("sourceCheckboxes()", context);
 assert.equal((checkboxes.match(/type="checkbox"/g) || []).length, 9);
-assert.equal((checkboxes.match(/\(미지원\)/g) || []).length, 6);
+assert.equal((checkboxes.match(/\(미지원\)/g) || []).length, 5);
 vm.runInContext("enabledNoticeSources.clear()", context);
 assert.equal(vm.runInContext("noticeSources().length", context), 0);
 vm.runInContext("noticeStatus='active';enabledNoticeTypes.clear()", context);

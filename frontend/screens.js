@@ -169,9 +169,9 @@ function clock(total) {
     .join(":");
 }
 function activity() {
-  const tabs = `<div class="filters">${["팀원 모집", "공모전"].map((f) => `<button class="filter ${activityFilter === f ? "selected" : ""}" data-filter="${f}" aria-pressed="${activityFilter === f}">${f}</button>`).join("")}</div>`;
+  const tabs = `<div class="filters">${["팀원 모집", "공지사항 모음"].map((f) => `<button class="filter ${activityFilter === f ? "selected" : ""}" data-filter="${f}" aria-pressed="${activityFilter === f}">${f}</button>`).join("")}</div>`;
   const content =
-    activityFilter === "공모전"
+    activityFilter === "공지사항 모음"
       ? noticeBoard()
       : `<div class="grid"><section class="panel"><div class="section-heading"><h2>함께할 프로젝트를 찾아요</h2><button class="text-button" id="create-project">모집글 쓰기 +</button></div>${recruitmentSections()}</section><section class="panel"><h2>어떤 역할이 나와 맞을까?</h2><p class="small-muted">관심 분야와 할 수 있는 일을 알려주세요.<br>내게 어울리는 프로젝트 역할을 찾아드려요.</p><button class="primary" data-page="fit">내 역할 찾기 ${icon("arrow")}</button></section></div>`;
   return (
@@ -225,7 +225,8 @@ function fit() {
 }
 function game() {
   const tabs=typeof playgroundTabs==='function' ? playgroundTabs() : '';
-  if(typeof playgroundGame!=='undefined' && playgroundGame==='tetris')return heading('놀이터','잠깐 쉬어가도 괜찮아요.')+tabs+tetrisScreen();
+  if(typeof playgroundGame!=='undefined' && playgroundGame==='tetris')return heading('놀이터','잠깐 쉬어가도 괜찮아요.')+tabs+`<div class="grid playground-with-ranking">${tetrisScreen()}${gameRankingPanel("tetris")}</div>`;
+  if(typeof playgroundGame!=='undefined' && playgroundGame==='2048')return heading('놀이터','잠깐 쉬어가도 괜찮아요.')+tabs+`<div class="grid playground-with-ranking">${game2048Screen()}${gameRankingPanel("2048")}</div>`;
   return /* HTML */ `${heading(
       "사과 한 판, 기분 전환",
       "잠깐 쉬어가도 괜찮아요.",
@@ -300,7 +301,10 @@ function studyWeekValues() {
 }
 function studyWeekChart() {
   const values = studyWeekValues(), max = Math.max(...values,1);
-  return `<div class="bar-chart" id="study-week" aria-label="요일별 공부시간, 시간과 분">${values.map((value,i) => `<div class="bar-day"><span class="bar-time">${Math.floor(value/3600)}:${String(Math.floor(value%3600/60)).padStart(2,"0")}</span><div class="bar" style="--height:${Math.max(value/max*110,3)}px"></div><span>${["월","화","수","목","금","토","일"][i]}</span></div>`).join("")}</div>`;
+  const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul'}).format(new Date());
+  const start=new Date(today+'T12:00:00Z');start.setUTCDate(start.getUTCDate()-(start.getUTCDay()+6)%7);
+  const dates=Array.from({length:7},(_,i)=>{const date=new Date(start);date.setUTCDate(date.getUTCDate()+i);return {iso:date.toISOString().slice(0,10),label:`${date.getUTCMonth()+1}/${date.getUTCDate()}`};});
+  return `<div class="bar-chart" id="study-week" aria-label="요일별 공부시간, 시간과 분">${values.map((value,i) => `<div class="bar-day"><span class="bar-time">${Math.floor(value/3600)}:${String(Math.floor(value%3600/60)).padStart(2,"0")}</span><div class="bar" style="--height:${Math.max(value/max*110,3)}px"></div><span>${["월","화","수","목","금","토","일"][i]}</span><time class="study-week-date" datetime="${dates[i].iso}">${dates[i].label}</time></div>`).join("")}</div>`;
 }
 function updateStudyWeekChart() {
   const values=studyWeekValues(), max=Math.max(...values,1);

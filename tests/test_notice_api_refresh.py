@@ -16,7 +16,7 @@ class ApiOnlyRefreshTests(unittest.TestCase):
             sources=[{'id':source['id'],'notices':[],'checkedAt':'2026-11-15T09:00:00+09:00','status':'existing'} for source in refresh.audit.SOURCES]
             previous={'checkedAt':'2026-11-15T09:00:00+09:00','sources':sources+[{'id':'other','notices':[],'status':'pending'}]}
             (root/'db/notice-refresh.json').write_text(json.dumps(previous),encoding='utf-8')
-            updated={'id':'other','status':'verified','notices':[{'title':'AI 모집'}]}
+            updated={'id':'other','status':'verified','checkedAt':'2026-11-21T09:00:00+09:00','notices':[{'title':'AI 모집','url':'https://example.org/1'}]}
             with patch.object(refresh,'ROOT',root),patch.object(refresh,'collect') as institutions,patch.object(refresh,'collect_other',return_value=updated) as api:
                 refresh.main(apis_only=True)
                 institutions.assert_not_called()

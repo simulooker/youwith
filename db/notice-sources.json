@@ -11,13 +11,17 @@
     "id": "jnu",
     "name": "전남대학교 공지",
     "url": "https://www.jnu.ac.kr/WebApp/web/HOM/COM/Board/board.aspx?boardID=5",
-    "kind": "학교 전체 공지"
+    "kind": "학교 전체 공지",
+    "collection": "link-only",
+    "collectionNote": "첫 화면이 robots 금지 경로로 이동하여 수집 보류"
   },
   {
     "id": "eceng",
     "name": "전자컴퓨터공학부",
-    "url": "https://eceng.jnu.ac.kr/eceng/20079/subview.do",
-    "kind": "학부 공지"
+    "url": "https://eceng.jnu.ac.kr/eceng/index.do",
+    "kind": "학부 공지",
+    "collection": "public-home-list",
+    "collectionNote": "robots 허용 첫 화면의 제목·링크만 수집 · 상세 미수집"
   },
   {
     "id": "nccoss",
@@ -29,13 +33,17 @@
     "id": "aicoss",
     "name": "AICOSS 사업단",
     "url": "https://aicoss.ac.kr/www/notice/",
-    "kind": "AI·해커톤·서포터즈"
+    "kind": "AI·해커톤·서포터즈",
+    "collection": "link-only",
+    "collectionNote": "robots 정책 확인 불가 및 이용약관의 사전승낙 제한으로 수집 보류"
   },
   {
     "id": "engineering",
     "name": "전남대학교 공과대학",
-    "url": "https://eng.jnu.ac.kr/eng/7343/subview.do",
-    "kind": "공대 프로그램·교육"
+    "url": "https://eng.jnu.ac.kr/eng/index.do",
+    "kind": "공대 프로그램·교육",
+    "collection": "public-home-list",
+    "collectionNote": "robots 허용 첫 화면의 제목·링크만 수집 · 상세 미수집"
   },
   {
     "id": "grow",
@@ -60,13 +68,15 @@
   {
     "id": "icee",
     "name": "공학교육혁신센터",
-    "url": "https://icee.jnu.ac.kr/icee/17915/subview.do",
-    "kind": "캡스톤·경진대회·지원"
+    "url": "https://icee.jnu.ac.kr/icee/index.do",
+    "kind": "캡스톤·경진대회·지원",
+    "collection": "public-home-list",
+    "collectionNote": "robots 허용 첫 화면의 제목·링크만 수집 · 상세 미수집"
   },
   {
     "id": "career",
-    "collection": "public-home-list",
-    "collectionNote": "공개 첫 화면 목록만 수집 · 상세·로그인 영역 미수집",
+    "collection": "link-only",
+    "collectionNote": "robots 정책이 오류 안내로 이동하여 확인 전 수집 보류",
     "name": "전남대학교 취업진로포털",
     "url": "https://capd.jnu.ac.kr/",
     "kind": "취업·진로·지원"

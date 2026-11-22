@@ -4,7 +4,7 @@ let page = location.hash.slice(1) || "home",
   period = "week",
   activityFilter =
     new URLSearchParams(location.search).get("tab") === "contests"
-      ? "공모전"
+      ? "공지사항 모음"
       : "팀원 모집",
   running = false,
   seconds = 0,
@@ -165,6 +165,8 @@ function bind(root = document) {
   bindNoticeBoard(root);
   bindBlog(root);
   bindTetris(root);
+  bind2048(root);
+  bindGameRankings();
 }
 // Escaping keeps user-entered prototype titles from becoming HTML when rendered.
 const escapeHTML = (s) =>
@@ -266,7 +268,7 @@ async function refreshNoticeData() {
       return;
     if (next.checkedAt !== NOTICE_DATA.checkedAt) {
       NOTICE_DATA = next;
-      if (activityFilter === "공모전") render();
+      if (activityFilter === "공지사항 모음") render();
     }
   } catch {
     /* Keep the last verified data while offline. */

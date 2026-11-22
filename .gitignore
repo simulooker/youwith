@@ -13,3 +13,5 @@ db/auth-settings.json
 db/notice-schedule-status.json
 
 db/notice-api-settings.json
+
+db/notice-archive/

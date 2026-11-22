@@ -19,6 +19,8 @@ import xml.etree.ElementTree as ET
 
 import check_notice_sources as audit
 from public_notice_apis import collect_other
+from notice_archive import retain
+from notice_window import within_window, published_date, cutoff
 
 ROOT = audit.ROOT
 KST = timezone(timedelta(hours=9))
@@ -269,9 +271,8 @@ def collect_public_home(source, previous, reader, result):
             seen.add(url)
             if not relevant(source, entry['title'], ''):
                 continue
+            if entry.get('publishedAt') and not within_window(entry['publishedAt'],today):continue
             period = application_period(entry, '')
-            if period['endsAt'] and period['endsAt'] < today:
-                continue
             item = {'title': entry['title'], 'url': url, 'publishedAt':entry.get('publishedAt'), **period, 'category': category(entry['title']), 'status': 'unknown', 'detailNotCollected': True}
             if item['endsAt']:
                 item['status'] = 'upcoming' if item['startsAt'] and item['startsAt'] > today else 'open'
@@ -321,6 +322,10 @@ def collect(source, previous, cached=False):
                     entry = {'title': audit.plain(item.findtext('title', '')), 'url': urljoin(feed_final, item.findtext('link', '')), 'publishedAt': item.findtext('pubDate', '')}
                     entries[entry['url']] = entries.get(entry['url'], {}) | entry
                 result['method'] = 'RSS'
+            page_dates=[published_date(entry.get('publishedAt')) for entry in audit.entries_for(source,final,body,links)]
+            page_dates=[day for day in page_dates if day]
+            if page_dates and max(page_dates)<cutoff(datetime.now(KST).date()):
+                queue.clear();break
             for link in links:
                 target = link['url']
                 # Follow only pagination visibly supplied by the same board, never invented URLs.
@@ -340,6 +345,7 @@ def collect(source, previous, cached=False):
         candidates = [entry for entry in candidates if TECH.search(entry['title'])]
     # Read every candidate in the scanned sources, not a five-item sample.
     for entry in candidates:
+        if not within_window(entry.get('publishedAt'),today):continue
         title_period = application_period(entry, '')
         if title_period['endsAt'] and title_period['endsAt'] < today:
             continue
@@ -408,7 +414,9 @@ def main(cached=False, apis_only=False):
             sources = list(pool.map(lambda source: collect(source, previous.get(source['id']), cached), audit.SOURCES))
     checked = datetime.now(KST).isoformat(timespec='seconds')
     sources.append(collect_other(previous.get('other'), ROOT / 'db/notice-api-settings.json', checked, application_period, category, relevant, cached=cached))
-    data = {'checkedAt': checked, 'schedule': '매일 09:00 · 한국 시간', 'sources': sources}
+    configs={source['id']:source for source in audit.SOURCES}
+    sources=[retain(ROOT,configs.get(result['id'],{'id':result['id']}),result,previous.get(result['id']),datetime.now(KST).date().isoformat()) if not apis_only or result['id']=='other' else result for result in sources]
+    data = {'checkedAt': checked, 'publicationWindow': {'months':2,'unknownPublication':'hidden'}, 'schedule': '매일 09:00 · 한국 시간', 'sources': sources}
     temp = output.with_suffix('.tmp')
     temp.write_text('let NOTICE_DATA = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n', encoding='utf-8')
     temp.replace(output)

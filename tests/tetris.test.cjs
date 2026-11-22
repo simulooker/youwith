@@ -21,3 +21,19 @@ assert.equal(vm.runInContext('tetris.piece.y===beforeY',c),true);
 vm.runInContext('tetrisPause(false);tetrisStart();tetris.board.forEach(row=>row.fill("T"));tetrisSpawn()',c);
 assert.equal(vm.runInContext('tetris.running',c),false);assert.equal(vm.runInContext('tetris.over',c),true);
 console.log('Tetris seven-bag, collisions, rotations, simultaneous line clear, drop score, pause and game-over passed.');
+
+// Contact delays locking; successful movement and rotation reset the timer.
+vm.runInContext("tetrisStart();tetris.piece={kind:'O',matrix:[[1,1],[1,1]],x:4,y:18};tetrisDrop(true)",c);
+assert.equal(vm.runInContext('tetris.board.flat().some(Boolean)',c),false);
+vm.runInContext("page='game';playgroundGame='tetris';tetris.frameAt=1000;tetris.last=1000;tetrisFrame(1400)",c);
+assert.equal(vm.runInContext('tetris.lockElapsed',c),400);
+vm.runInContext('tetrisMove(-1)',c);assert.equal(vm.runInContext('tetris.lockElapsed',c),0);
+vm.runInContext('tetris.lockElapsed=400;tetrisRotate()',c);assert.equal(vm.runInContext('tetris.lockElapsed',c),0);
+vm.runInContext('tetrisFrame(1800)',c);assert.equal(vm.runInContext('tetris.board.flat().some(Boolean)',c),false);
+vm.runInContext('tetrisFrame(1950)',c);assert.equal(vm.runInContext('tetris.board.flat().some(Boolean)',c),true);
+// First hold consumes next, second hold is blocked, locking permits a swap without consuming next.
+vm.runInContext('tetrisStart();const first=tetris.piece.kind,queued=tetris.next;tetrisHold()',c);
+assert.equal(vm.runInContext('tetris.held===first && tetris.piece.kind===queued',c),true);
+vm.runInContext('const heldPiece=tetris.piece;tetrisHold()',c);assert.equal(vm.runInContext('tetris.piece===heldPiece',c),true);
+vm.runInContext('tetrisHardDrop();const nextBefore=tetris.next,kindBefore=tetris.piece.kind;tetrisHold()',c);
+assert.equal(vm.runInContext('tetris.next===nextBefore && tetris.piece.kind===first && tetris.held===kindBefore',c),true);

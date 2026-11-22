@@ -81,27 +81,39 @@ def plain(fragment):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragment))).strip()
 
 
-def row_publication_date(row):
-    # The linked title can contain application dates; only a distinct date cell is used.
-    cells=re.findall(r'<td\b[^>]*>(.*?)</td>',row,re.S|re.I)
+DATE_NODE = re.compile(r'<(?:span|div|td)\b[^>]*class=["\'][^"\']*\b(?:date|kboard-list-date)\b[^"\']*["\'][^>]*>.*?</(?:span|div|td)>',re.S|re.I)
+
+def row_publication_date(row,allow_time=False):
+    # Explicit publication metadata may be inside the same cell/link as a title.
+    values=[plain(match.group(0)) for match in DATE_NODE.finditer(row)]
+    if allow_time:values+=re.findall(r'<time\b[^>]*datetime=["\']([^"\']+)',row,re.I)
+    if not values:
+        values=[plain(cell) for cell in re.findall(r'<td\b[^>]*>(.*?)</td>',row,re.S|re.I) if not re.search(r'<a\b|<strong\b',cell,re.I)]
     dates=[]
-    for cell in cells:
-        if re.search(r'<a\b|<strong\b',cell,re.I):
-            continue
-        value=plain(cell)
-        match=re.fullmatch(r'(20\d{2})[.\-/](\d{1,2})[.\-/](\d{1,2})\.?\s*(?:\d{1,2}:\d{2}(?::\d{2})?)?',value)
+    for value in values:
+        match=re.fullmatch(r'(20\d{2})[.\-/](\d{1,2})[.\-/](\d{1,2})\.?\s*(?:(?:T| )?\d{1,2}:\d{2}(?::\d{2})?(?:[+-]\d{2}:\d{2}|Z)?)?',value)
         if not match:continue
         try:dates.append(date(*map(int,match.groups())).isoformat())
         except ValueError:continue
     return dates[0] if len(set(dates))==1 else None
 
 
-def attach_publication_dates(entries,text):
-    rows=[(plain(row),row_publication_date(row)) for row in re.findall(r'<tr\b.*?</tr>',text,re.S|re.I)]
+def attach_publication_dates(entries,text,final_url='',source_id=None):
+    if source_id=='grow':return entries  # Program/application timestamps are not publication dates.
+    metadata={}
+    for row in re.findall(r'<tr\b.*?</tr>|<li\b.*?</li>',text,re.S|re.I):
+        stamp=row_publication_date(row,allow_time=source_id=='education')
+        if not stamp:continue
+        parser=Links();parser.feed(DATE_NODE.sub('',row))
+        for link in parser.links:
+            url=urllib.parse.urljoin(final_url,html.unescape(link['url']))
+            if url in metadata and metadata[url][0]!=stamp:metadata[url]=(None,None)
+            else:metadata[url]=(stamp,link['text'])
     for entry in entries:
-        title=entry['title'].removesuffix('새글').strip()
-        matches={stamp for content,stamp in rows if stamp and title and title in content}
-        if len(matches)==1:entry['publishedAt']=matches.pop()
+        value=metadata.get(urllib.parse.urljoin(final_url,entry['url']))
+        if value and value[0]:
+            entry['publishedAt']=value[0]
+            if value[1] and source_id in ('engineering','software'):entry['title']=value[1]
     return entries
 
 
@@ -149,7 +161,7 @@ def entries_for(source, final_url, text, links):
         entry['title'] = re.sub(r'\s*새글\s*$', '', entry['title']).strip()
         if entry['title']:
             unique.setdefault(entry['url'], entry)
-    return attach_publication_dates(list(unique.values()),text)
+    return attach_publication_dates(list(unique.values()),text,final_url,source_id)
 
 
 def detail_access(entry, status, url, body):
