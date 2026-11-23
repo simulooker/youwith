@@ -5,7 +5,7 @@ const c=vm.createContext({URL,URLSearchParams,Intl,Date});
 vm.runInContext(fs.readFileSync(__dirname+'/../frontend/notice-board.js','utf8'),c);
 vm.runInContext(fs.readFileSync(__dirname+'/../frontend/notice-calendar.js','utf8'),c);
 const notice=(title,url,start='2099-11-01',end='2099-12-01')=>({title,url,startsAt:start,endsAt:end,category:'대회·공모전'});
-const source=(id,notices)=>({id,name:id,status:'verified',notices});
+const source=(id,notices)=>({id,name:id,status:'verified',collectionScope:'public-board',notices});
 const a=notice('2099 AI 반도체 창업 경진대회 모집','https://example.org/posts/1?utm_source=feed&id=4');
 const b=notice('2099 AI 반도체 창업 경진대회 모집','http://www.example.org/posts/1?id=4#top');
 c.rows=[{source:{id:'a'},item:a},{source:{id:'b'},item:b}];

@@ -8,7 +8,7 @@ c.NOTICE_DATA=JSON.parse(fs.readFileSync(__dirname+'/../frontend/notices.json','
 c.escapeHTML=x=>String(x);c.icon=()=>'';
 // Fix availability in this grouping fixture; live network failures are not grouping regressions.
 for(const source of c.NOTICE_DATA.sources) {
-  if(['nccoss','semiconductor','software'].includes(source.id))source.status='verified';
+  if(['nccoss','semiconductor','software'].includes(source.id)){source.status='verified';source.collectionScope='public-board';}
   else if(['grow','career','education'].includes(source.id)){source.status='partial';source.collectionScope='public-home-list';}
   else if(source.id!=='other')source.status='link-only';
 }
@@ -16,11 +16,11 @@ const groups=vm.runInContext('NOTICE_SOURCE_GROUPS',c);
 assert.equal(groups.length,3);
 assert.deepEqual(Array.from(groups[2].sources),['kstartup','mss','msit']);
 assert.equal(vm.runInContext('noticeSourceCatalog().length',c),14);
-assert.equal(vm.runInContext('noticeSources().length',c),9);
+assert.equal(vm.runInContext('noticeSources().length',c),6);
 const markup=vm.runInContext('sourceCheckboxes()',c);
 assert.equal((markup.match(/data-source-group=/g)||[]).length,3);
 assert.ok(!markup.includes('data-notice-source="other"'));
-assert.equal((markup.match(/\(미지원\)/g)||[]).length,5);
+assert.equal((markup.match(/\(미지원\)/g)||[]).length,8);
 for(const id of ['kstartup','mss','msit'])assert.ok(markup.includes(`data-notice-source="${id}"`));
 const note=(providerId,category,n)=>({providerId,category,title:`AI 유형별 필터 테스트 ${n}`,url:`https://example.org/${providerId}/${n}`,startsAt:'2099-01-01',endsAt:'2099-12-01'});
 c.fixture=[note('kstartup','교육·체험',1),note('mss','지원·장학',2),note('msit','대회·공모전',3)];
@@ -40,8 +40,8 @@ console.log('Three source groups, four external providers, independent API toggl
 const config=JSON.parse(fs.readFileSync(__dirname+'/../db/notice-sources.json','utf8'));
 for(const id of ['eceng','engineering','icee']) {
  const source=config.find(s=>s.id===id);
- assert.equal(source.collection,'public-home-list');
- assert.ok(source.url.endsWith('/index.do'));
+ assert.equal(source.collection,'link-only');
+ assert.ok(source.url.includes('/subview.do'));
 }
 for(const id of ['jnu','aicoss','career'])assert.equal(config.find(s=>s.id===id).collection,'link-only');
 assert.ok(!markup.includes('data-notice-source="allcon"'));
@@ -49,6 +49,6 @@ for(const url of ['https://www.all-con.co.kr/','https://linkareer.com/','https:/
 c.NOTICE_DATA=JSON.parse(fs.readFileSync(__dirname+'/../frontend/notices.json','utf8'));
 vm.runInContext('enabledNoticeSources=null',c);
 const current=vm.runInContext('sourceCheckboxes()',c);
-assert.equal((current.match(/type="checkbox"/g)||[]).length,11);
-assert.equal((current.match(/\(미지원\)/g)||[]).length,3);
-for(const id of ['eceng','engineering','icee','grow','education'])assert.ok(current.includes(`data-notice-source="${id}"`));
+assert.equal((current.match(/type="checkbox"/g)||[]).length,6);
+assert.equal((current.match(/\(미지원\)/g)||[]).length,8);
+for(const id of ['eceng','engineering','icee','grow','education'])assert.ok(!current.includes(`data-notice-source="${id}"`));

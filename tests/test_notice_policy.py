@@ -38,21 +38,22 @@ class RobotsTests(unittest.TestCase):
             with self.assertRaises(PermissionError):refresh.Reader().read('https://blocked.test/detail')
         self.assertEqual(calls,['https://blocked.test/robots.txt'])
 
-class HomepageTests(unittest.TestCase):
-    def test_partial_collection_never_follows_detail_url(self):
-        html='<a href="/ko/program/intro/view/1"><b class="title">2099 AI 교육 모집</b><small><span>신청:</span><time datetime="2099-01-01"></time><time datetime="2099-01-30"></time></small></a>'
-        class Reader:
-            cached=False
-            def __init__(self):self.calls=[]
-            def read(self,url):self.calls.append(url);return 200,url,html,'text/html'
-        reader=Reader();source={'id':'grow','url':'https://grow.example/','name':'Grow'}
-        result={'checkedAt':'2026-11-15','notices':[],'errors':[]}
-        with tempfile.TemporaryDirectory() as d,patch.object(refresh,'ROOT',Path(d)):
-            data=refresh.collect_public_home(source,None,reader,result)
-        self.assertEqual(reader.calls,[source['url']])
-        self.assertEqual(data['status'],'partial')
-        self.assertEqual(data['collectionScope'],'public-home-list')
-        self.assertEqual(data['notices'][0]['endsAt'],'2099-01-30')
-        self.assertTrue(data['notices'][0]['detailNotCollected'])
+class DirectOnlyTests(unittest.TestCase):
+    def test_homepage_fallback_never_requests_network(self):
+        source={'id':'grow','name':'Grow','url':'https://grow.example/','kind':'program','collection':'public-home-list'}
+        with patch.object(refresh.Reader,'read') as read:
+            result=refresh.collect(source,None)
+        read.assert_not_called()
+        self.assertEqual(result['status'],'link-only')
+        self.assertEqual(result['notices'],[])
+
+    def test_old_homepage_archive_cannot_restore_unsupported_notices(self):
+        from notice_archive import retain
+        source={'id':'grow','collection':'public-home-list'}
+        result={'status':'partial','notices':[{'title':'AI 모집','url':'https://example.org/1'}]}
+        with tempfile.TemporaryDirectory() as directory:
+            data=retain(Path(directory),source,result,result,'2026-11-23')
+        self.assertEqual(data['status'],'link-only')
+        self.assertEqual(data['notices'],[])
 
 if __name__=='__main__':unittest.main()

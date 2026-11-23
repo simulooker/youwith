@@ -61,7 +61,7 @@ context.NOTICE_DATA = JSON.parse(
 );
 // Keep calendar filtering independent of live source availability.
 for (const source of context.NOTICE_DATA.sources) {
-  if (['nccoss', 'semiconductor', 'software'].includes(source.id)) source.status = 'verified';
+  if (['nccoss', 'semiconductor', 'software'].includes(source.id)) {source.status = 'verified';source.collectionScope='public-board';}
   else if (['grow', 'career', 'education'].includes(source.id)) {
     source.status = 'partial';
     source.collectionScope = 'public-home-list';
@@ -69,10 +69,10 @@ for (const source of context.NOTICE_DATA.sources) {
 }
 context.escapeHTML = (text) => String(text);
 context.icon = () => "";
-assert.equal(vm.runInContext("noticeSources().length", context), 9);
+assert.equal(vm.runInContext("noticeSources().length", context), 6);
 const checkboxes = vm.runInContext("sourceCheckboxes()", context);
-assert.equal((checkboxes.match(/type="checkbox"/g) || []).length, 9);
-assert.equal((checkboxes.match(/\(미지원\)/g) || []).length, 5);
+assert.equal((checkboxes.match(/type="checkbox"/g) || []).length, 6);
+assert.equal((checkboxes.match(/\(미지원\)/g) || []).length, 8);
 vm.runInContext("enabledNoticeSources.clear()", context);
 assert.equal(vm.runInContext("noticeSources().length", context), 0);
 vm.runInContext("noticeStatus='active';enabledNoticeTypes.clear()", context);

@@ -4,9 +4,9 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'server'))
 from notice_archive import retain
 
 class ArchiveTests(unittest.TestCase):
- def test_disappearing_homepage_post_survives_restart_and_dates_are_not_erased(self):
+ def test_disappearing_direct_list_post_survives_restart_and_dates_are_not_erased(self):
   with tempfile.TemporaryDirectory() as directory:
-   root=Path(directory);source={'id':'eceng','collection':'public-home-list'}
+   root=Path(directory);source={'id':'eceng','collection':'public-board'}
    def result(items,stamp='2099-01-01',status='partial'):return {'notices':items,'checkedAt':stamp,'status':status}
    first={'title':'AI 교육 모집','url':'https://x/bbs/eceng/1/2/artclView.do?layout=unknown','endsAt':'2099-01-10','publishedAt':'2099-01-01'}
    r=retain(root,source,result([first]),None,'2099-01-01')

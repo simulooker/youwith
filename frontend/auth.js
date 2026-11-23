@@ -27,7 +27,7 @@
     for (const file of ["config.js", "notice-data.js", "notice-board.js", "notice-calendar.js", "recruitment.js", "screens.js", "apple-selection.js", "game.js", "tetris.js", "game2048.js", "game-ranking.js", "blog.js", "app.js"]) {
       await new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = file + "?v=33";
+        script.src = file + "?v=34";
         script.onload = resolve;
         script.onerror = reject;
         document.body.append(script);

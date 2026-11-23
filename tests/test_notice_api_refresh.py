@@ -22,7 +22,11 @@ class ApiOnlyRefreshTests(unittest.TestCase):
                 institutions.assert_not_called()
                 self.assertEqual(api.call_args.args[0]['status'],'pending')
             saved=json.loads((root/'db/notice-refresh.json').read_text(encoding='utf-8'))
-            self.assertEqual(saved['sources'][:12],sources)
+
+            for before,after in zip(sources,saved['sources'][:12]):
+                config=next(s for s in refresh.audit.SOURCES if s['id']==before['id'])
+                if config.get('collection')=='public-board':self.assertEqual(after,before)
+                else:self.assertEqual(after['status'],'link-only');self.assertEqual(after['notices'],[])
             self.assertEqual(saved['sources'][-1],updated)
             self.assertEqual(json.loads((root/'frontend/notices.json').read_text(encoding='utf-8')),saved)
 

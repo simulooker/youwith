@@ -251,55 +251,14 @@ def post_key(source, entry):
     return entry['url']
 
 
-def collect_public_home(source, previous, reader, result):
-    """Only the explicitly public homepage; never request detail links or pagination."""
-    result.update(status='partial', collectionScope='public-home-list', method='공개 첫 화면 목록', note='공개 첫 화면 목록만 수집 · 상세 본문은 읽지 않아요.')
-    try:
-        status, final, text, _ = reader.read(source['url'])
-        if status != 200:
-            raise RuntimeError(f'공개 첫 화면 확인 실패 ({status})')
-        parser = audit.Links()
-        parser.feed(text)
-        links = [{'title': item['text'], 'url': item['url']} for item in parser.links]
-        entries = audit.entries_for(source, final, text, links)
-        seen = set()
-        today = datetime.now(KST).date().isoformat()
-        for entry in entries:
-            url = urljoin(final, entry['url'])
-            if urlsplit(url).scheme not in ('http', 'https') or url in seen:
-                continue
-            seen.add(url)
-            if not relevant(source, entry['title'], ''):
-                continue
-            if entry.get('publishedAt') and not within_window(entry['publishedAt'],today):continue
-            period = application_period(entry, '')
-            item = {'title': entry['title'], 'url': url, 'publishedAt':entry.get('publishedAt'), **period, 'category': category(entry['title']), 'status': 'unknown', 'detailNotCollected': True}
-            if item['endsAt']:
-                item['status'] = 'upcoming' if item['startsAt'] and item['startsAt'] > today else 'open'
-            result['notices'].append(item)
-        result.update(pageCount=1, scannedCount=len(entries), coverage=f'공개 첫 화면 1페이지 · 목록 {len(entries)}건 확인 · 상세 미수집')
-        if reader.cached:
-            result['checkedAt'] = datetime.fromtimestamp(reader.oldest, KST).isoformat(timespec='seconds')
-    except Exception as error:
-        result.update(status='unverified', note='공개 첫 화면 갱신 실패', errors=[str(error)])
-        if previous and previous.get('collectionScope') == 'public-home-list':
-            result['notices'] = [item for item in previous.get('notices', []) if not item.get('endsAt') or item['endsAt'] >= datetime.now(KST).date().isoformat()]
-            result['checkedAt'] = previous.get('checkedAt', result['checkedAt'])
-    (ROOT / 'db').mkdir(parents=True, exist_ok=True)
-    (ROOT / 'db' / f"notice-latest-{source['id']}.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-    return result
-
-
 def collect(source, previous, cached=False):
     reader = Reader(cached)
     checked = datetime.now(KST).isoformat(timespec='seconds')
     result = {key: source[key] for key in ('id', 'name', 'url', 'kind')}
-    result.update(checkedAt=checked, notices=[], status='verified', note='', method='공개 게시판', coverage='', errors=[])
-    if source.get('collection') == 'link-only':
-        result.update(status='link-only', note=source['collectionNote'], coverage='자동 수집하지 않음')
+    result.update(collectionScope='public-board', checkedAt=checked, notices=[], status='verified', note='', method='공개 게시판', coverage='', errors=[])
+    if source.get('collection') != 'public-board':
+        result.update(status='link-only', note=source.get('collectionNote','직접 공지 목록 수집이 승인되지 않아 미지원'), coverage='자동 수집하지 않음')
         return result
-    if source.get('collection') == 'public-home-list':
-        return collect_public_home(source, previous, reader, result)
     seen, entries, queue = set(), {}, [source['url']]
     pages = 0
     # A bounded scan is explicit in coverage; it never claims to cover inaccessible archives.
@@ -415,7 +374,7 @@ def main(cached=False, apis_only=False):
     checked = datetime.now(KST).isoformat(timespec='seconds')
     sources.append(collect_other(previous.get('other'), ROOT / 'db/notice-api-settings.json', checked, application_period, category, relevant, cached=cached))
     configs={source['id']:source for source in audit.SOURCES}
-    sources=[retain(ROOT,configs.get(result['id'],{'id':result['id']}),result,previous.get(result['id']),datetime.now(KST).date().isoformat()) if not apis_only or result['id']=='other' else result for result in sources]
+    sources=[retain(ROOT,configs.get(result['id'],{'id':result['id']}),result,previous.get(result['id']),datetime.now(KST).date().isoformat()) if not apis_only or result['id']=='other' or configs.get(result['id'],{}).get('collection')!='public-board' else result for result in sources]
     data = {'checkedAt': checked, 'publicationWindow': {'months':2,'unknownPublication':'hidden'}, 'schedule': '매일 09:00 · 한국 시간', 'sources': sources}
     temp = output.with_suffix('.tmp')
     temp.write_text('let NOTICE_DATA = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n', encoding='utf-8')

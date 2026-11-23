@@ -24,7 +24,7 @@ assert.equal(vm.runInContext('filteredNotices(source).length',c),2);
 assert.deepEqual(Array.from(vm.runInContext('filteredNotices(source).map(x=>x.title)',c)),['전자회로 설계 교육','반도체 RTL 설계 모집']);
 vm.runInContext('selectedNoticeMajors.clear()',c);
 assert.equal(vm.runInContext('filteredNotices(source).length',c),4);
-assert.equal(vm.runInContext('sourceSupported({status:"partial",collectionScope:"public-home-list"})',c),true);
+assert.equal(vm.runInContext('sourceSupported({status:"partial",collectionScope:"public-home-list"})',c),false);
 assert.equal(vm.runInContext('sourceSupported({status:"partial"})',c),false);
 console.log('Major filter OR/AND composition, Latin boundaries, unrelated institution names and partial-source gating passed.');
 

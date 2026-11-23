@@ -43,7 +43,8 @@ function typeCheckboxes() {
   return `<fieldset id="notice-types"><legend class="sr-only">게시글 유형</legend><div class="institution-actions"><button type="button" data-types="all">전체 켜기</button><button type="button" data-types="none">전체 끄기</button></div><div class="type-options">${NOTICE_CATEGORIES.map(([name, key]) => `<label class="institution-option"><input type="checkbox" data-notice-type="${name}" ${enabledNoticeTypes.has(name) ? "checked" : ""}><span>${name}</span></label>`).join("")}</div></fieldset>`;
 }
 function sourceSupported(source) {
-  return source.collectionScope === "official-api" || source.status === "verified" || (source.collectionScope === "public-home-list" && source.status !== "link-only");
+  if (source.status === "link-only" || source.collectionScope === "public-home-list") return false;
+  return source.collectionScope === "official-api" || (source.collectionScope === "public-board" && ["verified","partial"].includes(source.status));
 }
 const NOTICE_SOURCE_GROUPS = [
   {id:"university",name:"전남대",sources:["jnu","eceng","engineering","grow","icee","career","education"]},
@@ -80,14 +81,14 @@ function noticeSources() {
 const NOTICE_ORIGINAL_BOARDS={jnu:"https://www.jnu.ac.kr/WebApp/web/HOM/COM/Board/board.aspx?boardID=5",aicoss:"https://aicoss.ac.kr/www/notice/",career:"https://capd.jnu.ac.kr/Board/Board.aspx?BoardID=2"};
 function sourceCheckbox(source) {
   if (!sourceSupported(source)) return `<div class="institution-unavailable"><a href="${escapeHTML(NOTICE_ORIGINAL_BOARDS[source.id] || source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name)} <span class="unsupported-label">(미지원)</span></a></div>`;
-  const suffix=source.collectionScope==="public-home-list" ? " (목록만)" : source.status==="pending" ? " (연결 대기)" : "";
+  const suffix=source.status==="pending" ? " (연결 대기)" : "";
   return `<label class="institution-option"><input type="checkbox" data-notice-source="${source.id}" ${enabledNoticeSources.has(source.id) ? "checked" : ""}><span>${escapeHTML(source.name)}${suffix}</span></label>`;
 }
 function sourceCheckboxes() {
   noticeSources();
   const catalog=noticeSourceCatalog();
   const sections=NOTICE_SOURCE_GROUPS.map(group=>`<section class="notice-institution-group" data-source-group="${group.id}" aria-labelledby="notice-group-${group.id}"><h2 id="notice-group-${group.id}">${group.name}</h2><div class="institution-options">${group.sources.map(id=>catalog.find(source=>source.id===id)).filter(Boolean).sort((a,b)=>Number(sourceSupported(b))-Number(sourceSupported(a))).map(sourceCheckbox).join("")}</div></section>`).join("");
-  return `<fieldset class="notice-institutions" id="notice-institutions"><legend class="sr-only">공지 기관 선택</legend><div class="institution-actions"><button type="button" data-sources="all">전체 켜기</button><button type="button" data-sources="none">전체 끄기</button></div><div class="notice-institution-groups">${sections}</div><div class="notice-filter-footer"><div class="notice-support-help"><p>목록만: 세부사항(모집기간 등)을 알 수 없음</p><p>미지원: 데이터 가져오기 불가</p></div><section class="notice-external-shortcuts" aria-labelledby="notice-shortcuts-title"><h2 id="notice-shortcuts-title">기타</h2><div>${[
+  return `<fieldset class="notice-institutions" id="notice-institutions"><legend class="sr-only">공지 기관 선택</legend><div class="institution-actions"><button type="button" data-sources="all">전체 켜기</button><button type="button" data-sources="none">전체 끄기</button></div><div class="notice-institution-groups">${sections}</div><div class="notice-filter-footer"><div class="notice-support-help"><p>미지원: 데이터 가져오기 불가</p></div><section class="notice-external-shortcuts" aria-labelledby="notice-shortcuts-title"><h2 id="notice-shortcuts-title">기타</h2><div>${[
     ["올콘","https://www.all-con.co.kr/"],
     ["링커리어","https://linkareer.com/"],
     ["드림스폰","https://www.dreamspon.com/"]

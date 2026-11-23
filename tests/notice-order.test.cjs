@@ -4,7 +4,7 @@ vm.runInContext(fs.readFileSync(__dirname+'/../frontend/notice-board.js','utf8')
 vm.runInContext(fs.readFileSync(__dirname+'/../frontend/notice-calendar.js','utf8'),c);
 c.escapeHTML=x=>String(x);c.icon=()=>'';
 const post=(title,date,url)=>({title,publishedAt:date,url,endsAt:'2099-12-31',category:'대회·공모전'});
-c.NOTICE_DATA={sources:[{id:'a',name:'기관 A',status:'verified',notices:[post('기관A 옛 공지','2026-10-01','https://a.example/1'),post('게시일 없는 공지',null,'https://a.example/2')]},{id:'b',name:'기관 B',status:'verified',notices:[post('기관B 새 공지','2026-11-16','https://b.example/1'),post('다른 날짜 형식','Sun, 15 Nov 2026 09:00:00 +0900','https://b.example/2')]}]};
+c.NOTICE_DATA={sources:[{id:'a',name:'기관 A',status:'verified',collectionScope:'public-board',notices:[post('기관A 옛 공지','2026-10-01','https://a.example/1'),post('게시일 없는 공지',null,'https://a.example/2')]},{id:'b',name:'기관 B',status:'verified',collectionScope:'public-board',notices:[post('기관B 새 공지','2026-11-16','https://b.example/1'),post('다른 날짜 형식','Sun, 15 Nov 2026 09:00:00 +0900','https://b.example/2')]}]};
 assert.deepEqual(Array.from(vm.runInContext('noticesByPublishedDate().map(row=>row.item.title)',c)),['기관B 새 공지','다른 날짜 형식','기관A 옛 공지','게시일 없는 공지']);
 vm.runInContext('noticeGrouping="type"',c);
 let html=vm.runInContext('noticeResults()',c);

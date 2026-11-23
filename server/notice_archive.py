@@ -10,8 +10,9 @@ def identity(item):
     return urlunsplit((parts.scheme,parts.netloc,parts.path,query,''))
 
 def retain(root, source, result, previous, today):
-    if source.get('collection')=='link-only':
-        result['notices']=[]
+    if source.get('collection') in ('link-only','public-home-list'):
+        result.update(notices=[],status='link-only',note=source.get('collectionNote','직접 공지 경로 수집 불가 · 미지원'))
+        result.pop('collectionScope',None)
         return result
     path=root/'db'/'notice-archive'/(source['id']+'.json')
     saved=[]
